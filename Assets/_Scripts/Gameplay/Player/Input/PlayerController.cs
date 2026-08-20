@@ -1,6 +1,7 @@
+using Fusion;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : NetworkBehaviour
 {
     private IInputService input;
 
@@ -30,7 +31,7 @@ public class PlayerController : MonoBehaviour
         input.OnInteractPressed -= player.Interact;
     }
 
-    private void Update()
+    public override void FixedUpdateNetwork()
     {
         player.Move(input.Move);
     }

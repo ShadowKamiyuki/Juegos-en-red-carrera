@@ -27,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void SetMoveDirection(Vector2 direction)
     {
-        moveDirection = new Vector3(direction.x, 0, direction.y).ToIso();
+        moveDirection = new Vector3(direction.x, 0, direction.y);
     }
 
     private void FixedUpdate()
