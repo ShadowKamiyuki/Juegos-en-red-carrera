@@ -7,15 +7,19 @@ using UnityEngine;
 public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks, INetworkService
 {
     private NetworkRunner runner;
+    private IInputService inputService;
 
-    public void Init(NetworkRunner runner)
+    public void Init(NetworkRunner runner, IInputService inputService)
     {
         this.runner = runner;
+        this.inputService = inputService;
         runner.AddCallbacks(this);
     }
 
     public async void StartGameHost()
     {
+        runner.ProvideInput = true;
+
         await runner.StartGame(new StartGameArgs()
         {
             GameMode = GameMode.Host,
@@ -25,6 +29,8 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks, INetworkSe
 
     public async void StartGameClient()
     {
+        runner.ProvideInput = true;
+
         await runner.StartGame(new StartGameArgs()
         {
             GameMode = GameMode.Client,
@@ -44,7 +50,11 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks, INetworkSe
 
     public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
     {
-        throw new NotImplementedException();
+        if (runner.IsServer)
+        {
+            Debug.Log("Player joined:" + player);
+            //runner.Spawn(gameObject, transform.position, transform.rotation, player);
+        }
     }
 
     public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
@@ -84,7 +94,14 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks, INetworkSe
 
     public void OnInput(NetworkRunner runner, NetworkInput input)
     {
-        throw new NotImplementedException();
+        Vector2 direction = Vector2.zero;
+
+        direction = inputService.Move;
+
+        NetworkInputData data = new();
+        data.direction = direction;
+
+        input.Set(data);
     }
 
     public void OnInputMissing(NetworkRunner runner, PlayerRef player, NetworkInput input)
