@@ -4,11 +4,11 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
+public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks, INetworkService
 {
     private NetworkRunner runner;
 
-    private void Init(NetworkRunner runner)
+    public void Init(NetworkRunner runner)
     {
         this.runner = runner;
         runner.AddCallbacks(this);

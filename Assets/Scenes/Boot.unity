@@ -599,6 +599,7 @@ Transform:
   - {fileID: 463535560}
   - {fileID: 743132331}
   - {fileID: 672511213}
+  - {fileID: 1353437846}
   - {fileID: 1572265636}
   - {fileID: 96730226}
   - {fileID: 996140718}
@@ -959,7 +960,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 672511213}
-  - component: {fileID: 672511214}
   - component: {fileID: 672511215}
   m_Layer: 0
   m_Name: Network Manager
@@ -983,18 +983,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 450070677}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &672511214
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 672511212}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1199893898, guid: e725a070cec140c4caffb81624c8c787, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Fusion.Runtime.dll::Fusion.NetworkRunner
 --- !u!114 &672511215
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1007,7 +995,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9801659a6f468343b6dd3d87d03401d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  runner: {fileID: 672511214}
 --- !u!1 &743132330
 GameObject:
   m_ObjectHideFlags: 0
@@ -1201,9 +1188,11 @@ MonoBehaviour:
   gameManager: {fileID: 1916408622}
   sceneLoaderService: {fileID: 1572265637}
   audioManager: {fileID: 743132332}
+  networkManager: {fileID: 672511215}
   audioController: {fileID: 555862483}
   loadingView: {fileID: 996140717}
   fadeController: {fileID: 96730225}
+  networkRunner: {fileID: 1353437847}
 --- !u!1 &1170303197
 GameObject:
   m_ObjectHideFlags: 0
@@ -1416,6 +1405,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1203360455}
   m_CullTransparentMesh: 1
+--- !u!1 &1353437845
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1353437846}
+  - component: {fileID: 1353437847}
+  m_Layer: 0
+  m_Name: Network Runner
+  m_TagString: Untagged
+  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1353437846
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1353437845}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 450070677}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1353437847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1353437845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1199893898, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Fusion.Runtime.dll::Fusion.NetworkRunner
 --- !u!1 &1572265635
 GameObject:
   m_ObjectHideFlags: 0

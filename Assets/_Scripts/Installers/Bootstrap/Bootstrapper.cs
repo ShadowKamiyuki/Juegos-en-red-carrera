@@ -1,3 +1,4 @@
+using Fusion;
 using UnityEngine;
 
 public class Bootstrapper : MonoBehaviour
@@ -7,11 +8,13 @@ public class Bootstrapper : MonoBehaviour
     [RequiredField, SerializeField] private GameManager gameManager;
     [RequiredField, SerializeField] private SceneLoaderService sceneLoaderService;
     [RequiredField, SerializeField] private AudioManager audioManager;
+    [RequiredField, SerializeField] private NetworkManager networkManager;
 
     [Header("Dependencies")]
     [RequiredField, SerializeField] private GameStateAudioController audioController;
     [RequiredField, SerializeField] private LoadingView loadingView;
     [RequiredField, SerializeField] private FadeController fadeController;
+    [RequiredField, SerializeField] private NetworkRunner networkRunner;
 
     private IInputService inputService;
 
@@ -25,12 +28,15 @@ public class Bootstrapper : MonoBehaviour
         RegisterService<IUpdateService>(updateManager);
         RegisterService<IAppStateMachine>(gameManager);
         RegisterService<IAudioService>(audioManager);
+        RegisterService<INetworkService>(networkManager);
 
         StateFactory stateFactory = new StateFactory(gameManager, sceneLoaderService, loadingView, fadeController);
 
         gameManager.RegisterStates(stateFactory.Create());
+
         gameManager.Init(inputService);
         audioController.Init(gameManager, audioManager);
+        networkManager.Init(networkRunner);
     }
 
     // Exit point
