@@ -36,7 +36,7 @@ public class Bootstrapper : MonoBehaviour
 
         gameManager.Init(inputService);
         audioController.Init(gameManager, audioManager);
-        networkManager.Init(networkRunner);
+        networkManager.Init(networkRunner, inputService);
     }
 
     // Exit point
