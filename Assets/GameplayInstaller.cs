@@ -20,7 +20,7 @@ public class GameplayInstaller : MonoBehaviour, IGameplayInstaller
     public void Init()
     {
         IInputService input = ServiceLocator.Get<IInputService>();
-        playerController.Construct(input);
+        //playerController.Construct(input);
 
         playerCamera.SetTarget(player);
     }

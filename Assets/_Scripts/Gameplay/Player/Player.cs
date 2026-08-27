@@ -13,7 +13,7 @@ public class Player : MonoBehaviour, ICameraTarget
     private void Awake()
     {
         movement = GetComponent<PlayerMovement>();
-        combat = GetComponent<PlayerCombat>();
+        //combat = GetComponent<PlayerCombat>();
         interaction = GetComponent<PlayerInteraction>();
     }
 
@@ -36,4 +36,5 @@ public class Player : MonoBehaviour, ICameraTarget
     {
         interaction.TryInteract();
     }
+
 }

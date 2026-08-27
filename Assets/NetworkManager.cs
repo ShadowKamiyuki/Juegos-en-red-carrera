@@ -8,11 +8,43 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks, INetworkSe
 {
     private NetworkRunner runner;
     private IInputService inputService;
+    [SerializeField] private NetworkObject playerPrefab;
+    private Transform spawnPoint;
+    public enum InputButton
+    {
+        Fire = 0
+    }
+    private void Awake()
+    {
+        MonoBehaviour[] components = FindObjectsByType<MonoBehaviour>(
+            FindObjectsSortMode.None
+        );
+
+        foreach (MonoBehaviour component in components)
+        {
+            if (component is IInputService service)
+            {
+                inputService = service;
+                Debug.Log("InputService encontrado: " + component.gameObject.name);
+                break;
+            }
+        }
+
+        if (inputService == null)
+        {
+            Debug.LogError("NO se encontró ningún objeto con IInputService");
+        }
+    }
 
     public void Init(NetworkRunner runner, IInputService inputService)
     {
         this.runner = runner;
-        this.inputService = inputService;
+
+        if (inputService != null)
+        {
+            this.inputService = inputService;
+        }
+
         runner.AddCallbacks(this);
     }
 
@@ -50,11 +82,25 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks, INetworkSe
 
     public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
     {
-        if (runner.IsServer)
+        if (!runner.IsServer)
+            return;
+
+        GameObject spawnObject = GameObject.Find("spawnPoint");
+
+        if (spawnObject == null)
         {
-            Debug.Log("Player joined:" + player);
-            //runner.Spawn(gameObject, transform.position, transform.rotation, player);
+            Debug.LogError("No se encontró spawnPoint");
+            return;
         }
+
+        NetworkObject spawnedPlayer = runner.Spawn(
+            playerPrefab,
+            spawnObject.transform.position,
+            spawnObject.transform.rotation,
+            player
+        );
+
+        Debug.Log("PLAYER CREADO: " + spawnedPlayer.name);
     }
 
     public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
@@ -64,7 +110,7 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks, INetworkSe
 
     public void OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason)
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 
     public void OnDisconnectedFromServer(NetworkRunner runner, NetDisconnectReason reason)
@@ -94,12 +140,17 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks, INetworkSe
 
     public void OnInput(NetworkRunner runner, NetworkInput input)
     {
-        Vector2 direction = Vector2.zero;
+        if (inputService == null)
+        {
+            Debug.LogError("inputService sigue siendo NULL");
+            return;
+        }
 
-        direction = inputService.Move;
+        NetworkInputData data = new NetworkInputData();
 
-        NetworkInputData data = new();
-        data.direction = direction;
+        data.direction = inputService.Move.normalized;
+
+        Debug.Log("DIRECCION: " + data.direction);
 
         input.Set(data);
     }
@@ -131,7 +182,30 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks, INetworkSe
 
     public void OnSceneLoadDone(NetworkRunner runner)
     {
-        throw new NotImplementedException();
+        if (!runner.IsServer)
+            return;
+
+        GameObject spawnObject = GameObject.Find("spawnPoint");
+
+        if (spawnObject == null)
+        {
+            Debug.LogError("No se encontró spawnPoint en la escena Game");
+            return;
+        }
+
+        spawnPoint = spawnObject.transform;
+
+        Debug.Log("SpawnPoint encontrado: " + spawnPoint.name);
+
+        foreach (PlayerRef player in runner.ActivePlayers)
+        {
+            runner.Spawn(
+                playerPrefab,
+                spawnPoint.position,
+                spawnPoint.rotation,
+                player
+            );
+        }
     }
 
     public void OnSceneLoadStart(NetworkRunner runner)
