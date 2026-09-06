@@ -807,7 +807,17 @@ MonoBehaviour:
   runner: {fileID: 380220598}
   sceneManager: {fileID: 380220597}
   teamManager: {fileID: 1369040124}
+  team1Button: {fileID: 105862336}
+  team2Button: {fileID: 109919700}
+  team1Check1: {fileID: 95862422}
+  team1Check2: {fileID: 786307706}
+  team2Check1: {fileID: 666771993}
+  team2Check2: {fileID: 1805074968}
+  hostButton: {fileID: 566545633}
+  joinButton: {fileID: 1668837739}
   gameSceneIndex: 1
+  normalTeamColor: {r: 1, g: 1, b: 1, a: 1}
+  disabledTeamColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
 --- !u!114 &380220593
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1196,7 +1206,7 @@ GameObject:
   - component: {fileID: 566545636}
   - component: {fileID: 566545635}
   m_Layer: 5
-  m_Name: CrearPartidaButton
+  m_Name: host
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

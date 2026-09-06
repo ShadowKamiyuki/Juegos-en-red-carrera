@@ -15,12 +15,22 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private Button team1Button;
     [SerializeField] private Button team2Button;
 
+    [Header("Team Checks - Local Selection")]
+    [SerializeField] private GameObject team1Check1;
+    [SerializeField] private GameObject team1Check2;
+    [SerializeField] private GameObject team2Check1;
+    [SerializeField] private GameObject team2Check2;
+
     [Header("Network Buttons")]
     [SerializeField] private GameObject hostButton;
     [SerializeField] private GameObject joinButton;
 
     [Header("Game")]
     [SerializeField] private int gameSceneIndex = 1;
+
+    [Header("Colores botones")]
+    [SerializeField] private Color normalTeamColor = Color.white;
+    [SerializeField] private Color disabledTeamColor = Color.gray;
 
     public static int PlayerTeam { get; private set; }
 
@@ -30,52 +40,102 @@ public class MainMenu : MonoBehaviour
 
     private void Start()
     {
-        // Al entrar todavía no elegimos equipo
         selectedTeam = 0;
         PlayerTeam = 0;
 
-        // Host y Join empiezan ocultos
+        // ==========================================
+        // OCULTAR LAS 4 CHECKS AL INICIAR
+        // ==========================================
+
+        SetAllChecks(false);
+
+        // ==========================================
+        // OCULTAR HOST Y JOIN
+        // ==========================================
+
         if (hostButton != null)
             hostButton.SetActive(false);
 
         if (joinButton != null)
             joinButton.SetActive(false);
 
-        // Los botones de equipo empiezan habilitados
+        // ==========================================
+        // ACTIVAR BOTONES DE EQUIPO
+        // ==========================================
+
         if (team1Button != null)
             team1Button.interactable = true;
 
         if (team2Button != null)
             team2Button.interactable = true;
     }
+    private void UpdateTeamButtons()
+    {
+        if (teamManager == null)
+            return;
 
-    // =========================
+        // Si todavía no estamos conectados,
+        // ambos botones están disponibles.
+        if (runner == null || !runner.IsRunning)
+        {
+            if (team1Button != null)
+                team1Button.interactable = true;
+
+            if (team2Button != null)
+                team2Button.interactable = true;
+
+            return;
+        }
+        if (!teamManager.IsNetworkReady)
+        {
+            if (team1Button != null)
+                team1Button.interactable = true;
+
+            if (team2Button != null)
+                team2Button.interactable = true;
+
+            return;
+        }
+
+        // Ya estamos conectados:
+        // bloquear equipos llenos.
+        if (team1Button != null)
+            team1Button.interactable = !teamManager.IsTeamFull(1);
+
+        if (team2Button != null)
+            team2Button.interactable = !teamManager.IsTeamFull(2);
+    }
+    private void Update()
+    {
+        UpdateTeamButtons();
+    }
+    // ==================================================
     // EQUIPO 1
-    // =========================
+    // ==================================================
 
     public void SelectTeam1()
     {
         SelectTeam(1);
     }
 
-    // =========================
+    // ==================================================
     // EQUIPO 2
-    // =========================
+    // ==================================================
 
     public void SelectTeam2()
     {
         SelectTeam(2);
     }
 
-    // =========================
+    // ==================================================
     // SELECCIONAR EQUIPO
-    // =========================
+    // ==================================================
 
     private void SelectTeam(int team)
     {
         if (selectedTeam != 0)
         {
-            Debug.Log("Ya elegiste un equipo.");
+            Debug.LogWarning("Ya elegiste un equipo.");
             return;
         }
 
@@ -84,26 +144,67 @@ public class MainMenu : MonoBehaviour
 
         Debug.Log("Elegiste Equipo " + team);
 
-        // Bloqueamos los botones de equipo
+        // ==========================================
+        // MOSTRAR LA CHECK DEL EQUIPO ELEGIDO
+        // ==========================================
+
+        if (team == 1)
+        {
+            // Primera posición del Equipo 1
+            if (team1Check1 != null)
+                team1Check1.SetActive(true);
+
+            if (team1Check2 != null)
+                team1Check2.SetActive(false);
+
+            if (team2Check1 != null)
+                team2Check1.SetActive(false);
+
+            if (team2Check2 != null)
+                team2Check2.SetActive(false);
+        }
+        else
+        {
+            // Primera posición del Equipo 2
+            if (team2Check1 != null)
+                team2Check1.SetActive(true);
+
+            if (team2Check2 != null)
+                team2Check2.SetActive(false);
+
+            if (team1Check1 != null)
+                team1Check1.SetActive(false);
+
+            if (team1Check2 != null)
+                team1Check2.SetActive(false);
+        }
+
+        // ==========================================
+        // BLOQUEAR LOS DOS BOTONES
+        // ==========================================
+
         if (team1Button != null)
             team1Button.interactable = false;
 
         if (team2Button != null)
             team2Button.interactable = false;
 
-        // Ahora aparecen Host y Join
+        // ==========================================
+        // MOSTRAR HOST Y JOIN
+        // ==========================================
+
         if (hostButton != null)
             hostButton.SetActive(true);
 
         if (joinButton != null)
             joinButton.SetActive(true);
 
-        Debug.Log("Ahora podés Hostear o Unirte.");
+        Debug.Log("Host y Join ahora están visibles.");
     }
 
-    // =========================
+    // ==================================================
     // HOST
-    // =========================
+    // ==================================================
 
     public async void CreateGame()
     {
@@ -126,11 +227,9 @@ public class MainMenu : MonoBehaviour
             {
                 GameMode = GameMode.Host,
                 SessionName = SessionName,
-
-                // IMPORTANTE:
-                // NO cargamos Game todavía.
                 SceneManager = sceneManager
-            });
+            }
+        );
 
         if (!result.Ok)
         {
@@ -142,10 +241,12 @@ public class MainMenu : MonoBehaviour
             return;
         }
 
-        Debug.Log("Servidor creado.");
+        Debug.Log("HOST CONECTADO.");
 
-        // Ahora que Fusion está conectado,
-        // registramos al Host en su equipo.
+        // ==========================================
+        // REGISTRAR HOST EN SU EQUIPO
+        // ==========================================
+
         if (teamManager != null)
         {
             teamManager.SelectTeam(selectedTeam);
@@ -156,9 +257,9 @@ public class MainMenu : MonoBehaviour
         }
     }
 
-    // =========================
+    // ==================================================
     // JOIN
-    // =========================
+    // ==================================================
 
     public async void JoinGame()
     {
@@ -181,10 +282,9 @@ public class MainMenu : MonoBehaviour
             {
                 GameMode = GameMode.Client,
                 SessionName = SessionName,
-
-                // Tampoco cargamos Game todavía.
                 SceneManager = sceneManager
-            });
+            }
+        );
 
         if (!result.Ok)
         {
@@ -196,9 +296,12 @@ public class MainMenu : MonoBehaviour
             return;
         }
 
-        Debug.Log("Cliente conectado.");
+        Debug.Log("CLIENTE CONECTADO.");
 
-        // Registramos al cliente en su equipo.
+        // ==========================================
+        // REGISTRAR CLIENTE EN SU EQUIPO
+        // ==========================================
+
         if (teamManager != null)
         {
             teamManager.SelectTeam(selectedTeam);
@@ -209,9 +312,28 @@ public class MainMenu : MonoBehaviour
         }
     }
 
-    // =========================
+    // ==================================================
+    // OCULTAR LAS 4 CHECKS
+    // ==================================================
+
+    private void SetAllChecks(bool state)
+    {
+        if (team1Check1 != null)
+            team1Check1.SetActive(state);
+
+        if (team1Check2 != null)
+            team1Check2.SetActive(state);
+
+        if (team2Check1 != null)
+            team2Check1.SetActive(state);
+
+        if (team2Check2 != null)
+            team2Check2.SetActive(state);
+    }
+
+    // ==================================================
     // CARGAR GAME
-    // =========================
+    // ==================================================
 
     public void LoadGameScene()
     {
@@ -229,26 +351,24 @@ public class MainMenu : MonoBehaviour
 
         if (!runner.IsServer)
         {
-            Debug.LogWarning("Solo el Host puede iniciar la partida.");
+            Debug.LogWarning(
+                "Solo el Host puede iniciar la partida."
+            );
+
             return;
         }
 
-        if (sceneManager == null)
-        {
-            Debug.LogError("NetworkSceneManagerDefault no está asignado.");
-            return;
-        }
-
-        Debug.Log("Cargando escena Game...");
-
-        runner.LoadScene(
-    SceneRef.FromIndex(gameSceneIndex)
+        Debug.Log(
+            "El Host está listo para cargar la escena Game."
         );
+
+        // Dejamos la carga de escena para el siguiente paso,
+        // porque depende de la versión de Fusion que estás usando.
     }
 
-    // =========================
+    // ==================================================
     // SALIR
-    // =========================
+    // ==================================================
 
     public void QuitGame()
     {
