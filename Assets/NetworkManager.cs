@@ -7,209 +7,189 @@ using UnityEngine;
 public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks, INetworkService
 {
     private NetworkRunner runner;
-    private IInputService inputService;
-    [SerializeField] private NetworkObject playerPrefab;
-    private Transform spawnPoint;
-    public enum InputButton
-    {
-        Fire = 0
-    }
-    private void Awake()
-    {
-        MonoBehaviour[] components = FindObjectsByType<MonoBehaviour>(
-            FindObjectsSortMode.None
-        );
 
-        foreach (MonoBehaviour component in components)
-        {
-            if (component is IInputService service)
-            {
-                inputService = service;
-                Debug.Log("InputService encontrado: " + component.gameObject.name);
-                break;
-            }
-        }
-
-        if (inputService == null)
-        {
-            Debug.LogError("NO se encontró ningún objeto con IInputService");
-        }
-    }
-
-    public void Init(NetworkRunner runner, IInputService inputService)
+    public void Init(NetworkRunner runner)
     {
         this.runner = runner;
-
-        if (inputService != null)
-        {
-            this.inputService = inputService;
-        }
 
         runner.AddCallbacks(this);
     }
 
     public async void StartGameHost()
     {
-        runner.ProvideInput = true;
+        if (runner == null)
+        {
+            Debug.LogError("NetworkRunner no está inicializado.");
+            return;
+        }
 
-        await runner.StartGame(new StartGameArgs()
+        Debug.Log("Creando servidor...");
+
+        StartGameResult result = await runner.StartGame(new StartGameArgs
         {
             GameMode = GameMode.Host,
             SessionName = "Match_1"
         });
+
+        if (!result.Ok)
+        {
+            Debug.LogError(
+                "Error creando servidor: " +
+                result.ShutdownReason
+            );
+
+            return;
+        }
+
+        Debug.Log("Servidor creado correctamente.");
     }
 
     public async void StartGameClient()
     {
-        runner.ProvideInput = true;
+        if (runner == null)
+        {
+            Debug.LogError("NetworkRunner no está inicializado.");
+            return;
+        }
 
-        await runner.StartGame(new StartGameArgs()
+        Debug.Log("Conectando como cliente...");
+
+        StartGameResult result = await runner.StartGame(new StartGameArgs
         {
             GameMode = GameMode.Client,
             SessionName = "Match_1"
         });
-    }
 
-    public void OnObjectExitAOI(NetworkRunner runner, NetworkObject obj, PlayerRef player)
-    {
-        throw new NotImplementedException();
-    }
+        if (!result.Ok)
+        {
+            Debug.LogError(
+                "Error conectando al servidor: " +
+                result.ShutdownReason
+            );
 
-    public void OnObjectEnterAOI(NetworkRunner runner, NetworkObject obj, PlayerRef player)
-    {
-        throw new NotImplementedException();
+            return;
+        }
+
+        Debug.Log("Cliente conectado correctamente.");
     }
 
     public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
     {
-        if (!runner.IsServer)
-            return;
-
-        GameObject spawnObject = GameObject.Find("spawnPoint");
-
-        if (spawnObject == null)
-        {
-            Debug.LogError("No se encontró spawnPoint");
-            return;
-        }
-
-        NetworkObject spawnedPlayer = runner.Spawn(
-            playerPrefab,
-            spawnObject.transform.position,
-            spawnObject.transform.rotation,
-            player
-        );
-
-        Debug.Log("PLAYER CREADO: " + spawnedPlayer.name);
+        Debug.Log("Jugador conectado: " + player);
     }
 
     public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
     {
-        throw new NotImplementedException();
-    }
+        TeamManager teamManager = FindFirstObjectByType<TeamManager>();
 
-    public void OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason)
-    {
-        //throw new NotImplementedException();
-    }
-
-    public void OnDisconnectedFromServer(NetworkRunner runner, NetDisconnectReason reason)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void OnConnectRequest(NetworkRunner runner, NetworkRunnerCallbackArgs.ConnectRequest request, byte[] token)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void OnConnectFailed(NetworkRunner runner, NetAddress remoteAddress, NetConnectFailedReason reason)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void OnReliableDataReceived(NetworkRunner runner, PlayerRef player, ReliableKey key, ReadOnlySpan<byte> data)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void OnReliableDataProgress(NetworkRunner runner, PlayerRef player, ReliableKey key, float progress)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void OnInput(NetworkRunner runner, NetworkInput input)
-    {
-        if (inputService == null)
+        if (teamManager != null && runner.IsServer)
         {
-            Debug.LogError("inputService sigue siendo NULL");
-            return;
+            teamManager.RemoveDisconnectedPlayer(player);
         }
 
-        NetworkInputData data = new NetworkInputData();
-
-        data.direction = inputService.Move.normalized;
-
-        Debug.Log("DIRECCION: " + data.direction);
-
-        input.Set(data);
-    }
-
-    public void OnInputMissing(NetworkRunner runner, PlayerRef player, NetworkInput input)
-    {
-        throw new NotImplementedException();
+        Debug.Log("Jugador desconectado: " + player);
     }
 
     public void OnConnectedToServer(NetworkRunner runner)
     {
-        throw new NotImplementedException();
+        Debug.Log("Conectado al servidor.");
     }
 
-    public void OnSessionListUpdated(NetworkRunner runner, List<SessionInfo> sessionList)
+    public void OnDisconnectedFromServer(
+        NetworkRunner runner,
+        NetDisconnectReason reason)
     {
-        throw new NotImplementedException();
+        Debug.Log("Desconectado del servidor: " + reason);
     }
 
-    public void OnCustomAuthenticationResponse(NetworkRunner runner, Dictionary<string, object> data)
+    public void OnConnectFailed(
+        NetworkRunner runner,
+        NetAddress remoteAddress,
+        NetConnectFailedReason reason)
     {
-        throw new NotImplementedException();
+        Debug.LogError("Falló la conexión: " + reason);
     }
 
-    public void OnHostMigration(NetworkRunner runner, HostMigrationToken hostMigrationToken)
+    public void OnShutdown(
+        NetworkRunner runner,
+        ShutdownReason shutdownReason)
     {
-        throw new NotImplementedException();
+        Debug.Log("Network apagado: " + shutdownReason);
     }
 
-    public void OnSceneLoadDone(NetworkRunner runner)
+    public void OnInput(
+        NetworkRunner runner,
+        NetworkInput input)
     {
-        if (!runner.IsServer)
-            return;
+        // NO HAY INPUT DEL PLAYER TODAVÍA
+    }
 
-        GameObject spawnObject = GameObject.Find("spawnPoint");
-
-        if (spawnObject == null)
-        {
-            Debug.LogError("No se encontró spawnPoint en la escena Game");
-            return;
-        }
-
-        spawnPoint = spawnObject.transform;
-
-        Debug.Log("SpawnPoint encontrado: " + spawnPoint.name);
-
-        foreach (PlayerRef player in runner.ActivePlayers)
-        {
-            runner.Spawn(
-                playerPrefab,
-                spawnPoint.position,
-                spawnPoint.rotation,
-                player
-            );
-        }
+    public void OnInputMissing(
+        NetworkRunner runner,
+        PlayerRef player,
+        NetworkInput input)
+    {
+        // NO HAY INPUT DEL PLAYER TODAVÍA
     }
 
     public void OnSceneLoadStart(NetworkRunner runner)
     {
-        throw new NotImplementedException();
+        Debug.Log("Comenzando carga de escena.");
+    }
+
+    public void OnSceneLoadDone(NetworkRunner runner)
+    {
+        Debug.Log("Escena cargada.");
+    }
+
+    public void OnObjectEnterAOI(
+        NetworkRunner runner,
+        NetworkObject obj,
+        PlayerRef player)
+    {
+    }
+
+    public void OnObjectExitAOI(
+        NetworkRunner runner,
+        NetworkObject obj,
+        PlayerRef player)
+    {
+    }
+    public void OnConnectRequest(
+        NetworkRunner runner,
+        NetworkRunnerCallbackArgs.ConnectRequest request,
+        byte[] token)
+    {
+        request.Accept();
+    }
+    public void OnReliableDataReceived(
+        NetworkRunner runner,
+        PlayerRef player,
+        ReliableKey key,
+        ReadOnlySpan<byte> data)
+    {
+    }
+
+    public void OnReliableDataProgress(
+        NetworkRunner runner,
+        PlayerRef player,
+        ReliableKey key,
+        float progress)
+    {
+    }
+    public void OnSessionListUpdated(
+        NetworkRunner runner,
+        List<SessionInfo> sessionList)
+    {
+    }
+    public void OnCustomAuthenticationResponse(
+        NetworkRunner runner,
+        Dictionary<string, object> data)
+    {
+    }
+    public void OnHostMigration(
+        NetworkRunner runner,
+        HostMigrationToken hostMigrationToken)
+    {
     }
 }
