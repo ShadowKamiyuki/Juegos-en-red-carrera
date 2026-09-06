@@ -1,5 +1,6 @@
 using Fusion;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
@@ -10,50 +11,114 @@ public class MainMenu : MonoBehaviour
     [Header("Team")]
     [SerializeField] private TeamManager teamManager;
 
+    [Header("Team Buttons")]
+    [SerializeField] private Button team1Button;
+    [SerializeField] private Button team2Button;
+
+    [Header("Network Buttons")]
+    [SerializeField] private GameObject hostButton;
+    [SerializeField] private GameObject joinButton;
+
     [Header("Game")]
     [SerializeField] private int gameSceneIndex = 1;
 
-    // Equipo que eligió ESTE jugador
     public static int PlayerTeam { get; private set; }
 
-    private int selectedTeam = 1;
+    private int selectedTeam = 0;
 
     private const string SessionName = "Match_1";
 
     private void Start()
     {
-        PlayerTeam = 1;
-        selectedTeam = 1;
+        // Al entrar todavía no elegimos equipo
+        selectedTeam = 0;
+        PlayerTeam = 0;
+
+        // Host y Join empiezan ocultos
+        if (hostButton != null)
+            hostButton.SetActive(false);
+
+        if (joinButton != null)
+            joinButton.SetActive(false);
+
+        // Los botones de equipo empiezan habilitados
+        if (team1Button != null)
+            team1Button.interactable = true;
+
+        if (team2Button != null)
+            team2Button.interactable = true;
     }
+
+    // =========================
+    // EQUIPO 1
+    // =========================
 
     public void SelectTeam1()
     {
-        selectedTeam = 1;
-        PlayerTeam = 1;
-
-        Debug.Log("Elegiste Equipo 1");
-
-        if (runner != null && runner.IsRunning)
-        {
-            teamManager.SelectTeam(1);
-        }
+        SelectTeam(1);
     }
+
+    // =========================
+    // EQUIPO 2
+    // =========================
 
     public void SelectTeam2()
     {
-        selectedTeam = 2;
-        PlayerTeam = 2;
-
-        Debug.Log("Elegiste Equipo 2");
-
-        if (runner != null && runner.IsRunning)
-        {
-            teamManager.SelectTeam(2);
-        }
+        SelectTeam(2);
     }
+
+    // =========================
+    // SELECCIONAR EQUIPO
+    // =========================
+
+    private void SelectTeam(int team)
+    {
+        if (selectedTeam != 0)
+        {
+            Debug.Log("Ya elegiste un equipo.");
+            return;
+        }
+
+        selectedTeam = team;
+        PlayerTeam = team;
+
+        Debug.Log("Elegiste Equipo " + team);
+
+        // Bloqueamos los botones de equipo
+        if (team1Button != null)
+            team1Button.interactable = false;
+
+        if (team2Button != null)
+            team2Button.interactable = false;
+
+        // Ahora aparecen Host y Join
+        if (hostButton != null)
+            hostButton.SetActive(true);
+
+        if (joinButton != null)
+            joinButton.SetActive(true);
+
+        Debug.Log("Ahora podés Hostear o Unirte.");
+    }
+
+    // =========================
+    // HOST
+    // =========================
 
     public async void CreateGame()
     {
+        if (selectedTeam == 0)
+        {
+            Debug.LogWarning("Primero tenés que elegir un equipo.");
+            return;
+        }
+
+        if (runner == null)
+        {
+            Debug.LogError("NetworkRunner no está asignado.");
+            return;
+        }
+
         Debug.Log("Creando servidor...");
 
         StartGameResult result = await runner.StartGame(
@@ -61,7 +126,9 @@ public class MainMenu : MonoBehaviour
             {
                 GameMode = GameMode.Host,
                 SessionName = SessionName,
-                Scene = SceneRef.FromIndex(gameSceneIndex),
+
+                // IMPORTANTE:
+                // NO cargamos Game todavía.
                 SceneManager = sceneManager
             });
 
@@ -77,15 +144,36 @@ public class MainMenu : MonoBehaviour
 
         Debug.Log("Servidor creado.");
 
-        // El Host ocupa un lugar de su equipo
+        // Ahora que Fusion está conectado,
+        // registramos al Host en su equipo.
         if (teamManager != null)
         {
             teamManager.SelectTeam(selectedTeam);
         }
+        else
+        {
+            Debug.LogError("TeamManager no está asignado.");
+        }
     }
+
+    // =========================
+    // JOIN
+    // =========================
 
     public async void JoinGame()
     {
+        if (selectedTeam == 0)
+        {
+            Debug.LogWarning("Primero tenés que elegir un equipo.");
+            return;
+        }
+
+        if (runner == null)
+        {
+            Debug.LogError("NetworkRunner no está asignado.");
+            return;
+        }
+
         Debug.Log("Conectando al servidor...");
 
         StartGameResult result = await runner.StartGame(
@@ -93,7 +181,8 @@ public class MainMenu : MonoBehaviour
             {
                 GameMode = GameMode.Client,
                 SessionName = SessionName,
-                Scene = SceneRef.FromIndex(gameSceneIndex),
+
+                // Tampoco cargamos Game todavía.
                 SceneManager = sceneManager
             });
 
@@ -109,12 +198,57 @@ public class MainMenu : MonoBehaviour
 
         Debug.Log("Cliente conectado.");
 
-        // El Cliente ocupa un lugar de su equipo
+        // Registramos al cliente en su equipo.
         if (teamManager != null)
         {
             teamManager.SelectTeam(selectedTeam);
         }
+        else
+        {
+            Debug.LogError("TeamManager no está asignado.");
+        }
     }
+
+    // =========================
+    // CARGAR GAME
+    // =========================
+
+    public void LoadGameScene()
+    {
+        if (runner == null)
+        {
+            Debug.LogError("NetworkRunner no está asignado.");
+            return;
+        }
+
+        if (!runner.IsRunning)
+        {
+            Debug.LogWarning("Fusion todavía no está conectado.");
+            return;
+        }
+
+        if (!runner.IsServer)
+        {
+            Debug.LogWarning("Solo el Host puede iniciar la partida.");
+            return;
+        }
+
+        if (sceneManager == null)
+        {
+            Debug.LogError("NetworkSceneManagerDefault no está asignado.");
+            return;
+        }
+
+        Debug.Log("Cargando escena Game...");
+
+        runner.LoadScene(
+    SceneRef.FromIndex(gameSceneIndex)
+        );
+    }
+
+    // =========================
+    // SALIR
+    // =========================
 
     public void QuitGame()
     {
