@@ -43,67 +43,90 @@ public class MainMenu : MonoBehaviour
         selectedTeam = 0;
         PlayerTeam = 0;
 
-        // ==========================================
-        // OCULTAR LAS 4 CHECKS AL INICIAR
-        // ==========================================
-
         SetAllChecks(false);
 
-        // ==========================================
-        // OCULTAR HOST Y JOIN
-        // ==========================================
-
+        // Ocultar Host y Join
         if (hostButton != null)
             hostButton.SetActive(false);
 
         if (joinButton != null)
             joinButton.SetActive(false);
 
-        // ==========================================
-        // ACTIVAR BOTONES DE EQUIPO
-        // ==========================================
-
-        if (team1Button != null)
-            team1Button.interactable = true;
-
-        if (team2Button != null)
-            team2Button.interactable = true;
+        // Botones de equipo normales
+        SetTeamButton(team1Button, true);
+        SetTeamButton(team2Button, true);
     }
     private void UpdateTeamButtons()
     {
         if (teamManager == null)
             return;
 
-        // Si todavía no estamos conectados,
-        // ambos botones están disponibles.
-        if (runner == null || !runner.IsRunning)
-        {
-            if (team1Button != null)
-                team1Button.interactable = true;
+        // ==================================================
+        // SI ESTE JUGADOR YA ELIGIÓ UN EQUIPO
+        // ==================================================
 
-            if (team2Button != null)
-                team2Button.interactable = true;
+        if (PlayerTeam != 0)
+        {
+            SetTeamButton(team1Button, false);
+            SetTeamButton(team2Button, false);
 
             return;
         }
+
+        // ==================================================
+        // TODAVÍA NO ESTÁ CONECTADO
+        // ==================================================
+
         if (!teamManager.IsNetworkReady)
         {
-            if (team1Button != null)
-                team1Button.interactable = true;
-
-            if (team2Button != null)
-                team2Button.interactable = true;
+            SetTeamButton(team1Button, true);
+            SetTeamButton(team2Button, true);
 
             return;
         }
 
-        // Ya estamos conectados:
-        // bloquear equipos llenos.
-        if (team1Button != null)
-            team1Button.interactable = !teamManager.IsTeamFull(1);
+        // ==================================================
+        // YA ESTÁ CONECTADO
+        // ==================================================
 
-        if (team2Button != null)
-            team2Button.interactable = !teamManager.IsTeamFull(2);
+        // Equipo 1
+        if (teamManager.IsTeamFull(1))
+            SetTeamButton(team1Button, false);
+        else
+            SetTeamButton(team1Button, true);
+
+        // Equipo 2
+        if (teamManager.IsTeamFull(2))
+            SetTeamButton(team2Button, false);
+        else
+            SetTeamButton(team2Button, true);
+    }
+    private void SetTeamButton(Button button, bool enabled)
+    {
+        if (button == null)
+            return;
+
+        button.interactable = enabled;
+
+        ColorBlock colors = button.colors;
+
+        if (enabled)
+        {
+            colors.normalColor = normalTeamColor;
+            colors.highlightedColor = normalTeamColor;
+            colors.pressedColor = normalTeamColor;
+            colors.selectedColor = normalTeamColor;
+        }
+        else
+        {
+            colors.normalColor = disabledTeamColor;
+            colors.highlightedColor = disabledTeamColor;
+            colors.pressedColor = disabledTeamColor;
+            colors.selectedColor = disabledTeamColor;
+            colors.disabledColor = disabledTeamColor;
+        }
+
+        button.colors = colors;
     }
     private void Update()
     {
