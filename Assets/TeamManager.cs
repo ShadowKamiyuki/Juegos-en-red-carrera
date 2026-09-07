@@ -3,9 +3,6 @@ using UnityEngine;
 
 public class TeamManager : NetworkBehaviour
 {
-    // ==================================================
-    // EQUIPO 1
-    // ==================================================
 
     [Networked]
     private PlayerRef Team1Slot1 { get; set; }
@@ -15,9 +12,12 @@ public class TeamManager : NetworkBehaviour
 
     public bool IsNetworkReady { get; private set; }
 
-    // ==================================================
-    // EQUIPO 2
-    // ==================================================
+    [Header("Panel cuando todos los equipos están llenos")]
+    [SerializeField] private GameObject teamsFullPanel;
+
+    [Networked]
+    private NetworkBool AllTeamsFull { get; set; }
+
 
     [Networked]
     private PlayerRef Team2Slot1 { get; set; }
@@ -25,9 +25,6 @@ public class TeamManager : NetworkBehaviour
     [Networked]
     private PlayerRef Team2Slot2 { get; set; }
 
-    // ==================================================
-    // CHECKS
-    // ==================================================
 
     [Header("Equipo 1")]
     [SerializeField] private GameObject team1Check1;
@@ -37,13 +34,22 @@ public class TeamManager : NetworkBehaviour
     [SerializeField] private GameObject team2Check1;
     [SerializeField] private GameObject team2Check2;
 
-    // ==================================================
-    // SPAWN
-    // ==================================================
-
+    private void Awake()
+    {
+        if (teamsFullPanel != null)
+        {
+            teamsFullPanel.SetActive(false);
+        }
+    }
     public override void Spawned()
     {
         IsNetworkReady = true;
+
+        // Siempre empieza oculto
+        if (teamsFullPanel != null)
+        {
+            teamsFullPanel.SetActive(false);
+        }
 
         UpdateVisuals();
     }
@@ -52,18 +58,19 @@ public class TeamManager : NetworkBehaviour
     {
         IsNetworkReady = false;
     }
-    // ==================================================
-    // UPDATE
-    // ==================================================
-
+ 
     private void Update()
     {
-        UpdateVisuals();
-    }
+        if (!IsNetworkReady)
+            return;
 
-    // ==================================================
-    // SELECCIONAR EQUIPO
-    // ==================================================
+        UpdateVisuals();
+
+        if (teamsFullPanel != null)
+        {
+            teamsFullPanel.SetActive(AllTeamsFull);
+        }
+    }
 
     public void SelectTeam(int team)
     {
@@ -91,10 +98,6 @@ public class TeamManager : NetworkBehaviour
 
         RequestTeamRpc(team);
     }
-
-    // ==================================================
-    // RPC
-    // ==================================================
 
     [Rpc(
     RpcSources.All,
@@ -161,11 +164,8 @@ public class TeamManager : NetworkBehaviour
                 );
             }
         }
+        CheckIfTeamsAreFull();
     }
-
-    // ==================================================
-    // QUITAR JUGADOR
-    // ==================================================
 
     private void RemovePlayer(PlayerRef player)
     {
@@ -182,10 +182,6 @@ public class TeamManager : NetworkBehaviour
             Team2Slot2 = PlayerRef.None;
     }
 
-    // ==================================================
-    // JUGADOR DESCONECTADO
-    // ==================================================
-
     public void RemoveDisconnectedPlayer(
         PlayerRef player)
     {
@@ -196,6 +192,7 @@ public class TeamManager : NetworkBehaviour
             return;
 
         RemovePlayer(player);
+        CheckIfTeamsAreFull();
 
         Debug.Log(
             "Jugador " +
@@ -204,18 +201,10 @@ public class TeamManager : NetworkBehaviour
         );
     }
 
-    // ==================================================
-    // ACTUALIZAR CHECKS
-    // ==================================================
-
     private void UpdateVisuals()
     {
         if (Runner == null)
             return;
-
-        // ==========================================
-        // EQUIPO 1
-        // ==========================================
 
         if (team1Check1 != null)
         {
@@ -231,9 +220,6 @@ public class TeamManager : NetworkBehaviour
             );
         }
 
-        // ==========================================
-        // EQUIPO 2
-        // ==========================================
 
         if (team2Check1 != null)
         {
@@ -250,10 +236,29 @@ public class TeamManager : NetworkBehaviour
         }
     }
 
-    // ==================================================
-    // EQUIPO LLENO
-    // ==================================================
+    private void CheckIfTeamsAreFull()
+    {
+        if (Runner == null)
+            return;
 
+        if (!Runner.IsServer)
+            return;
+
+        bool team1Full =
+            Team1Slot1 != PlayerRef.None &&
+            Team1Slot2 != PlayerRef.None;
+
+        bool team2Full =
+            Team2Slot1 != PlayerRef.None &&
+            Team2Slot2 != PlayerRef.None;
+
+        AllTeamsFull = team1Full && team2Full;
+
+        if (AllTeamsFull)
+        {
+            Debug.Log("¡Los dos equipos están completos!");
+        }
+    }
     public bool IsTeamFull(int team)
     {
         if (team == 1)

@@ -61,10 +61,6 @@ public class MainMenu : MonoBehaviour
         if (teamManager == null)
             return;
 
-        // ==================================================
-        // SI ESTE JUGADOR YA ELIGIÓ UN EQUIPO
-        // ==================================================
-
         if (PlayerTeam != 0)
         {
             SetTeamButton(team1Button, false);
@@ -73,9 +69,6 @@ public class MainMenu : MonoBehaviour
             return;
         }
 
-        // ==================================================
-        // TODAVÍA NO ESTÁ CONECTADO
-        // ==================================================
 
         if (!teamManager.IsNetworkReady)
         {
@@ -85,9 +78,6 @@ public class MainMenu : MonoBehaviour
             return;
         }
 
-        // ==================================================
-        // YA ESTÁ CONECTADO
-        // ==================================================
 
         // Equipo 1
         if (teamManager.IsTeamFull(1))
@@ -132,27 +122,19 @@ public class MainMenu : MonoBehaviour
     {
         UpdateTeamButtons();
     }
-    // ==================================================
-    // EQUIPO 1
-    // ==================================================
+
 
     public void SelectTeam1()
     {
         SelectTeam(1);
     }
 
-    // ==================================================
-    // EQUIPO 2
-    // ==================================================
 
     public void SelectTeam2()
     {
         SelectTeam(2);
     }
 
-    // ==================================================
-    // SELECCIONAR EQUIPO
-    // ==================================================
 
     private void SelectTeam(int team)
     {
@@ -167,9 +149,6 @@ public class MainMenu : MonoBehaviour
 
         Debug.Log("Elegiste Equipo " + team);
 
-        // ==========================================
-        // MOSTRAR LA CHECK DEL EQUIPO ELEGIDO
-        // ==========================================
 
         if (team == 1)
         {
@@ -202,9 +181,6 @@ public class MainMenu : MonoBehaviour
                 team1Check2.SetActive(false);
         }
 
-        // ==========================================
-        // BLOQUEAR LOS DOS BOTONES
-        // ==========================================
 
         if (team1Button != null)
             team1Button.interactable = false;
@@ -212,9 +188,6 @@ public class MainMenu : MonoBehaviour
         if (team2Button != null)
             team2Button.interactable = false;
 
-        // ==========================================
-        // MOSTRAR HOST Y JOIN
-        // ==========================================
 
         if (hostButton != null)
             hostButton.SetActive(true);
@@ -225,9 +198,6 @@ public class MainMenu : MonoBehaviour
         Debug.Log("Host y Join ahora están visibles.");
     }
 
-    // ==================================================
-    // HOST
-    // ==================================================
 
     public async void CreateGame()
     {
@@ -266,9 +236,6 @@ public class MainMenu : MonoBehaviour
 
         Debug.Log("HOST CONECTADO.");
 
-        // ==========================================
-        // REGISTRAR HOST EN SU EQUIPO
-        // ==========================================
 
         if (teamManager != null)
         {
@@ -280,9 +247,6 @@ public class MainMenu : MonoBehaviour
         }
     }
 
-    // ==================================================
-    // JOIN
-    // ==================================================
 
     public async void JoinGame()
     {
@@ -321,9 +285,6 @@ public class MainMenu : MonoBehaviour
 
         Debug.Log("CLIENTE CONECTADO.");
 
-        // ==========================================
-        // REGISTRAR CLIENTE EN SU EQUIPO
-        // ==========================================
 
         if (teamManager != null)
         {
@@ -335,9 +296,6 @@ public class MainMenu : MonoBehaviour
         }
     }
 
-    // ==================================================
-    // OCULTAR LAS 4 CHECKS
-    // ==================================================
 
     private void SetAllChecks(bool state)
     {
@@ -354,9 +312,6 @@ public class MainMenu : MonoBehaviour
             team2Check2.SetActive(state);
     }
 
-    // ==================================================
-    // CARGAR GAME
-    // ==================================================
 
     public void LoadGameScene()
     {
@@ -389,9 +344,6 @@ public class MainMenu : MonoBehaviour
         // porque depende de la versión de Fusion que estás usando.
     }
 
-    // ==================================================
-    // SALIR
-    // ==================================================
 
     public void QuitGame()
     {
