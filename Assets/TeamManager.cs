@@ -261,6 +261,9 @@ public class TeamManager : NetworkBehaviour
     }
     public bool IsTeamFull(int team)
     {
+        if (!IsNetworkReady)
+            return false;
+
         if (team == 1)
         {
             return
