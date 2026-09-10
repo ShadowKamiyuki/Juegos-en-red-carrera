@@ -3,9 +3,6 @@ using UnityEngine;
 
 public class TeamManager : NetworkBehaviour
 {
-    // =========================================================
-    // EQUIPO 1
-    // =========================================================
 
     [Networked]
     private PlayerRef Team1Slot1 { get; set; }
@@ -13,10 +10,14 @@ public class TeamManager : NetworkBehaviour
     [Networked]
     private PlayerRef Team1Slot2 { get; set; }
 
+    public bool IsNetworkReady { get; private set; }
 
-    // =========================================================
-    // EQUIPO 2
-    // =========================================================
+    [Header("Panel cuando todos los equipos están llenos")]
+    [SerializeField] private GameObject teamsFullPanel;
+
+    [Networked]
+    private NetworkBool AllTeamsFull { get; set; }
+
 
     [Networked]
     private PlayerRef Team2Slot1 { get; set; }
@@ -24,25 +25,6 @@ public class TeamManager : NetworkBehaviour
     [Networked]
     private PlayerRef Team2Slot2 { get; set; }
 
-
-    // =========================================================
-    // TODOS LOS EQUIPOS COMPLETOS
-    // =========================================================
-
-    [Networked]
-    private NetworkBool AllTeamsFull { get; set; }
-
-
-    // =========================================================
-    // ESTADO
-    // =========================================================
-
-    public bool IsNetworkReady { get; private set; }
-
-
-    // =========================================================
-    // TOGGLES / CHECKS
-    // =========================================================
 
     [Header("Equipo 1")]
     [SerializeField] private GameObject team1Check1;
@@ -52,152 +34,83 @@ public class TeamManager : NetworkBehaviour
     [SerializeField] private GameObject team2Check1;
     [SerializeField] private GameObject team2Check2;
 
-
-    // =========================================================
-    // PANEL LEVELS
-    // =========================================================
-
-    [Header("Panel Levels")]
-    [SerializeField] private GameObject levelsPanel;
-
-
-    // =========================================================
-    // AWAKE
-    // =========================================================
-
     private void Awake()
     {
-        SetAllChecks(false);
-
-        if (levelsPanel != null)
-            levelsPanel.SetActive(false);
+        if (teamsFullPanel != null)
+        {
+            teamsFullPanel.SetActive(false);
+        }
     }
-
-
-    // =========================================================
-    // SPAWNED
-    // =========================================================
-
     public override void Spawned()
     {
         IsNetworkReady = true;
 
-        Debug.Log(
-            "TeamManager conectado a Fusion."
-        );
+        // Siempre empieza oculto
+        if (teamsFullPanel != null)
+        {
+            teamsFullPanel.SetActive(false);
+        }
 
         UpdateVisuals();
     }
 
-
-    // =========================================================
-    // DESPAWNED
-    // =========================================================
-
-    public override void Despawned(
-        NetworkRunner runner,
-        bool hasState)
+    public override void Despawned(NetworkRunner runner, bool hasState)
     {
         IsNetworkReady = false;
     }
-
-
-    // =========================================================
-    // UPDATE
-    // =========================================================
-
+ 
     private void Update()
     {
         if (!IsNetworkReady)
             return;
 
-
-        // Actualizar checks
         UpdateVisuals();
 
-
-        // Abrir/cerrar panel Levels
-        if (levelsPanel != null)
+        if (teamsFullPanel != null)
         {
-            levelsPanel.SetActive(
-                AllTeamsFull
-            );
+            teamsFullPanel.SetActive(AllTeamsFull);
         }
     }
 
-
-    // =========================================================
-    // SELECCIONAR EQUIPO
-    // =========================================================
-
     public void SelectTeam(int team)
     {
-        if (!IsNetworkReady)
+        if (Runner == null)
         {
             Debug.LogWarning(
-                "TeamManager todavía no está listo."
+                "TeamManager todavía no está conectado a Fusion."
             );
 
             return;
         }
-
 
         if (team != 1 && team != 2)
         {
-            Debug.LogWarning(
-                "Equipo inválido: " + team
-            );
-
+            Debug.LogWarning("Equipo inválido: " + team);
             return;
         }
 
-
+        // Comprobar si el equipo está lleno
         if (IsTeamFull(team))
         {
-            Debug.Log(
-                "El Equipo " +
-                team +
-                " está lleno."
-            );
-
+            Debug.Log("El Equipo " + team + " está lleno.");
             return;
         }
-
 
         RequestTeamRpc(team);
     }
 
-
-    // =========================================================
-    // RPC
-    // =========================================================
-
     [Rpc(
-        RpcSources.All,
-        RpcTargets.StateAuthority
-    )]
+    RpcSources.All,
+    RpcTargets.StateAuthority
+)]
     private void RequestTeamRpc(
-        int team,
-        RpcInfo info = default)
+    int team,
+    RpcInfo info = default)
     {
         PlayerRef player = info.Source;
 
-
-        Debug.Log(
-            "Jugador " +
-            player +
-            " solicita Equipo " +
-            team
-        );
-
-
-        // Sacarlo de cualquier equipo anterior
+        // Sacarlo primero de cualquier equipo anterior
         RemovePlayer(player);
-
-
-        // =====================================================
-        // EQUIPO 1
-        // =====================================================
 
         if (team == 1)
         {
@@ -206,8 +119,7 @@ public class TeamManager : NetworkBehaviour
                 Team1Slot1 = player;
 
                 Debug.Log(
-                    player +
-                    " -> Equipo 1 / Slot 1"
+                    player + " entró al Equipo 1 - Slot 1"
                 );
             }
             else if (Team1Slot2 == PlayerRef.None)
@@ -215,25 +127,17 @@ public class TeamManager : NetworkBehaviour
                 Team1Slot2 = player;
 
                 Debug.Log(
-                    player +
-                    " -> Equipo 1 / Slot 2"
+                    player + " entró al Equipo 1 - Slot 2"
                 );
             }
             else
             {
                 Debug.Log(
-                    "Equipo 1 está lleno."
+                    "Equipo 1 está lleno. " +
+                    player + " no puede entrar."
                 );
-
-                return;
             }
         }
-
-
-        // =====================================================
-        // EQUIPO 2
-        // =====================================================
-
         else
         {
             if (Team2Slot1 == PlayerRef.None)
@@ -241,8 +145,7 @@ public class TeamManager : NetworkBehaviour
                 Team2Slot1 = player;
 
                 Debug.Log(
-                    player +
-                    " -> Equipo 2 / Slot 1"
+                    player + " entró al Equipo 2 - Slot 1"
                 );
             }
             else if (Team2Slot2 == PlayerRef.None)
@@ -250,32 +153,21 @@ public class TeamManager : NetworkBehaviour
                 Team2Slot2 = player;
 
                 Debug.Log(
-                    player +
-                    " -> Equipo 2 / Slot 2"
+                    player + " entró al Equipo 2 - Slot 2"
                 );
             }
             else
             {
                 Debug.Log(
-                    "Equipo 2 está lleno."
+                    "Equipo 2 está lleno. " +
+                    player + " no puede entrar."
                 );
-
-                return;
             }
         }
-
-
-        // Comprobar si ambos equipos están completos
         CheckIfTeamsAreFull();
     }
 
-
-    // =========================================================
-    // QUITAR JUGADOR
-    // =========================================================
-
-    private void RemovePlayer(
-        PlayerRef player)
+    private void RemovePlayer(PlayerRef player)
     {
         if (Team1Slot1 == player)
             Team1Slot1 = PlayerRef.None;
@@ -290,48 +182,29 @@ public class TeamManager : NetworkBehaviour
             Team2Slot2 = PlayerRef.None;
     }
 
-
-    // =========================================================
-    // JUGADOR DESCONECTADO
-    // =========================================================
-
     public void RemoveDisconnectedPlayer(
         PlayerRef player)
     {
-        if (!IsNetworkReady)
+        if (Runner == null)
             return;
 
-
-        if (!HasStateAuthority)
+        if (!Runner.IsServer)
             return;
-
 
         RemovePlayer(player);
-
         CheckIfTeamsAreFull();
-
 
         Debug.Log(
             "Jugador " +
             player +
-            " salió. Slot liberado."
+            " salió. Se liberó su lugar."
         );
     }
 
-
-    // =========================================================
-    // ACTUALIZAR CHECKS
-    // =========================================================
-
     private void UpdateVisuals()
     {
-        if (!IsNetworkReady)
+        if (Runner == null)
             return;
-
-
-        // -----------------------------------------------------
-        // EQUIPO 1
-        // -----------------------------------------------------
 
         if (team1Check1 != null)
         {
@@ -339,7 +212,6 @@ public class TeamManager : NetworkBehaviour
                 Team1Slot1 != PlayerRef.None
             );
         }
-
 
         if (team1Check2 != null)
         {
@@ -349,17 +221,12 @@ public class TeamManager : NetworkBehaviour
         }
 
 
-        // -----------------------------------------------------
-        // EQUIPO 2
-        // -----------------------------------------------------
-
         if (team2Check1 != null)
         {
             team2Check1.SetActive(
                 Team2Slot1 != PlayerRef.None
             );
         }
-
 
         if (team2Check2 != null)
         {
@@ -369,67 +236,33 @@ public class TeamManager : NetworkBehaviour
         }
     }
 
-
-    // =========================================================
-    // COMPROBAR EQUIPOS COMPLETOS
-    // =========================================================
-
     private void CheckIfTeamsAreFull()
     {
-        if (!IsNetworkReady)
+        if (Runner == null)
             return;
 
-
-        if (!HasStateAuthority)
+        if (!Runner.IsServer)
             return;
-
 
         bool team1Full =
             Team1Slot1 != PlayerRef.None &&
             Team1Slot2 != PlayerRef.None;
 
-
         bool team2Full =
             Team2Slot1 != PlayerRef.None &&
             Team2Slot2 != PlayerRef.None;
 
-
-        AllTeamsFull =
-            team1Full &&
-            team2Full;
-
-
-        Debug.Log(
-            "Equipo 1: " +
-            (team1Full ? "2/2" : "NO COMPLETO")
-        );
-
-
-        Debug.Log(
-            "Equipo 2: " +
-            (team2Full ? "2/2" : "NO COMPLETO")
-        );
-
+        AllTeamsFull = team1Full && team2Full;
 
         if (AllTeamsFull)
         {
-            Debug.Log(
-                "¡LOS DOS EQUIPOS ESTÁN COMPLETOS!"
-            );
+            Debug.Log("¡Los dos equipos están completos!");
         }
     }
-
-
-    // =========================================================
-    // ¿EQUIPO LLENO?
-    // =========================================================
-
-    public bool IsTeamFull(
-        int team)
+    public bool IsTeamFull(int team)
     {
         if (!IsNetworkReady)
             return false;
-
 
         if (team == 1)
         {
@@ -438,7 +271,6 @@ public class TeamManager : NetworkBehaviour
                 Team1Slot2 != PlayerRef.None;
         }
 
-
         if (team == 2)
         {
             return
@@ -446,28 +278,6 @@ public class TeamManager : NetworkBehaviour
                 Team2Slot2 != PlayerRef.None;
         }
 
-
         return true;
-    }
-
-
-    // =========================================================
-    // APAGAR TODOS LOS CHECKS
-    // =========================================================
-
-    private void SetAllChecks(
-        bool state)
-    {
-        if (team1Check1 != null)
-            team1Check1.SetActive(state);
-
-        if (team1Check2 != null)
-            team1Check2.SetActive(state);
-
-        if (team2Check1 != null)
-            team2Check1.SetActive(state);
-
-        if (team2Check2 != null)
-            team2Check2.SetActive(state);
     }
 }
