@@ -1,5 +1,7 @@
 fileFormatVersion: 2
-guid: c739c7dd763477c4f84cee3ea9e100be
+guid: 2daa3894d6d83424e966f961abd0bd07
+labels:
+- FusionDefaultGlobal
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -7,7 +9,7 @@ ScriptedImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-  script: {instanceID: 0}
+  script: {fileID: 11500000, guid: 66a64a17d0b40f34f9224317a5a84bf2, type: 3}
   PrefabOptions:
     UnloadPrefabOnReleasingLastInstance: 0
     UnloadUnusedPrefabsOnShutdown: 0

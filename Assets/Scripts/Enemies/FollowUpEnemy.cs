@@ -13,12 +13,20 @@ public class FollowUpEnemy : NetworkBehaviour
     [Networked] public float AttackDamage { get; set; }
     [Networked] public float MoveSpeed { get; set; }
 
+    [SerializeField] private AudioDefinition attackSound;
+
     private Rigidbody2D rb;
     private NetworkObject target;
+    private IAudioService audioService;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+    }
+
+    private void Start()
+    {
+        audioService = ServiceLocator.Get<IAudioService>();
     }
 
     public override void FixedUpdateNetwork()
@@ -79,6 +87,8 @@ public class FollowUpEnemy : NetworkBehaviour
             return;
 
         Health -= amount;
+
+        audioService.PlaySFX(attackSound);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -94,6 +104,7 @@ public class FollowUpEnemy : NetworkBehaviour
         if(collision.gameObject.CompareTag("Player"))
         {
             // hacemos daño al jugador
+            // usamos la propiedad AttackDamage
         }
     }
 }

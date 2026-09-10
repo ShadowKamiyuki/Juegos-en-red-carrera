@@ -87,7 +87,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.051886797, b: 0.051886797, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -188,6 +188,7 @@ MonoBehaviour:
   _Health: 0
   _AttackDamage: 0
   _MoveSpeed: 0
+  attackSound: {fileID: 0}
 --- !u!114 &5702580085199100458
 MonoBehaviour:
   m_ObjectHideFlags: 0

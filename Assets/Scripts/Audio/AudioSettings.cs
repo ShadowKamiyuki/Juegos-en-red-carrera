@@ -20,11 +20,6 @@ public class AudioSettings : MonoBehaviour
         SetProperty("SoundEffectsVolume", value);
     }
 
-    public void UI_SetVoicesVolume(float value)
-    {
-        SetProperty("VoicesVolume", value);
-    }
-
     private void SetProperty(string name, float value)
     {
         value = Mathf.Max(value, 0.0001f);
