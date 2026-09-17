@@ -4,11 +4,31 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 using static Unity.Collections.Unicode;
 
 public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
 {
     [SerializeField] private NetworkRunner runner;
+    [SerializeField] private NetworkPrefabRef playerPrefab;
+    private InputSystemActions inputSystemActions;
+    public Transform[] spawnPoints;
+
+    private void Awake()
+    {
+        runner.AddCallbacks(this);
+        inputSystemActions = new InputSystemActions();
+    }
+
+    private void OnEnable()
+    {
+        inputSystemActions.Enable();
+    }
+
+    private void OnDisable()
+    {
+        inputSystemActions.Disable();
+    }
 
     public async void StartGameHost(string sessionName)
     {
@@ -17,6 +37,7 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
             Debug.LogError("NetworkRunner no está inicializado.");
             return;
         }
+        runner.ProvideInput = true;
 
         Debug.Log("Creando servidor...");
 
@@ -43,6 +64,7 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
             Debug.LogError("NetworkRunner no está inicializado.");
             return;
         }
+        runner.ProvideInput = true;
 
         Debug.Log("Conectando como cliente...");
 
@@ -64,7 +86,10 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
 
     public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
     {
-        Debug.Log("Jugador conectado: " + player);
+        if (runner.IsServer)
+        {
+            runner.Spawn(playerPrefab, Vector3.zero, Quaternion.identity, player);
+        }
     }
 
     public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
@@ -101,7 +126,14 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
 
     public void OnInput(NetworkRunner runner, NetworkInput input)
     {
-        // NO HAY INPUT DEL PLAYER TODAVÍA
+        Vector2 direction = inputSystemActions.Gameplay.Move.ReadValue<Vector2>();
+
+        NetworkInputData data = new NetworkInputData
+        {
+            Direction = direction
+        };
+
+        input.Set(data);
     }
 
     public void OnInputMissing(NetworkRunner runner, PlayerRef player, NetworkInput input)
@@ -136,7 +168,61 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
     public void OnSceneLoadDone(NetworkRunner runner)
     {
         Debug.Log("Escena cargada.");
+
+        if (!runner.IsServer)
+            return;
+
+        foreach (PlayerRef player in runner.ActivePlayers)
+        {
+            NetworkObject playerObject = runner.GetPlayerObject(player);
+            Transform spawnPoint = GameObject.Find("SpawnPoint")?.transform;
+
+            if (spawnPoint == null)
+            {
+                Debug.LogError("No se encontró SpawnPoint en la escena.");
+                return;
+            }
+
+            //Vector3 position = spawnPoint.position;
+
+            if (playerObject == null)
+            {
+                int position = GetSpawnIndex(player);
+                //Transform spawnPoint = spawnPoints[position];
+
+                runner.Spawn(
+                    playerPrefab,
+                    spawnPoints[position].position,
+                    spawnPoints[position].rotation,
+                    player
+                   
+                );
+
+                Debug.Log($"Player {player} spawneado después de cargar la escena.");
+            }
+        }
     }
+    private int GetSpawnIndex(PlayerRef player)
+    {
+        if (spawnPoints == null || spawnPoints.Length == 0)
+        {
+            Debug.LogError("No hay Spawn Points configurados.");
+            return 0;
+        }
+
+        return player.RawEncoded % spawnPoints.Length;
+    }
+
+    private Vector3 GetSpawnPosition()
+    {
+        GameObject spawnPoint = GameObject.FindGameObjectWithTag("PlayerSpawn");
+
+        if (spawnPoint != null)
+            return spawnPoint.transform.position;
+
+        return Vector3.zero;
+    }
+
 
     public void OnObjectEnterAOI(NetworkRunner runner, NetworkObject obj,PlayerRef player)
     {

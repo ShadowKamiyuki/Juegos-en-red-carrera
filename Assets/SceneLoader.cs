@@ -12,6 +12,7 @@ public class SceneLoader : MonoBehaviour
         {
             runner.LoadScene(SceneRef.FromIndex(1), LoadSceneMode.Single);
         }
+        
     }
 
     public void CargarEscena2()
