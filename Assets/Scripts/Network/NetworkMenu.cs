@@ -6,7 +6,7 @@ public class NetworkMenu : MonoBehaviour
     [SerializeField] private NetworkManager networkManager;
     [SerializeField] private TMP_InputField input;
     [SerializeField] private CanvasGroup networkMenu;
-    //[SerializeField] private GameObject selectTeams;
+    [SerializeField] private CanvasGroup selectLevels;
     [SerializeField] private CanvasGroup selectTeams;
 
     public void CreateGame()
@@ -37,6 +37,12 @@ public class NetworkMenu : MonoBehaviour
         Application.Quit();
     }
     public void ShowTeems()
+    {
+        selectTeams.alpha = 1;
+        selectTeams.interactable = true;
+        selectTeams.blocksRaycasts = true;
+    }
+    public void ShowLevelSelector()
     {
         selectTeams.alpha = 1;
         selectTeams.interactable = true;
