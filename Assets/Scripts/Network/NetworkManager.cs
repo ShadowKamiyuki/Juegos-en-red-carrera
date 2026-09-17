@@ -3,6 +3,8 @@ using Fusion.Sockets;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using static Unity.Collections.Unicode;
 
 public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
 {
@@ -106,10 +108,29 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
     {
         // NO HAY INPUT DEL PLAYER TODAVÍA
     }
+    public void LoadGameScene(int sceneIndex)
+    {
+        if (runner == null)
+        {
+            Debug.LogError("NetworkRunner no está inicializado.");
+            return;
+        }
 
+        if (!runner.IsSceneAuthority)
+        {
+            Debug.LogWarning("Solo el Host puede cargar la escena.");
+            return;
+        }
+
+        SceneRef scene = SceneRef.FromIndex(sceneIndex);
+
+        Debug.Log($"Host cargando escena {sceneIndex}");
+
+        runner.LoadScene(scene, LoadSceneMode.Single);
+    }
     public void OnSceneLoadStart(NetworkRunner runner)
     {
-        Debug.Log("Comenzando carga de escena.");
+        Debug.Log($"Fusion comenzó a cargar la escena");
     }
 
     public void OnSceneLoadDone(NetworkRunner runner)

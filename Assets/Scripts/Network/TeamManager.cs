@@ -40,7 +40,6 @@ public class TeamManager : NetworkBehaviour
     private void Start()
     {
         mainMenuPanel.SetActive(true);
-        levelsPanel.SetActive(false);
     }
     private void ShowLevels()
     {

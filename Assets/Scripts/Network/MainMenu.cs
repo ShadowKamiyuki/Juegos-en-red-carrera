@@ -22,7 +22,7 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private GameObject team2Check2;
 
     [Header("Game")]
-    [SerializeField] private int gameSceneIndex = 1;
+    //[SerializeField] private int gameSceneIndex = 0;
 
     [Header("Colores botones")]
     [SerializeField] private Color normalTeamColor = Color.white;
