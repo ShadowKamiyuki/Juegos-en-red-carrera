@@ -474,7 +474,7 @@ GameObject:
   - component: {fileID: 91870268}
   - component: {fileID: 91870267}
   m_Layer: 5
-  m_Name: Checkmark
+  m_Name: Checkmark3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -623,6 +623,9 @@ GameObject:
   m_Component:
   - component: {fileID: 131032818}
   - component: {fileID: 131032817}
+  - component: {fileID: 131032821}
+  - component: {fileID: 131032820}
+  - component: {fileID: 131032819}
   m_Layer: 5
   m_Name: Selector de niveles
   m_TagString: Untagged
@@ -639,8 +642,8 @@ CanvasGroup:
   m_GameObject: {fileID: 131032816}
   m_Enabled: 1
   m_Alpha: 0
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
 --- !u!224 &131032818
 RectTransform:
@@ -666,6 +669,58 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &131032819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 131032816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10bd9c1419364fa40a6a6cf621524516, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LevelSelector
+  level1Index: 1
+  level2Index: 2
+  level3Index: 3
+--- !u!114 &131032820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 131032816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63b25e9e5b34a2a4cb864329cb1f7ebc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HostOnlyLevelMenu
+  levelButtons:
+  - {fileID: 679606873}
+  - {fileID: 1824626989}
+  - {fileID: 653473719}
+--- !u!114 &131032821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 131032816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Fusion.Runtime.dll::Fusion.NetworkObject
+  SortKey: 3821689706
+  SendPriority: 1
+  EnableInterpolation: 1
+  Flags: 262146
+  NestedObjects: []
+  NetworkedBehaviours:
+  - {fileID: 131032820}
+  - {fileID: 131032819}
+  ForceRemoteRenderTimeframe: 0
 --- !u!1 &158720346
 GameObject:
   m_ObjectHideFlags: 0
@@ -815,7 +870,7 @@ GameObject:
   - component: {fileID: 215712174}
   - component: {fileID: 215712173}
   m_Layer: 5
-  m_Name: Checkmark
+  m_Name: Checkmark2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -893,7 +948,6 @@ GameObject:
   - component: {fileID: 218380161}
   - component: {fileID: 218380159}
   - component: {fileID: 218380164}
-  - component: {fileID: 218380165}
   m_Layer: 5
   m_Name: Panel de seleccionar equipo
   m_TagString: Untagged
@@ -940,15 +994,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee2c256710c3d90498ea11ccc09207bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainMenu
-  runner: {fileID: 0}
+  runner: {fileID: 1377512006}
   sceneManager: {fileID: 0}
-  teamManager: {fileID: 0}
-  team1Button: {fileID: 0}
-  team2Button: {fileID: 0}
-  team1Check1: {fileID: 0}
-  team1Check2: {fileID: 0}
-  team2Check1: {fileID: 0}
-  team2Check2: {fileID: 0}
+  teamManager: {fileID: 218380160}
+  team1Button: {fileID: 814008393}
+  team2Button: {fileID: 1927469328}
+  team1Check1: {fileID: 1416056534}
+  team1Check2: {fileID: 215712171}
+  team2Check1: {fileID: 91870265}
+  team2Check2: {fileID: 492857423}
   gameSceneIndex: 1
   normalTeamColor: {r: 1, g: 1, b: 1, a: 1}
   disabledTeamColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
@@ -968,7 +1022,7 @@ MonoBehaviour:
   team1Check2: {fileID: 1927469326}
   team2Check1: {fileID: 1938930462}
   team2Check2: {fileID: 356268798}
-  levelsPanel: {fileID: 0}
+  levelsPanel: {fileID: 131032816}
   mainMenuPanel: {fileID: 430145840}
 --- !u!114 &218380161
 MonoBehaviour:
@@ -1036,22 +1090,10 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 218380157}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
---- !u!114 &218380165
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 218380157}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7cb968d889a01f419676371150f44c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
 --- !u!1 &281380133
 GameObject:
   m_ObjectHideFlags: 0
@@ -2305,7 +2347,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 430145840}
   m_Enabled: 1
-  m_Alpha: 0
+  m_Alpha: 1
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -3097,7 +3139,7 @@ GameObject:
   - component: {fileID: 492857426}
   - component: {fileID: 492857425}
   m_Layer: 5
-  m_Name: Checkmark
+  m_Name: Checkmark4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3526,9 +3568,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 20930182}
-        m_TargetAssemblyTypeName: NetworkMenu, Assembly-CSharp
-        m_MethodName: 
+      - m_Target: {fileID: 131032819}
+        m_TargetAssemblyTypeName: LevelSelector, Assembly-CSharp
+        m_MethodName: SelectLevel3
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3659,9 +3701,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 20930182}
-        m_TargetAssemblyTypeName: NetworkMenu, Assembly-CSharp
-        m_MethodName: 
+      - m_Target: {fileID: 131032819}
+        m_TargetAssemblyTypeName: LevelSelector, Assembly-CSharp
+        m_MethodName: SelectLevel1
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5422,7 +5464,7 @@ GameObject:
   - component: {fileID: 1416056537}
   - component: {fileID: 1416056536}
   m_Layer: 5
-  m_Name: Checkmark
+  m_Name: Checkmark1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7088,9 +7130,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 20930182}
-        m_TargetAssemblyTypeName: NetworkMenu, Assembly-CSharp
-        m_MethodName: 
+      - m_Target: {fileID: 131032819}
+        m_TargetAssemblyTypeName: LevelSelector, Assembly-CSharp
+        m_MethodName: SelectLevel2
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

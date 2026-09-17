@@ -44,8 +44,8 @@ public class NetworkMenu : MonoBehaviour
     }
     public void ShowLevelSelector()
     {
-        selectTeams.alpha = 1;
-        selectTeams.interactable = true;
-        selectTeams.blocksRaycasts = true;
+        selectLevels.alpha = 1;
+        selectLevels.interactable = true;
+        selectLevels.blocksRaycasts = true;
     }
 }
