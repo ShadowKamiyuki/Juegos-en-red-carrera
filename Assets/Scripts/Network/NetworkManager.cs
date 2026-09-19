@@ -164,7 +164,6 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
     {
         Debug.Log($"Fusion comenzó a cargar la escena");
     }
-
     public void OnSceneLoadDone(NetworkRunner runner)
     {
         Debug.Log("Escena cargada.");
@@ -172,36 +171,48 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
         if (!runner.IsServer)
             return;
 
+        GameObject[] spawnObjects =
+            GameObject.FindGameObjectsWithTag("PlayerSpawn");
+
+        if (spawnObjects.Length < 4)
+        {
+            Debug.LogError(
+                "La escena necesita 4 SpawnPoints con el tag PlayerSpawn."
+            );
+
+            return;
+        }
+
+        int spawnIndex = 0;
+
         foreach (PlayerRef player in runner.ActivePlayers)
         {
-            NetworkObject playerObject = runner.GetPlayerObject(player);
-            Transform spawnPoint = GameObject.Find("SpawnPoint")?.transform;
+            NetworkObject playerObject =
+                runner.GetPlayerObject(player);
 
-            if (spawnPoint == null)
-            {
-                Debug.LogError("No se encontró SpawnPoint en la escena.");
-                return;
-            }
+            if (playerObject != null)
+                continue;
 
-            //Vector3 position = spawnPoint.position;
+            Transform spawnPoint =
+                spawnObjects[spawnIndex].transform;
 
-            if (playerObject == null)
-            {
-                int position = GetSpawnIndex(player);
-                //Transform spawnPoint = spawnPoints[position];
+            runner.Spawn(
+                playerPrefab,
+                spawnPoint.position,
+                spawnPoint.rotation,
+                player
+            );
 
-                runner.Spawn(
-                    playerPrefab,
-                    spawnPoints[position].position,
-                    spawnPoints[position].rotation,
-                    player
-                   
-                );
+            Debug.Log(
+                "Player " + player +
+                " spawneado en SpawnPoint " + spawnIndex
+            );
 
-                Debug.Log($"Player {player} spawneado después de cargar la escena.");
-            }
+            spawnIndex++;
         }
     }
+
+
     private int GetSpawnIndex(PlayerRef player)
     {
         if (spawnPoints == null || spawnPoints.Length == 0)

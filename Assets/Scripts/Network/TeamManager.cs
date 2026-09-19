@@ -44,7 +44,6 @@ public class TeamManager : NetworkBehaviour
     private void ShowLevels()
     {
         mainMenuPanel.SetActive(false);
-        levelsPanel.SetActive(true);
 
         Debug.Log("Ambos equipos están llenos pibe.");
     }
