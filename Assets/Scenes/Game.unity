@@ -624,8 +624,6 @@ GameObject:
   - component: {fileID: 131032818}
   - component: {fileID: 131032817}
   - component: {fileID: 131032821}
-  - component: {fileID: 131032820}
-  - component: {fileID: 131032819}
   - component: {fileID: 131032822}
   m_Layer: 5
   m_Name: Selector de niveles
@@ -670,40 +668,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &131032819
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 131032816}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10bd9c1419364fa40a6a6cf621524516, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::LevelSelector
---- !u!114 &131032820
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 131032816}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63b25e9e5b34a2a4cb864329cb1f7ebc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HostOnlyLevelMenu
-  _runner: {fileID: 0}
-  _object: {fileID: 0}
-  WordOffset: 0
-  WordCount: 0
-  ObjectIndex: 0
-  DefaultReplicated: 1
-  levelButtons:
-  - {fileID: 679606873}
-  - {fileID: 1824626989}
-  - {fileID: 653473719}
 --- !u!114 &131032821
 MonoBehaviour:
   m_ObjectHideFlags: 0
