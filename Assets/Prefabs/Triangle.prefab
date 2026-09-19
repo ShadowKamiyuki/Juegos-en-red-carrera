@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3217426320948373764}
   - component: {fileID: 6562206752557318273}
   - component: {fileID: 7216499689572727602}
+  - component: {fileID: -744770551630664326}
   m_Layer: 0
   m_Name: Triangle
   m_TagString: Untagged
@@ -109,5 +110,19 @@ MonoBehaviour:
   EnableInterpolation: 1
   Flags: 262146
   NestedObjects: []
-  NetworkedBehaviours: []
+  NetworkedBehaviours:
+  - {fileID: -744770551630664326}
   ForceRemoteRenderTimeframe: 0
+--- !u!114 &-744770551630664326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6999077925805531318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58cc39a46ee784a44ad76c9d02bd9547, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Player
+  speed: 5

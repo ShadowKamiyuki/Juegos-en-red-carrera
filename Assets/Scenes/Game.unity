@@ -694,6 +694,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63b25e9e5b34a2a4cb864329cb1f7ebc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HostOnlyLevelMenu
+  _runner: {fileID: 0}
+  _object: {fileID: 0}
+  WordOffset: 0
+  WordCount: 0
+  ObjectIndex: 0
+  DefaultReplicated: 1
   levelButtons:
   - {fileID: 679606873}
   - {fileID: 1824626989}
@@ -715,8 +721,7 @@ MonoBehaviour:
   EnableInterpolation: 1
   Flags: 262146
   NestedObjects: []
-  NetworkedBehaviours:
-  - {fileID: 131032820}
+  NetworkedBehaviours: []
   ForceRemoteRenderTimeframe: 0
 --- !u!114 &131032822
 MonoBehaviour:
