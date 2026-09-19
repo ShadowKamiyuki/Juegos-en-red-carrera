@@ -10,7 +10,6 @@ public class FollowUpEnemy : NetworkBehaviour
 
     [Header("Enemy settings")]
     [Networked] public float Health { get; set; }
-    [Networked] public float AttackDamage { get; set; }
     [Networked] public float MoveSpeed { get; set; }
 
     [SerializeField] private AudioDefinition attackSound;
