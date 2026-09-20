@@ -247,6 +247,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   initialHealth: 10
-  moveSpeed: 5
+  moveSpeed: 3
   attackSound: {fileID: 0}
   _Health: 0
