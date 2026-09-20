@@ -9,6 +9,8 @@ using static Unity.Collections.Unicode;
 
 public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
 {
+    public static event Action OnConnectedToGame;
+
     [SerializeField] private NetworkRunner runner;
     [SerializeField] private NetworkPrefabRef playerPrefab;
     private InputSystemActions inputSystemActions;
@@ -37,6 +39,7 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
             Debug.LogError("NetworkRunner no está inicializado.");
             return;
         }
+
         runner.ProvideInput = true;
 
         Debug.Log("Creando servidor...");
@@ -44,17 +47,23 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
         StartGameResult result = await runner.StartGame(new StartGameArgs
         {
             GameMode = GameMode.Host,
-            SessionName = sessionName
+            SessionName = sessionName,
+            PlayerCount = 4
         });
 
         if (!result.Ok)
         {
-            Debug.LogError("Error creando servidor: " + result.ShutdownReason);
+            Debug.LogError(
+                "Error creando servidor: " +
+                result.ShutdownReason
+            );
 
             return;
         }
 
         Debug.Log("Servidor creado correctamente.");
+
+        OnConnectedToGame?.Invoke();
     }
 
     public async void StartGameClient(string sessionName)
@@ -64,6 +73,7 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
             Debug.LogError("NetworkRunner no está inicializado.");
             return;
         }
+
         runner.ProvideInput = true;
 
         Debug.Log("Conectando como cliente...");
@@ -71,17 +81,23 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
         StartGameResult result = await runner.StartGame(new StartGameArgs
         {
             GameMode = GameMode.Client,
-            SessionName = sessionName
+            SessionName = sessionName,
+            PlayerCount = 4
         });
 
         if (!result.Ok)
         {
-            Debug.LogError("Error conectando al servidor: " + result.ShutdownReason);
+            Debug.LogError(
+                "Error conectando al servidor: " +
+                result.ShutdownReason
+            );
 
             return;
         }
 
         Debug.Log("Cliente conectado correctamente.");
+
+        OnConnectedToGame?.Invoke();
     }
 
     public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)

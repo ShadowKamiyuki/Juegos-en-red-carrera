@@ -31,22 +31,13 @@ public class TeamManager : NetworkBehaviour
     [SerializeField] private GameObject team2Check1;
     [SerializeField] private GameObject team2Check2;
 
-    [SerializeField] private GameObject levelsPanel;
-    [SerializeField] private GameObject mainMenuPanel;
-
     private void Awake()
     {
     }
     private void Start()
     {
-        mainMenuPanel.SetActive(true);
     }
-    private void ShowLevels()
-    {
-        mainMenuPanel.SetActive(false);
 
-        Debug.Log("Ambos equipos están llenos pibe.");
-    }
     public override void Spawned()
     {
         IsNetworkReady = true;
@@ -65,11 +56,10 @@ public class TeamManager : NetworkBehaviour
             return;
 
         UpdateVisuals();
-
-        if (levelsPanel != null)
-        {
-            levelsPanel.SetActive(AllTeamsFull);
-        }
+    }
+    public bool AreAllTeamsFull()
+    {
+        return AllTeamsFull;
     }
 
     public void SelectTeam(int team)
@@ -257,7 +247,6 @@ public class TeamManager : NetworkBehaviour
         if (AllTeamsFull)
         {
             Debug.Log("¡Los dos equipos están completos!");
-            ShowLevels();
         }
     }
     public bool IsTeamFull(int team)

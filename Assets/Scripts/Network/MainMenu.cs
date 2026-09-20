@@ -1,6 +1,7 @@
 using Fusion;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class MainMenu : MonoBehaviour
 {
@@ -27,6 +28,11 @@ public class MainMenu : MonoBehaviour
     [Header("Colores botones")]
     [SerializeField] private Color normalTeamColor = Color.white;
     [SerializeField] private Color disabledTeamColor = Color.gray;
+
+    [Header("Sala")]
+    [SerializeField] private TMP_InputField sessionNameInput;
+    [Header("Menu")]
+    [SerializeField] private NetworkMenu networkMenu;
 
     public static int PlayerTeam { get; private set; }
 
@@ -79,6 +85,14 @@ public class MainMenu : MonoBehaviour
             SetTeamButton(team2Button, false);
         else
             SetTeamButton(team2Button, true);
+
+        if (teamManager.AreAllTeamsFull())
+        {
+            if (runner.IsServer)
+            {
+                networkMenu.ShowLevelSelector();
+            }
+        }
     }
     private void SetTeamButton(Button button, bool enabled)
     {
@@ -178,105 +192,6 @@ public class MainMenu : MonoBehaviour
             team2Button.interactable = false;
 
     }
-
-
-    public async void CreateGame()
-    {
-        if (selectedTeam == 0)
-        {
-            Debug.LogWarning("Primero tenés que elegir un equipo.");
-            return;
-        }
-
-        if (runner == null)
-        {
-            Debug.LogError("NetworkRunner no está asignado.");
-            return;
-        }
-
-        Debug.Log("Creando servidor...");
-
-        StartGameResult result = await runner.StartGame(
-            new StartGameArgs
-            {
-                GameMode = GameMode.Host,
-                SessionName = SessionName,
-                SceneManager = sceneManager
-            }
-        );
-
-        if (!result.Ok)
-        {
-            Debug.LogError(
-                "No se pudo crear el servidor: " +
-                result.ShutdownReason
-            );
-
-            return;
-        }
-
-        Debug.Log("HOST CONECTADO.");
-
-
-        if (teamManager != null)
-        {
-            teamManager.SelectTeam(selectedTeam);
-        }
-        else
-        {
-            Debug.LogError("TeamManager no está asignado.");
-        }
-    }
-
-
-    public async void JoinGame()
-    {
-        if (selectedTeam == 0)
-        {
-            Debug.LogWarning("Primero tenés que elegir un equipo.");
-            return;
-        }
-
-        if (runner == null)
-        {
-            Debug.LogError("NetworkRunner no está asignado.");
-            return;
-        }
-
-        Debug.Log("Conectando al servidor...");
-
-        StartGameResult result = await runner.StartGame(
-            new StartGameArgs
-            {
-                GameMode = GameMode.Client,
-                SessionName = SessionName,
-                SceneManager = sceneManager
-            }
-        );
-
-        if (!result.Ok)
-        {
-            Debug.LogError(
-                "No se pudo conectar: " +
-                result.ShutdownReason
-            );
-
-            return;
-        }
-
-        Debug.Log("CLIENTE CONECTADO.");
-
-
-        if (teamManager != null)
-        {
-            teamManager.SelectTeam(selectedTeam);
-        }
-        else
-        {
-            Debug.LogError("TeamManager no está asignado.");
-        }
-    }
-
 
     private void SetAllChecks(bool state)
     {

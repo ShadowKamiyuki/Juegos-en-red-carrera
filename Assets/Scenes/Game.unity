@@ -1015,6 +1015,8 @@ MonoBehaviour:
   team2Check2: {fileID: 492857423}
   normalTeamColor: {r: 1, g: 1, b: 1, a: 1}
   disabledTeamColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  sessionNameInput: {fileID: 419208041}
+  networkMenu: {fileID: 20930182}
 --- !u!114 &218380160
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1031,8 +1033,6 @@ MonoBehaviour:
   team1Check2: {fileID: 1927469326}
   team2Check1: {fileID: 1938930462}
   team2Check2: {fileID: 356268798}
-  levelsPanel: {fileID: 131032816}
-  mainMenuPanel: {fileID: 430145840}
 --- !u!114 &218380161
 MonoBehaviour:
   m_ObjectHideFlags: 0
