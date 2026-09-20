@@ -1,8 +1,6 @@
 using Fusion;
-using System;
 using UnityEngine;
 
-[RequireComponent (typeof(Rigidbody2D))]
 public class FollowUpEnemy : NetworkBehaviour
 {
     [Header("Target")]
@@ -32,10 +30,10 @@ public class FollowUpEnemy : NetworkBehaviour
 
     public override void Spawned()
     {
-        if (!Object.HasStateAuthority)
-            return;
-
-        Health = initialHealth;
+        if (Object.HasStateAuthority)
+        {
+            Health = initialHealth;
+        }
     }
 
     public override void FixedUpdateNetwork()
@@ -49,8 +47,8 @@ public class FollowUpEnemy : NetworkBehaviour
 
     private void GetClosestPlayer()
     {
-        // necesitamos una estrategia para buscar al jugador correcto
-        Collider2D[] players = Physics2D.OverlapCircleAll(transform.position, detectionRadious, playerLayer);
+        //necesitamos una estrategia para buscar al jugador correcto
+        Collider2D[] players = Physics2D.OverlapCircleAll(rb.position, detectionRadious, playerLayer);
 
         target = null;
 
@@ -63,7 +61,13 @@ public class FollowUpEnemy : NetworkBehaviour
             if (networkObject == null)
                 continue;
 
-            float distance = Vector2.Distance(transform.position, networkObject.transform.position);
+            if (networkObject == Object)
+                continue;
+
+            if (!networkObject.CompareTag("Player"))
+                continue;
+
+            float distance = Vector2.Distance(rb.position, networkObject.transform.position);
 
             if (distance < closestDistance)
             {
@@ -110,7 +114,7 @@ public class FollowUpEnemy : NetworkBehaviour
     {
         rb.linearVelocity = Vector2.zero;
 
-        // Acá puedes agregar animación, drops, etc.
+        //Acá puedes agregar animación, drops, etc.
 
         Runner.Despawn(Object);
     }
@@ -120,16 +124,16 @@ public class FollowUpEnemy : NetworkBehaviour
         if (!Object.HasStateAuthority)
             return;
 
-        // agregamos el componente que haga daño o hacemos la colision con otro objeto
+        //agregamos el componente que haga daño o hacemos la colision con otro objeto
         if (collision.gameObject.CompareTag("bala"))
         {
             TakeDamage(5);
             return;
         }
-        if(collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player"))
         {
-            // hacemos daño al jugador
-            // usamos la propiedad AttackDamage
+            //hacemos daño al jugador
+            //usamos la propiedad AttackDamage
         }
     }
 }

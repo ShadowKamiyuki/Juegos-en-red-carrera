@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 4454813375371798295}
   - component: {fileID: 1824040223516689201}
   - component: {fileID: 7075107367953764007}
-  - component: {fileID: 9060705385340843527}
   - component: {fileID: 5702580085199100458}
   - component: {fileID: 3750663785429763551}
+  - component: {fileID: 2433029268971782377}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -122,7 +122,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &7075107367953764007
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -169,25 +169,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &9060705385340843527
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8301520231211296908}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc1ff62e72346e741bd40359affd836d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::FollowUpEnemy
-  detectionRadious: 5
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  _Health: 0
-  _MoveSpeed: 0
-  attackSound: {fileID: 0}
 --- !u!114 &5702580085199100458
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,7 +188,7 @@ MonoBehaviour:
   NestedObjects: []
   NetworkedBehaviours:
   - {fileID: 3750663785429763551}
-  - {fileID: 9060705385340843527}
+  - {fileID: 2433029268971782377}
   ForceRemoteRenderTimeframe: 0
 --- !u!114 &3750663785429763551
 MonoBehaviour:
@@ -249,3 +230,23 @@ MonoBehaviour:
     MinImpactfulCollisionAlignment: 0.3
     ImpactStartCorrectionTime: 0.1
     ImpactCorrectionTimeComplete: 0.3
+--- !u!114 &2433029268971782377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8301520231211296908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc1ff62e72346e741bd40359affd836d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FollowUpEnemy
+  detectionRadious: 10
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 1
+  initialHealth: 10
+  moveSpeed: 5
+  attackSound: {fileID: 0}
+  _Health: 0
