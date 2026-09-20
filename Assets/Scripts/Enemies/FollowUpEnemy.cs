@@ -134,6 +134,12 @@ public class FollowUpEnemy : NetworkBehaviour
         {
             //hacemos daño al jugador
             //usamos la propiedad AttackDamage
+            Player player = collision.gameObject.GetComponent<Player>();
+
+            if (player != null)
+            {
+                player.Kill();
+            }
         }
     }
 }

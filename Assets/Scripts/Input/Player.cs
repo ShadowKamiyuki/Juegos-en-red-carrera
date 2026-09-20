@@ -14,4 +14,9 @@ public class Player : NetworkBehaviour
             transform.Translate(movement * speed * Runner.DeltaTime);
         }
     }
+
+    public void Kill()
+    {
+        Runner.Despawn(Object);
+    }
 }
