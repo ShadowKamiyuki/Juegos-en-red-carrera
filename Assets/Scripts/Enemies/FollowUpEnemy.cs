@@ -1,4 +1,5 @@
 using Fusion;
+using System;
 using UnityEngine;
 
 [RequireComponent (typeof(Rigidbody2D))]
@@ -9,10 +10,11 @@ public class FollowUpEnemy : NetworkBehaviour
     [SerializeField] private LayerMask playerLayer;
 
     [Header("Enemy settings")]
-    [Networked] public float Health { get; set; }
-    [Networked] public float MoveSpeed { get; set; }
-
+    [SerializeField] private float initialHealth = 10f;
+    [SerializeField] private float moveSpeed = 3f;
     [SerializeField] private AudioDefinition attackSound;
+
+    [Networked] public float Health { get; set; }
 
     private Rigidbody2D rb;
     private NetworkObject target;
@@ -28,6 +30,14 @@ public class FollowUpEnemy : NetworkBehaviour
         audioService = ServiceLocator.Get<IAudioService>();
     }
 
+    public override void Spawned()
+    {
+        if (!Object.HasStateAuthority)
+            return;
+
+        Health = initialHealth;
+    }
+
     public override void FixedUpdateNetwork()
     {
         if (!Object.HasStateAuthority)
@@ -37,7 +47,7 @@ public class FollowUpEnemy : NetworkBehaviour
         FollowPlayer();
     }
 
-    private Vector2 GetClosestPlayer()
+    private void GetClosestPlayer()
     {
         // necesitamos una estrategia para buscar al jugador correcto
         Collider2D[] players = Physics2D.OverlapCircleAll(transform.position, detectionRadious, playerLayer);
@@ -62,8 +72,6 @@ public class FollowUpEnemy : NetworkBehaviour
                 target = networkObject;
             }
         }
-
-        return default;
     }
 
     private void FollowPlayer()
@@ -77,7 +85,7 @@ public class FollowUpEnemy : NetworkBehaviour
         // using Steearing behaviour seek
         Vector2 direction = ((Vector2)target.transform.position - rb.position).normalized;
 
-        rb.linearVelocity = direction * MoveSpeed;
+        rb.linearVelocity = direction * moveSpeed;
     }
 
     public void TakeDamage(int amount)
@@ -87,7 +95,24 @@ public class FollowUpEnemy : NetworkBehaviour
 
         Health -= amount;
 
-        audioService.PlaySFX(attackSound);
+        if (audioService != null && attackSound != null)
+        {
+            audioService.PlaySFX(attackSound);
+        }
+
+        if (Health <= 0)
+        {
+            Die();
+        }
+    }
+
+    private void Die()
+    {
+        rb.linearVelocity = Vector2.zero;
+
+        // Acá puedes agregar animación, drops, etc.
+
+        Runner.Despawn(Object);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -99,6 +124,7 @@ public class FollowUpEnemy : NetworkBehaviour
         if (collision.gameObject.CompareTag("bala"))
         {
             TakeDamage(5);
+            return;
         }
         if(collision.gameObject.CompareTag("Player"))
         {
