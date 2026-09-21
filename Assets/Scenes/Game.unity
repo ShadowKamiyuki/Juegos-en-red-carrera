@@ -191,6 +191,11 @@ MonoBehaviour:
   networkMenu: {fileID: 20930181}
   selectLevels: {fileID: 131032817}
   selectTeams: {fileID: 218380164}
+  runner: {fileID: 1377512006}
+  levelButtons:
+  - {fileID: 679606873}
+  - {fileID: 1824626989}
+  - {fileID: 653473719}
 --- !u!1 &75343325
 GameObject:
   m_ObjectHideFlags: 0

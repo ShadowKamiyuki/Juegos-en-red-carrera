@@ -1,7 +1,7 @@
 using Fusion;
 using TMPro;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class NetworkMenu : MonoBehaviour
 {
     [SerializeField] private NetworkManager networkManager;
@@ -11,6 +11,9 @@ public class NetworkMenu : MonoBehaviour
     [SerializeField] private CanvasGroup selectLevels;
     [SerializeField] private CanvasGroup selectTeams;
     [SerializeField] private NetworkRunner runner;
+
+    [Header("Botones de niveles")]
+    [SerializeField] private Button[] levelButtons;
 
     private void OnEnable()
     {
@@ -81,30 +84,46 @@ public class NetworkMenu : MonoBehaviour
 
     public void ShowLevelSelector()
     {
-        // Ocultamos selección de equipos
+        // =========================================
+        // OCULTAR EQUIPOS
+        // =========================================
+
         selectTeams.alpha = 0;
         selectTeams.interactable = false;
         selectTeams.blocksRaycasts = false;
 
 
-        // Mostramos selección de niveles
+        // =========================================
+        // MOSTRAR NIVELES
+        // =========================================
+
         selectLevels.alpha = 1;
+        selectLevels.interactable = true;
+        selectLevels.blocksRaycasts = true;
 
-        if (runner != null && runner.IsSceneAuthority)
+
+        // =========================================
+        // HOST O CLIENTE
+        // =========================================
+
+        bool isHost = runner != null && runner.IsServer;
+
+        foreach (Button button in levelButtons)
         {
-            // HOST
-            selectLevels.interactable = true;
-            selectLevels.blocksRaycasts = true;
+            if (button == null)
+                continue;
 
-            Debug.Log("Host: puede seleccionar nivel.");
+            button.interactable = isHost;
+        }
+
+
+        if (isHost)
+        {
+            Debug.Log("SOY HOST -> puedo elegir nivel");
         }
         else
         {
-            // CLIENTE
-            selectLevels.interactable = false;
-            selectLevels.blocksRaycasts = false;
-
-            Debug.Log("Cliente: no puede seleccionar nivel.");
+            Debug.Log("SOY CLIENTE -> niveles bloqueados");
         }
     }
 
