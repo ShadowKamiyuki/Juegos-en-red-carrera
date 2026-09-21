@@ -24,6 +24,9 @@ public class TeamManager : NetworkBehaviour
     public override void Spawned()
     {
         IsNetworkReady = true;
+
+        Runner.MakeDontDestroyOnLoad(gameObject);
+
         Debug.Log("TEAM MANAGER SPAWNED CORRECTAMENTE");
     }
 
@@ -42,9 +45,7 @@ public class TeamManager : NetworkBehaviour
     {
         if (Runner == null)
         {
-            Debug.LogWarning(
-                "TeamManager todavía no está conectado a Fusion."
-            );
+            Debug.LogWarning("TeamManager todavía no está conectado a Fusion.");
 
             return;
         }
@@ -57,9 +58,7 @@ public class TeamManager : NetworkBehaviour
 
         if (IsTeamFull(team))
         {
-            Debug.Log(
-                "El Equipo " + team + " está lleno."
-            );
+            Debug.Log("El Equipo " + team + " está lleno.");
 
             return;
         }
@@ -71,14 +70,8 @@ public class TeamManager : NetworkBehaviour
     [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
     private void RequestTeamRpc(int team, PlayerRef player)
     {
-        Debug.Log(
-            "RECIBÍ SOLICITUD DE EQUIPO " +
-            team +
-            " DEL JUGADOR " +
-            player
-        );
+        Debug.Log("RECIBÍ SOLICITUD DE EQUIPO " + team + " DEL JUGADOR " + player);
 
-        // Comprobar ANTES de quitarlo de su equipo actual
         if (IsTeamFull(team))
         {
             Debug.Log("Equipo " + team + " está lleno.");
@@ -114,6 +107,32 @@ public class TeamManager : NetworkBehaviour
             }
         }
 
+        // =========================================
+        // ASIGNAR EQUIPO AL PLAYER
+        // =========================================
+
+        NetworkObject playerObject = Runner.GetPlayerObject(player);
+
+        if (playerObject != null)
+        {
+            Player playerComponent = playerObject.GetComponent<Player>();
+
+            if (playerComponent != null)
+            {
+                playerComponent.Team = team;
+
+                Debug.Log(player + " ahora pertenece al Equipo " + team);
+            }
+            else
+            {
+                Debug.LogWarning("No se encontró el componente Player.");
+            }
+        }
+        else
+        {
+            Debug.LogWarning("No se encontró NetworkObject para " + player);
+        }
+
         CheckIfTeamsAreFull();
     }
 
@@ -130,22 +149,13 @@ public class TeamManager : NetworkBehaviour
         if (!Runner.IsServer)
             return;
 
-        Debug.Log(
-            "Jugador " + player +
-            " se desconectó."
-        );
+        Debug.Log("Jugador " + player + " se desconectó.");
 
-        // Liberamos su lugar
         RemovePlayer(player);
 
-        // Volvemos a comprobar si los equipos
-        // siguen completos
         CheckIfTeamsAreFull();
 
-        Debug.Log(
-            "Se liberó el lugar del jugador " +
-            player
-        );
+        Debug.Log("Se liberó el lugar del jugador " + player);
     }
 
 
@@ -198,6 +208,7 @@ public class TeamManager : NetworkBehaviour
         return cantidad;
     }
 
+
     public int GetTeam2Count()
     {
         int cantidad = 0;
@@ -212,7 +223,6 @@ public class TeamManager : NetworkBehaviour
             cantidad++;
         }
 
-
         return cantidad;
     }
 
@@ -220,10 +230,13 @@ public class TeamManager : NetworkBehaviour
     // =========================================
     // EQUIPOS LLENOS
     // =========================================
+
     public bool AreAllTeamsFull()
     {
         return AllTeamsFull;
     }
+
+
     private void CheckIfTeamsAreFull()
     {
         if (Runner == null)
@@ -249,31 +262,20 @@ public class TeamManager : NetworkBehaviour
             Debug.Log("¡LOS DOS EQUIPOS ESTÁN COMPLETOS!");
             Debug.Log("=================================");
 
-            Debug.Log(
-                "Jugador " + Team1Slot1 +
-                " eligió EQUIPO 1"
-            );
+            Debug.Log("Jugador " + Team1Slot1 + " eligió EQUIPO 1");
 
-            Debug.Log(
-                "Jugador " + Team1Slot2 +
-                " eligió EQUIPO 1"
-            );
+            Debug.Log("Jugador " + Team1Slot2 + " eligió EQUIPO 1");
 
-            Debug.Log(
-                "Jugador " + Team2Slot1 +
-                " eligió EQUIPO 2"
-            );
+            Debug.Log("Jugador " + Team2Slot1 + " eligió EQUIPO 2");
 
-            Debug.Log(
-                "Jugador " + Team2Slot2 +
-                " eligió EQUIPO 2"
-            );
+            Debug.Log("Jugador " + Team2Slot2 + " eligió EQUIPO 2");
         }
         else
         {
             Debug.Log("Todavía hay lugares disponibles.");
         }
     }
+
 
     public bool IsTeamFull(int team)
     {
@@ -295,5 +297,36 @@ public class TeamManager : NetworkBehaviour
         }
 
         return true;
+    }
+
+    public int GetPlayerTeam(PlayerRef player)
+    {
+        if (Team1Slot1 == player || Team1Slot2 == player)
+        {
+            return 1;
+        }
+
+        if (Team2Slot1 == player || Team2Slot2 == player)
+        {
+            return 2;
+        }
+
+        return 0;
+    }
+
+    public void ResetTeams()
+    {
+        if (!Object.HasStateAuthority)
+            return;
+
+        Team1Slot1 = PlayerRef.None;
+        Team1Slot2 = PlayerRef.None;
+
+        Team2Slot1 = PlayerRef.None;
+        Team2Slot2 = PlayerRef.None;
+
+        AllTeamsFull = false;
+
+        Debug.Log("Equipos reiniciados.");
     }
 }

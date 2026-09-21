@@ -108,7 +108,11 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
     {
         if (runner.IsServer)
         {
-            runner.Spawn(playerPrefab, Vector3.zero, Quaternion.identity, player);
+            NetworkObject playerObject = runner.Spawn(playerPrefab, Vector3.zero, Quaternion.identity, player);
+
+            runner.SetPlayerObject(player, playerObject);
+
+            Debug.Log("Player " + player + " spawneado y asignado correctamente.");
         }
     }
 
@@ -239,34 +243,87 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
             return;
         }
 
+        TeamManager teamManager =
+            FindFirstObjectByType<TeamManager>();
+
+        if (teamManager == null)
+        {
+            Debug.LogError(
+                "No se encontró TeamManager al cargar el nivel."
+            );
+
+            return;
+        }
+
         int spawnIndex = 0;
 
         foreach (PlayerRef player in runner.ActivePlayers)
         {
-            NetworkObject existingPlayerObject =
+            NetworkObject playerObject =
                 runner.GetPlayerObject(player);
 
-            if (existingPlayerObject != null)
-                continue;
 
-            Transform spawnPoint =
+            // =========================================
+            // CREAR PLAYER SI NO EXISTE
+            // =========================================
+
+            if (playerObject == null)
+            {
+                Transform spawnPoint =
+                    spawnObjects[spawnIndex].transform;
+
+                playerObject = runner.Spawn(
+                    playerPrefab,
+                    spawnPoint.position,
+                    spawnPoint.rotation,
+                    player
+                );
+
+                runner.SetPlayerObject(
+                    player,
+                    playerObject
+                );
+
+                Debug.Log("Player " + player + " creado en SpawnPoint " + spawnIndex);
+            }
+            else
+            {
+                Debug.Log("Player " + player + " ya existe.");
+            }
+
+
+            // =========================================
+            // COLOCAR PLAYER EN SU SPAWN POINT
+            // =========================================
+
+            Transform currentSpawnPoint =
                 spawnObjects[spawnIndex].transform;
 
-            NetworkObject playerObject = runner.Spawn(
-                playerPrefab,
-                spawnPoint.position,
-                spawnPoint.rotation,
-                player
+            playerObject.transform.SetPositionAndRotation(
+                currentSpawnPoint.position,
+                currentSpawnPoint.rotation
             );
 
-            // MUY IMPORTANTE
-            runner.SetPlayerObject(player, playerObject);
 
-            Debug.Log(
-                "Player " + player +
-                " spawneado en SpawnPoint " + spawnIndex +
-                " -> NetworkObject: " + playerObject.name
-            );
+            // =========================================
+            // RECUPERAR EQUIPO
+            // =========================================
+
+            int team = teamManager.GetPlayerTeam(player);
+
+            Player playerComponent = playerObject.GetComponent<Player>();
+
+            if (playerComponent != null)
+            {
+                playerComponent.Team = team;
+
+                Debug.Log("Player " + player + " recuperó el Equipo " + team);
+            }
+            else
+            {
+                Debug.LogWarning("El PlayerObject de " + player + " no tiene componente Player.");
+            }
+
 
             spawnIndex++;
         }

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7658017122763676522}
   - component: {fileID: 9049258964739429185}
   m_Layer: 0
-  m_Name: Triangle
+  m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -130,6 +130,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
   speed: 5
+  spriteRenderer: {fileID: 6562206752557318273}
+  team1Color: {r: 0, g: 0, b: 1, a: 1}
+  team2Color: {r: 1, g: 0, b: 0, a: 1}
+  _Team: 0
+  _IsAlive:
+    RawValue: 0
 --- !u!114 &7658017122763676522
 MonoBehaviour:
   m_ObjectHideFlags: 0

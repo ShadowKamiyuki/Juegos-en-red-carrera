@@ -38,6 +38,12 @@ public class MainMenu : MonoBehaviour
 
     private void Start()
     {
+        if (teamManager == null)
+        {
+            teamManager =
+                FindFirstObjectByType<TeamManager>();
+        }
+
         selectedTeam = 0;
         PlayerTeam = 0;
 
@@ -87,10 +93,7 @@ public class MainMenu : MonoBehaviour
 
         if (teamManager.AreAllTeamsFull())
         {
-            Debug.Log(
-                "Los dos equipos están completos. " +
-                "Pasando a selección de niveles."
-            );
+            Debug.Log("Los dos equipos están completos. " + "Pasando a selección de niveles.");
 
             networkMenu.ShowLevelSelector();
 
@@ -218,16 +221,12 @@ public class MainMenu : MonoBehaviour
 
         if (!runner.IsServer)
         {
-            Debug.LogWarning(
-                "Solo el Host puede iniciar la partida."
-            );
+            Debug.LogWarning("Solo el Host puede iniciar la partida.");
 
             return;
         }
 
-        Debug.Log(
-            "El Host está listo para cargar la escena Game."
-        );
+        Debug.Log("El Host está listo para cargar la escena Game.");
     }
 
 }

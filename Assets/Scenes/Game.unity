@@ -585,8 +585,6 @@ GameObject:
   - component: {fileID: 218380158}
   - component: {fileID: 218380163}
   - component: {fileID: 218380162}
-  - component: {fileID: 218380160}
-  - component: {fileID: 218380161}
   - component: {fileID: 218380159}
   - component: {fileID: 218380164}
   m_Layer: 5
@@ -634,7 +632,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainMenu
   runner: {fileID: 1377512006}
-  teamManager: {fileID: 218380160}
+  teamManager: {fileID: 0}
   team1Button: {fileID: 814008393}
   team2Button: {fileID: 1927469328}
   team1Counter: {fileID: 1518007118}
@@ -643,38 +641,6 @@ MonoBehaviour:
   disabledTeamColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   sessionNameInput: {fileID: 419208041}
   networkMenu: {fileID: 20930182}
---- !u!114 &218380160
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 218380157}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e2d269416f03684ebdc8c2bee4d5583, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TeamManager
---- !u!114 &218380161
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 218380157}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Fusion.Runtime.dll::Fusion.NetworkObject
-  SortKey: 2862388832
-  SendPriority: 1
-  EnableInterpolation: 1
-  Flags: 262146
-  NestedObjects: []
-  NetworkedBehaviours:
-  - {fileID: 218380160}
-  ForceRemoteRenderTimeframe: 0
 --- !u!114 &218380162
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3193,6 +3159,94 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 704478721}
   m_CullTransparentMesh: 1
+--- !u!1 &728133901
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 728133905}
+  - component: {fileID: 728133904}
+  - component: {fileID: 728133903}
+  - component: {fileID: 728133902}
+  m_Layer: 0
+  m_Name: TeamManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &728133902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 728133901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee2c256710c3d90498ea11ccc09207bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MainMenu
+  runner: {fileID: 1377512006}
+  teamManager: {fileID: 728133903}
+  team1Button: {fileID: 814008393}
+  team2Button: {fileID: 1927469328}
+  team1Counter: {fileID: 1518007118}
+  team2Counter: {fileID: 1069047291}
+  normalTeamColor: {r: 1, g: 1, b: 1, a: 1}
+  disabledTeamColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  sessionNameInput: {fileID: 419208041}
+  networkMenu: {fileID: 20930182}
+--- !u!114 &728133903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 728133901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e2d269416f03684ebdc8c2bee4d5583, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TeamManager
+--- !u!114 &728133904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 728133901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Fusion.Runtime.dll::Fusion.NetworkObject
+  SortKey: 3744574375
+  SendPriority: 1
+  EnableInterpolation: 1
+  Flags: 262146
+  NestedObjects: []
+  NetworkedBehaviours:
+  - {fileID: 728133903}
+  ForceRemoteRenderTimeframe: 0
+--- !u!4 &728133905
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 728133901}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5.28344, y: -0, z: 17.50762}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &800021882
 GameObject:
   m_ObjectHideFlags: 0
@@ -3367,7 +3421,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 218380159}
+      - m_Target: {fileID: 728133902}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
         m_MethodName: SelectTeam1
         m_Mode: 1
@@ -6912,7 +6966,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 218380159}
+      - m_Target: {fileID: 728133902}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
         m_MethodName: SelectTeam2
         m_Mode: 1
@@ -8371,3 +8425,4 @@ SceneRoots:
   - {fileID: 1377512008}
   - {fileID: 866729304}
   - {fileID: 200385616}
+  - {fileID: 728133905}
