@@ -10,7 +10,7 @@ using static Unity.Collections.Unicode;
 public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
 {
     public static event Action OnConnectedToGame;
-
+    [SerializeField] private NetworkSceneManagerDefault sceneManager;
     [SerializeField] private NetworkRunner runner;
     [SerializeField] private NetworkPrefabRef playerPrefab;
     private InputSystemActions inputSystemActions;
@@ -48,7 +48,9 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
         {
             GameMode = GameMode.Host,
             SessionName = sessionName,
-            PlayerCount = 4
+            PlayerCount = 4,
+            Scene = SceneRef.FromIndex(SceneManager.GetActiveScene().buildIndex),
+            SceneManager = sceneManager
         });
 
         if (!result.Ok)
@@ -82,7 +84,9 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
         {
             GameMode = GameMode.Client,
             SessionName = sessionName,
-            PlayerCount = 4
+            PlayerCount = 4,
+            Scene = SceneRef.FromIndex(SceneManager.GetActiveScene().buildIndex),
+            SceneManager = sceneManager
         });
 
         if (!result.Ok)
@@ -186,6 +190,13 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
 
         if (!runner.IsServer)
             return;
+
+        // Si estamos en el menú, no buscamos SpawnPoints.
+        if (SceneManager.GetActiveScene().buildIndex == 0)
+        {
+            Debug.Log("Estamos en el menú. No se buscan SpawnPoints.");
+            return;
+        }
 
         GameObject[] spawnObjects =
             GameObject.FindGameObjectsWithTag("PlayerSpawn");

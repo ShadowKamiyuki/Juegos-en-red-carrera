@@ -7,8 +7,6 @@ public class MainMenu : MonoBehaviour
 {
     [Header("Network")]
     [SerializeField] private NetworkRunner runner;
-    [SerializeField] private NetworkSceneManagerDefault sceneManager;
-
     [Header("Team")]
     [SerializeField] private TeamManager teamManager;
 
@@ -16,11 +14,9 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private Button team1Button;
     [SerializeField] private Button team2Button;
 
-    [Header("Team Checks - Local Selection")]
-    [SerializeField] private GameObject team1Check1;
-    [SerializeField] private GameObject team1Check2;
-    [SerializeField] private GameObject team2Check1;
-    [SerializeField] private GameObject team2Check2;
+    [Header("Contadores")]
+    [SerializeField] private TMP_Text team1Counter;
+    [SerializeField] private TMP_Text team2Counter;
 
     [Header("Game")]
     //[SerializeField] private int gameSceneIndex = 0;
@@ -45,55 +41,82 @@ public class MainMenu : MonoBehaviour
         selectedTeam = 0;
         PlayerTeam = 0;
 
-        SetAllChecks(false);
-
         // Botones de equipo normales
         SetTeamButton(team1Button, true);
         SetTeamButton(team2Button, true);
     }
     private void UpdateTeamButtons()
+{
+    if (teamManager == null)
+        return;
+
+
+    // Todavía no estamos conectados
+    if (!teamManager.IsNetworkReady)
     {
-        if (teamManager == null)
-            return;
+        SetTeamButton(team1Button, false);
+        SetTeamButton(team2Button, false);
 
-        if (PlayerTeam != 0)
-        {
-            SetTeamButton(team1Button, false);
-            SetTeamButton(team2Button, false);
+        team1Counter.text = "0/2";
+        team2Counter.text = "0/2";
 
-            return;
-        }
-
-
-        if (!teamManager.IsNetworkReady)
-        {
-            SetTeamButton(team1Button, true);
-            SetTeamButton(team2Button, true);
-
-            return;
-        }
-
-
-        // Equipo 1
-        if (teamManager.IsTeamFull(1))
-            SetTeamButton(team1Button, false);
-        else
-            SetTeamButton(team1Button, true);
-
-        // Equipo 2
-        if (teamManager.IsTeamFull(2))
-            SetTeamButton(team2Button, false);
-        else
-            SetTeamButton(team2Button, true);
-
-        if (teamManager.AreAllTeamsFull())
-        {
-            if (runner.IsServer)
-            {
-                networkMenu.ShowLevelSelector();
-            }
-        }
+        return;
     }
+
+
+    // =========================================
+    // CONTADORES
+    // =========================================
+
+    int team1Players = teamManager.GetTeam1Count();
+    int team2Players = teamManager.GetTeam2Count();
+
+    team1Counter.text = team1Players + "/2";
+    team2Counter.text = team2Players + "/2";
+
+
+    // =========================================
+    // SI YA ELEGÍ EQUIPO
+    // =========================================
+
+    if (PlayerTeam != 0)
+    {
+        SetTeamButton(team1Button, false);
+        SetTeamButton(team2Button, false);
+
+        return;
+    }
+
+
+    // =========================================
+    // EQUIPO 1
+    // =========================================
+
+    if (teamManager.IsTeamFull(1))
+        SetTeamButton(team1Button, false);
+    else
+        SetTeamButton(team1Button, true);
+
+
+    // =========================================
+    // EQUIPO 2
+    // =========================================
+
+    if (teamManager.IsTeamFull(2))
+        SetTeamButton(team2Button, false);
+    else
+        SetTeamButton(team2Button, true);
+
+
+    // =========================================
+    // AMBOS EQUIPOS LLENOS
+    // =========================================
+
+    if (teamManager.AreAllTeamsFull())
+    {
+        networkMenu.ShowLevelSelector();
+    }
+}
     private void SetTeamButton(Button button, bool enabled)
     {
         if (button == null)
@@ -147,67 +170,24 @@ public class MainMenu : MonoBehaviour
             return;
         }
 
+        if (teamManager == null)
+        {
+            Debug.LogWarning("TeamManager no está asignado.");
+            return;
+        }
+
+        // Le pedimos al TeamManager que nos agregue al equipo
+        teamManager.SelectTeam(team);
+
         selectedTeam = team;
         PlayerTeam = team;
 
         Debug.Log("Elegiste Equipo " + team);
 
-
-        if (team == 1)
-        {
-            // Primera posición del Equipo 1
-            if (team1Check1 != null)
-                team1Check1.SetActive(true);
-
-            if (team1Check2 != null)
-                team1Check2.SetActive(false);
-
-            if (team2Check1 != null)
-                team2Check1.SetActive(false);
-
-            if (team2Check2 != null)
-                team2Check2.SetActive(false);
-        }
-        else
-        {
-            // Primera posición del Equipo 2
-            if (team2Check1 != null)
-                team2Check1.SetActive(true);
-
-            if (team2Check2 != null)
-                team2Check2.SetActive(false);
-
-            if (team1Check1 != null)
-                team1Check1.SetActive(false);
-
-            if (team1Check2 != null)
-                team1Check2.SetActive(false);
-        }
-
-
-        if (team1Button != null)
-            team1Button.interactable = false;
-
-        if (team2Button != null)
-            team2Button.interactable = false;
-
+        // Los dos botones quedan deshabilitados
+        SetTeamButton(team1Button, false);
+        SetTeamButton(team2Button, false);
     }
-
-    private void SetAllChecks(bool state)
-    {
-        if (team1Check1 != null)
-            team1Check1.SetActive(state);
-
-        if (team1Check2 != null)
-            team1Check2.SetActive(state);
-
-        if (team2Check1 != null)
-            team2Check1.SetActive(state);
-
-        if (team2Check2 != null)
-            team2Check2.SetActive(state);
-    }
-
 
     public void LoadGameScene()
     {
