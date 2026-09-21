@@ -64,49 +64,40 @@ public class TeamManager : NetworkBehaviour
             return;
         }
 
-        RequestTeamRpc(team);
+        RequestTeamRpc(team, Runner.LocalPlayer);
     }
 
 
-    [Rpc(
-        RpcSources.All,
-        RpcTargets.StateAuthority
-    )]
-    private void RequestTeamRpc(
-        int team,
-        RpcInfo info = default)
+    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
+    private void RequestTeamRpc(int team, PlayerRef player)
     {
-        PlayerRef player = info.Source;
+        Debug.Log(
+            "RECIBÍ SOLICITUD DE EQUIPO " +
+            team +
+            " DEL JUGADOR " +
+            player
+        );
 
-        // Primero lo sacamos de cualquier equipo
+        // Comprobar ANTES de quitarlo de su equipo actual
+        if (IsTeamFull(team))
+        {
+            Debug.Log("Equipo " + team + " está lleno.");
+            return;
+        }
+
         RemovePlayer(player);
-
 
         if (team == 1)
         {
             if (Team1Slot1 == PlayerRef.None)
             {
                 Team1Slot1 = player;
-
-                Debug.Log(
-                    player + " entró al Equipo 1 - Slot 1"
-                );
+                Debug.Log(player + " entró al Equipo 1 - Slot 1");
             }
             else if (Team1Slot2 == PlayerRef.None)
             {
                 Team1Slot2 = player;
-
-                Debug.Log(
-                    player + " entró al Equipo 1 - Slot 2"
-                );
-            }
-            else
-            {
-                Debug.Log(
-                    "Equipo 1 está lleno."
-                );
-
-                return;
+                Debug.Log(player + " entró al Equipo 1 - Slot 2");
             }
         }
         else
@@ -114,26 +105,12 @@ public class TeamManager : NetworkBehaviour
             if (Team2Slot1 == PlayerRef.None)
             {
                 Team2Slot1 = player;
-
-                Debug.Log(
-                    player + " entró al Equipo 2 - Slot 1"
-                );
+                Debug.Log(player + " entró al Equipo 2 - Slot 1");
             }
             else if (Team2Slot2 == PlayerRef.None)
             {
                 Team2Slot2 = player;
-
-                Debug.Log(
-                    player + " entró al Equipo 2 - Slot 2"
-                );
-            }
-            else
-            {
-                Debug.Log(
-                    "Equipo 2 está lleno."
-                );
-
-                return;
+                Debug.Log(player + " entró al Equipo 2 - Slot 2");
             }
         }
 
@@ -221,7 +198,6 @@ public class TeamManager : NetworkBehaviour
         return cantidad;
     }
 
-
     public int GetTeam2Count()
     {
         int cantidad = 0;
@@ -235,6 +211,7 @@ public class TeamManager : NetworkBehaviour
         {
             cantidad++;
         }
+
 
         return cantidad;
     }
