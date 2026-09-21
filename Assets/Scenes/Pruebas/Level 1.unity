@@ -369,6 +369,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 8301520231211296908, guid: 56c86c9df1f9dbc49b3ada7e811bc85c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8776785346388512021, guid: 56c86c9df1f9dbc49b3ada7e811bc85c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5.33
@@ -506,6 +510,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd7a56598255a774c9205233251fe4fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NetworkManager
+  sceneManager: {fileID: 0}
   runner: {fileID: 2006641789}
   playerPrefab:
     RawGuidValue: f9bf01594be044245a9d13ddb9177949

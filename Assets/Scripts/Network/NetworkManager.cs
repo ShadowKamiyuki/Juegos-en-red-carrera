@@ -114,14 +114,43 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
 
     public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
     {
+        if (!runner.IsServer)
+            return;
+
+        Debug.Log("Jugador desconectado: " + player);
+
+        // =========================================
+        // ELIMINAR PLAYER DE LOS EQUIPOS
+        // =========================================
+
         TeamManager teamManager = FindFirstObjectByType<TeamManager>();
 
-        if (teamManager != null && runner.IsServer)
+        if (teamManager != null)
         {
             teamManager.RemoveDisconnectedPlayer(player);
         }
 
-        Debug.Log("Jugador desconectado: " + player);
+
+        // =========================================
+        // DESPAWNEAR SU PERSONAJE
+        // =========================================
+
+        NetworkObject playerObject = runner.GetPlayerObject(player);
+
+        if (playerObject != null)
+        {
+            Debug.Log(
+                "Despawneando personaje de " + player
+            );
+
+            runner.Despawn(playerObject);
+        }
+        else
+        {
+            Debug.LogWarning(
+                "No se encontró PlayerObject para " + player
+            );
+        }
     }
 
     public void OnConnectedToServer(NetworkRunner runner)
@@ -214,25 +243,29 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
 
         foreach (PlayerRef player in runner.ActivePlayers)
         {
-            NetworkObject playerObject =
+            NetworkObject existingPlayerObject =
                 runner.GetPlayerObject(player);
 
-            if (playerObject != null)
+            if (existingPlayerObject != null)
                 continue;
 
             Transform spawnPoint =
                 spawnObjects[spawnIndex].transform;
 
-            runner.Spawn(
+            NetworkObject playerObject = runner.Spawn(
                 playerPrefab,
                 spawnPoint.position,
                 spawnPoint.rotation,
                 player
             );
 
+            // MUY IMPORTANTE
+            runner.SetPlayerObject(player, playerObject);
+
             Debug.Log(
                 "Player " + player +
-                " spawneado en SpawnPoint " + spawnIndex
+                " spawneado en SpawnPoint " + spawnIndex +
+                " -> NetworkObject: " + playerObject.name
             );
 
             spawnIndex++;
