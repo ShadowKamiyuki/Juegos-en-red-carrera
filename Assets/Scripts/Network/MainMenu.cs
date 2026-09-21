@@ -46,77 +46,90 @@ public class MainMenu : MonoBehaviour
         SetTeamButton(team2Button, true);
     }
     private void UpdateTeamButtons()
-{
-    if (teamManager == null)
-        return;
-
-
-    // Todavía no estamos conectados
-    if (!teamManager.IsNetworkReady)
     {
-        SetTeamButton(team1Button, false);
-        SetTeamButton(team2Button, false);
+        if (teamManager == null)
+            return;
 
-        team1Counter.text = "0/2";
-        team2Counter.text = "0/2";
 
-        return;
+        // =========================================
+        // TODAVÍA NO ESTAMOS CONECTADOS
+        // =========================================
+
+        if (!teamManager.IsNetworkReady)
+        {
+            SetTeamButton(team1Button, false);
+            SetTeamButton(team2Button, false);
+
+            team1Counter.text = "0/2";
+            team2Counter.text = "0/2";
+
+            return;
+        }
+
+
+        // =========================================
+        // CONTADORES
+        // =========================================
+
+        int team1Players = teamManager.GetTeam1Count();
+        int team2Players = teamManager.GetTeam2Count();
+
+        team1Counter.text = team1Players + "/2";
+        team2Counter.text = team2Players + "/2";
+
+
+        // =========================================
+        // AMBOS EQUIPOS LLENOS
+        // =========================================
+
+        // Esto tiene que estar ANTES de
+        // comprobar si este jugador ya eligió equipo.
+
+        if (teamManager.AreAllTeamsFull())
+        {
+            Debug.Log(
+                "Los dos equipos están completos. " +
+                "Pasando a selección de niveles."
+            );
+
+            networkMenu.ShowLevelSelector();
+
+            return;
+        }
+
+
+        // =========================================
+        // SI YA ELEGÍ EQUIPO
+        // =========================================
+
+        if (PlayerTeam != 0)
+        {
+            SetTeamButton(team1Button, false);
+            SetTeamButton(team2Button, false);
+
+            return;
+        }
+
+
+        // =========================================
+        // EQUIPO 1
+        // =========================================
+
+        if (teamManager.IsTeamFull(1))
+            SetTeamButton(team1Button, false);
+        else
+            SetTeamButton(team1Button, true);
+
+
+        // =========================================
+        // EQUIPO 2
+        // =========================================
+
+        if (teamManager.IsTeamFull(2))
+            SetTeamButton(team2Button, false);
+        else
+            SetTeamButton(team2Button, true);
     }
-
-
-    // =========================================
-    // CONTADORES
-    // =========================================
-
-    int team1Players = teamManager.GetTeam1Count();
-    int team2Players = teamManager.GetTeam2Count();
-
-    team1Counter.text = team1Players + "/2";
-    team2Counter.text = team2Players + "/2";
-
-
-    // =========================================
-    // SI YA ELEGÍ EQUIPO
-    // =========================================
-
-    if (PlayerTeam != 0)
-    {
-        SetTeamButton(team1Button, false);
-        SetTeamButton(team2Button, false);
-
-        return;
-    }
-
-
-    // =========================================
-    // EQUIPO 1
-    // =========================================
-
-    if (teamManager.IsTeamFull(1))
-        SetTeamButton(team1Button, false);
-    else
-        SetTeamButton(team1Button, true);
-
-
-    // =========================================
-    // EQUIPO 2
-    // =========================================
-
-    if (teamManager.IsTeamFull(2))
-        SetTeamButton(team2Button, false);
-    else
-        SetTeamButton(team2Button, true);
-
-
-    // =========================================
-    // AMBOS EQUIPOS LLENOS
-    // =========================================
-
-    if (teamManager.AreAllTeamsFull())
-    {
-        networkMenu.ShowLevelSelector();
-    }
-}
     private void SetTeamButton(Button button, bool enabled)
     {
         if (button == null)

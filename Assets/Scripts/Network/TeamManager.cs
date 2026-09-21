@@ -220,7 +220,10 @@ public class TeamManager : NetworkBehaviour
     // =========================================
     // EQUIPOS LLENOS
     // =========================================
-
+    public bool AreAllTeamsFull()
+    {
+        return AllTeamsFull;
+    }
     private void CheckIfTeamsAreFull()
     {
         if (Runner == null)
@@ -242,24 +245,35 @@ public class TeamManager : NetworkBehaviour
 
         if (AllTeamsFull)
         {
+            Debug.Log("=================================");
+            Debug.Log("¡LOS DOS EQUIPOS ESTÁN COMPLETOS!");
+            Debug.Log("=================================");
+
             Debug.Log(
-                "¡Los dos equipos están completos!"
+                "Jugador " + Team1Slot1 +
+                " eligió EQUIPO 1"
+            );
+
+            Debug.Log(
+                "Jugador " + Team1Slot2 +
+                " eligió EQUIPO 1"
+            );
+
+            Debug.Log(
+                "Jugador " + Team2Slot1 +
+                " eligió EQUIPO 2"
+            );
+
+            Debug.Log(
+                "Jugador " + Team2Slot2 +
+                " eligió EQUIPO 2"
             );
         }
         else
         {
-            Debug.Log(
-                "Todavía hay lugares disponibles."
-            );
+            Debug.Log("Todavía hay lugares disponibles.");
         }
     }
-
-
-    public bool AreAllTeamsFull()
-    {
-        return AllTeamsFull;
-    }
-
 
     public bool IsTeamFull(int team)
     {

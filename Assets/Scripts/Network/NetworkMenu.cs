@@ -2,7 +2,6 @@ using Fusion;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class NetworkMenu : MonoBehaviour
 {
@@ -13,17 +12,18 @@ public class NetworkMenu : MonoBehaviour
     [SerializeField] private CanvasGroup selectLevels;
     [SerializeField] private CanvasGroup selectTeams;
     [SerializeField] private NetworkRunner runner;
+
     [Header("Selector de niveles")]
     [SerializeField] private TMP_Text waitingHostText;
 
     [Header("Botones de niveles")]
     [SerializeField] private Button[] levelButtons;
 
+
     private void OnEnable()
     {
         NetworkManager.OnConnectedToGame += ConnectedToGame;
     }
-
 
     private void OnDisable()
     {
@@ -80,36 +80,33 @@ public class NetworkMenu : MonoBehaviour
 
     public void ShowTeams()
     {
+        // Mostrar equipos
         selectTeams.alpha = 1;
         selectTeams.interactable = true;
         selectTeams.blocksRaycasts = true;
+
+        // Ocultar niveles
+        selectLevels.alpha = 0;
+        selectLevels.interactable = false;
+        selectLevels.blocksRaycasts = false;
     }
 
 
     public void ShowLevelSelector()
     {
-        // =========================================
-        // OCULTAR EQUIPOS
-        // =========================================
+        Debug.Log("CAMBIANDO AL PANEL DE NIVELES");
 
+        // Ocultar equipos
         selectTeams.alpha = 0;
         selectTeams.interactable = false;
         selectTeams.blocksRaycasts = false;
 
-
-        // =========================================
-        // MOSTRAR NIVELES
-        // =========================================
-
+        // Mostrar niveles
         selectLevels.alpha = 1;
         selectLevels.interactable = true;
         selectLevels.blocksRaycasts = true;
 
-
-        // =========================================
-        // HOST O CLIENTE
-        // =========================================
-
+        // Ver si soy Host
         bool isHost = runner != null && runner.IsServer;
 
         foreach (Button button in levelButtons)
@@ -124,6 +121,7 @@ public class NetworkMenu : MonoBehaviour
         {
             waitingHostText.gameObject.SetActive(!isHost);
         }
+
         if (isHost)
         {
             Debug.Log("SOY HOST -> puedo elegir nivel");
