@@ -2,6 +2,8 @@ using Fusion;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+
 public class NetworkMenu : MonoBehaviour
 {
     [SerializeField] private NetworkManager networkManager;
@@ -11,6 +13,8 @@ public class NetworkMenu : MonoBehaviour
     [SerializeField] private CanvasGroup selectLevels;
     [SerializeField] private CanvasGroup selectTeams;
     [SerializeField] private NetworkRunner runner;
+    [Header("Selector de niveles")]
+    [SerializeField] private TMP_Text waitingHostText;
 
     [Header("Botones de niveles")]
     [SerializeField] private Button[] levelButtons;
@@ -116,7 +120,10 @@ public class NetworkMenu : MonoBehaviour
             button.interactable = isHost;
         }
 
-
+        if (waitingHostText != null)
+        {
+            waitingHostText.gameObject.SetActive(!isHost);
+        }
         if (isHost)
         {
             Debug.Log("SOY HOST -> puedo elegir nivel");
