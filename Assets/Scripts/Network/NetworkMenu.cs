@@ -1,3 +1,4 @@
+using Fusion;
 using TMPro;
 using UnityEngine;
 
@@ -9,7 +10,7 @@ public class NetworkMenu : MonoBehaviour
     [SerializeField] private CanvasGroup networkMenu;
     [SerializeField] private CanvasGroup selectLevels;
     [SerializeField] private CanvasGroup selectTeams;
-
+    [SerializeField] private NetworkRunner runner;
 
     private void OnEnable()
     {
@@ -80,13 +81,31 @@ public class NetworkMenu : MonoBehaviour
 
     public void ShowLevelSelector()
     {
+        // Ocultamos selección de equipos
         selectTeams.alpha = 0;
         selectTeams.interactable = false;
         selectTeams.blocksRaycasts = false;
 
+
+        // Mostramos selección de niveles
         selectLevels.alpha = 1;
-        selectLevels.interactable = true;
-        selectLevels.blocksRaycasts = true;
+
+        if (runner != null && runner.IsSceneAuthority)
+        {
+            // HOST
+            selectLevels.interactable = true;
+            selectLevels.blocksRaycasts = true;
+
+            Debug.Log("Host: puede seleccionar nivel.");
+        }
+        else
+        {
+            // CLIENTE
+            selectLevels.interactable = false;
+            selectLevels.blocksRaycasts = false;
+
+            Debug.Log("Cliente: no puede seleccionar nivel.");
+        }
     }
 
 
