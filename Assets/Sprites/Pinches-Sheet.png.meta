@@ -1,0 +1,1506 @@
+fileFormatVersion: 2
+guid: a2b04b9f18cdee1458fea81b8cd1cc99
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -5025542888730488629
+    second: Pinches-Sheet_0
+  - first:
+      213: 3491273046855876876
+    second: Pinches-Sheet_1
+  - first:
+      213: 2498812026610279772
+    second: Pinches-Sheet_2
+  - first:
+      213: -6792674867457804785
+    second: Pinches-Sheet_3
+  - first:
+      213: -2424002274113481140
+    second: Pinches-Sheet_4
+  - first:
+      213: 2476996237294567997
+    second: Pinches-Sheet_5
+  - first:
+      213: -3787389555160067460
+    second: Pinches-Sheet_6
+  - first:
+      213: 4280783331772221797
+    second: Pinches-Sheet_7
+  - first:
+      213: 6989801179673332148
+    second: Pinches-Sheet_8
+  - first:
+      213: -133632375067750043
+    second: Pinches-Sheet_9
+  - first:
+      213: 3633147318149432175
+    second: Pinches-Sheet_10
+  - first:
+      213: 7627825537676623236
+    second: Pinches-Sheet_11
+  - first:
+      213: 870610968507637305
+    second: Pinches-Sheet_12
+  - first:
+      213: 1406400112691925916
+    second: Pinches-Sheet_13
+  - first:
+      213: 2752639366518230409
+    second: Pinches-Sheet_14
+  - first:
+      213: -2908035032758086233
+    second: Pinches-Sheet_15
+  - first:
+      213: -1199637303255395218
+    second: Pinches-Sheet_16
+  - first:
+      213: 8405805906685763427
+    second: Pinches-Sheet_17
+  - first:
+      213: -4189359456695256811
+    second: Pinches-Sheet_18
+  - first:
+      213: -7505260512563446118
+    second: Pinches-Sheet_19
+  - first:
+      213: 3754542489354354312
+    second: Pinches-Sheet_20
+  - first:
+      213: 5577974437323530202
+    second: Pinches-Sheet_21
+  - first:
+      213: -4916649702666559948
+    second: Pinches-Sheet_22
+  - first:
+      213: 487082470965905935
+    second: Pinches-Sheet_23
+  - first:
+      213: -8967364807230211710
+    second: Pinches-Sheet_24
+  - first:
+      213: -1282435827829041388
+    second: Pinches-Sheet_25
+  - first:
+      213: 6500975418091547639
+    second: Pinches-Sheet_26
+  - first:
+      213: -1416708044736247513
+    second: Pinches-Sheet_27
+  - first:
+      213: -4259909975997090245
+    second: Pinches-Sheet_28
+  - first:
+      213: -5874146401125277057
+    second: Pinches-Sheet_29
+  - first:
+      213: 2636613018617643449
+    second: Pinches-Sheet_30
+  - first:
+      213: 5902506520729074709
+    second: Pinches-Sheet_31
+  - first:
+      213: -5537251422999167125
+    second: Pinches-Sheet_32
+  - first:
+      213: -6504991366034463728
+    second: Pinches-Sheet_33
+  - first:
+      213: -6595864990310401592
+    second: Pinches-Sheet_34
+  - first:
+      213: 6761448927091047059
+    second: Pinches-Sheet_35
+  - first:
+      213: 6742560082655138875
+    second: Pinches-Sheet_36
+  - first:
+      213: 4611296947527406628
+    second: Pinches-Sheet_37
+  - first:
+      213: -3424780000988716195
+    second: Pinches-Sheet_38
+  - first:
+      213: 6036808052617073091
+    second: Pinches-Sheet_39
+  - first:
+      213: 1964502447134370466
+    second: Pinches-Sheet_40
+  - first:
+      213: 786030054718928657
+    second: Pinches-Sheet_41
+  - first:
+      213: -8879666783667835062
+    second: Pinches-Sheet_42
+  - first:
+      213: 1091629104874608216
+    second: Pinches-Sheet_43
+  - first:
+      213: -3983189976013424279
+    second: Pinches-Sheet_44
+  - first:
+      213: -7403136629897198811
+    second: Pinches-Sheet_45
+  - first:
+      213: 2291458499239033386
+    second: Pinches-Sheet_46
+  - first:
+      213: -7355777304224856723
+    second: Pinches-Sheet_47
+  - first:
+      213: -8299202101801794290
+    second: Pinches-Sheet_48
+  - first:
+      213: -6339046194189810205
+    second: Pinches-Sheet_49
+  - first:
+      213: -3039501578249299486
+    second: Pinches-Sheet_50
+  - first:
+      213: 775750715335351830
+    second: Pinches-Sheet_51
+  - first:
+      213: -2866035335968738019
+    second: Pinches-Sheet_52
+  - first:
+      213: -7321768409771783922
+    second: Pinches-Sheet_53
+  - first:
+      213: -8718892608813419756
+    second: Pinches-Sheet_54
+  - first:
+      213: 4732136476018004306
+    second: Pinches-Sheet_55
+  - first:
+      213: -1782700318566504767
+    second: Pinches-Sheet_56
+  - first:
+      213: -8068180630313595112
+    second: Pinches-Sheet_57
+  - first:
+      213: -7161667233566490221
+    second: Pinches-Sheet_58
+  - first:
+      213: 5649051733187642712
+    second: Pinches-Sheet_59
+  - first:
+      213: -9048847435846936147
+    second: Pinches-Sheet_60
+  - first:
+      213: -943030281504895959
+    second: Pinches-Sheet_61
+  - first:
+      213: 4537776404407527484
+    second: Pinches-Sheet_62
+  - first:
+      213: 8789811650497700918
+    second: Pinches-Sheet_63
+  - first:
+      213: 994252860262578680
+    second: Pinches-Sheet_64
+  - first:
+      213: -7342793128680903871
+    second: Pinches-Sheet_65
+  - first:
+      213: 8368517967219479159
+    second: Pinches-Sheet_66
+  - first:
+      213: -7040919785140461707
+    second: Pinches-Sheet_67
+  - first:
+      213: -1355073362056063835
+    second: Pinches-Sheet_68
+  - first:
+      213: 1182214607689166714
+    second: Pinches-Sheet_69
+  - first:
+      213: -4059512480638250674
+    second: Pinches-Sheet_70
+  - first:
+      213: -9094345067219371960
+    second: Pinches-Sheet_71
+  - first:
+      213: 8976511070611944133
+    second: Pinches-Sheet_72
+  - first:
+      213: -3447842558920215754
+    second: Pinches-Sheet_73
+  - first:
+      213: 315081192242518732
+    second: Pinches-Sheet_74
+  - first:
+      213: -2514568651444447832
+    second: Pinches-Sheet_75
+  - first:
+      213: -5052892931758025355
+    second: Pinches-Sheet_76
+  - first:
+      213: 5407947983392174462
+    second: Pinches-Sheet_77
+  - first:
+      213: -9218727759865200937
+    second: Pinches-Sheet_78
+  - first:
+      213: -6420407307262330967
+    second: Pinches-Sheet_79
+  - first:
+      213: -1677961732743950282
+    second: Pinches-Sheet_80
+  - first:
+      213: -1677174420064393483
+    second: Pinches-Sheet_81
+  - first:
+      213: 1981712631338830189
+    second: Pinches-Sheet_82
+  - first:
+      213: -7789937057722751500
+    second: Pinches-Sheet_83
+  - first:
+      213: 6397830146633914158
+    second: Pinches-Sheet_84
+  - first:
+      213: -2485495341787884739
+    second: Pinches-Sheet_85
+  - first:
+      213: 6170602838831641534
+    second: Pinches-Sheet_86
+  - first:
+      213: 4801711176539418208
+    second: Pinches-Sheet_87
+  - first:
+      213: -2752609869141182077
+    second: Pinches-Sheet_88
+  - first:
+      213: 346953157295431307
+    second: Pinches-Sheet_89
+  - first:
+      213: 425137130799235802
+    second: Pinches-Sheet_90
+  - first:
+      213: -8564291502768621396
+    second: Pinches-Sheet_91
+  - first:
+      213: 8295717433551733775
+    second: Pinches-Sheet_92
+  - first:
+      213: 2508855746007306627
+    second: Pinches-Sheet_93
+  - first:
+      213: 2357560456188063628
+    second: Pinches-Sheet_94
+  - first:
+      213: 4969136132448875664
+    second: Pinches-Sheet_95
+  - first:
+      213: -506619826901159741
+    second: Pinches-Sheet_96
+  - first:
+      213: 1676064971795245968
+    second: Pinches-Sheet_97
+  - first:
+      213: -9124005782941839566
+    second: Pinches-Sheet_98
+  - first:
+      213: -5441744051202695006
+    second: Pinches-Sheet_99
+  - first:
+      213: 4913911460729054644
+    second: Pinches-Sheet_100
+  - first:
+      213: 3408817186121586055
+    second: Pinches-Sheet_101
+  - first:
+      213: 2337087778762211916
+    second: Pinches-Sheet_102
+  - first:
+      213: 4678295643890903028
+    second: Pinches-Sheet_103
+  - first:
+      213: 6635236114529121938
+    second: Pinches-Sheet_104
+  - first:
+      213: -7955251863486343813
+    second: Pinches-Sheet_105
+  - first:
+      213: 2664565898368524274
+    second: Pinches-Sheet_106
+  - first:
+      213: -2925491842675286483
+    second: Pinches-Sheet_107
+  - first:
+      213: 6756232247337403547
+    second: Pinches-Sheet_108
+  - first:
+      213: 920011946610094069
+    second: Pinches-Sheet_109
+  - first:
+      213: -4145826602307624544
+    second: Pinches-Sheet_110
+  - first:
+      213: 7368968300619920268
+    second: Pinches-Sheet_111
+  - first:
+      213: -1222225110699701990
+    second: Pinches-Sheet_112
+  - first:
+      213: 2120208975194182875
+    second: Pinches-Sheet_113
+  - first:
+      213: 2316903891870257405
+    second: Pinches-Sheet_114
+  - first:
+      213: -2726464790683507480
+    second: Pinches-Sheet_115
+  - first:
+      213: -1346414207010050837
+    second: Pinches-Sheet_116
+  - first:
+      213: -7594450563473932089
+    second: Pinches-Sheet_117
+  - first:
+      213: 4772483243438457720
+    second: Pinches-Sheet_118
+  - first:
+      213: -1249391104815940823
+    second: Pinches-Sheet_119
+  - first:
+      213: 9128041833494822189
+    second: Pinches-Sheet_120
+  - first:
+      213: -6884484739713628479
+    second: Pinches-Sheet_121
+  - first:
+      213: 3197647362883439581
+    second: Pinches-Sheet_122
+  - first:
+      213: 7644909197344455387
+    second: Pinches-Sheet_123
+  - first:
+      213: 2109942550565092117
+    second: Pinches-Sheet_124
+  - first:
+      213: 149050421298479856
+    second: Pinches-Sheet_125
+  - first:
+      213: -1714881572276223187
+    second: Pinches-Sheet_126
+  - first:
+      213: 8303427606486867787
+    second: Pinches-Sheet_127
+  - first:
+      213: 5259224009165056745
+    second: Pinches-Sheet_128
+  - first:
+      213: -1929778875307532948
+    second: Pinches-Sheet_129
+  - first:
+      213: -6446425356642013940
+    second: Pinches-Sheet_130
+  - first:
+      213: 723347577343850744
+    second: Pinches-Sheet_131
+  - first:
+      213: 5736939011854060010
+    second: Pinches-Sheet_132
+  - first:
+      213: 734529023428467178
+    second: Pinches-Sheet_133
+  - first:
+      213: 8798767871923956999
+    second: Pinches-Sheet_134
+  - first:
+      213: -2812583734469473790
+    second: Pinches-Sheet_135
+  - first:
+      213: -6297430431572091064
+    second: Pinches-Sheet_136
+  - first:
+      213: -8855988982587262615
+    second: Pinches-Sheet_137
+  - first:
+      213: 1107014753022835361
+    second: Pinches-Sheet_138
+  - first:
+      213: -8089181843637575762
+    second: Pinches-Sheet_139
+  - first:
+      213: -2945174432665869997
+    second: Pinches-Sheet_140
+  - first:
+      213: 1322201720886809807
+    second: Pinches-Sheet_141
+  - first:
+      213: -1543674790921221976
+    second: Pinches-Sheet_142
+  - first:
+      213: -7846692558758840941
+    second: Pinches-Sheet_143
+  - first:
+      213: -6486434546870806940
+    second: Pinches-Sheet_144
+  - first:
+      213: 8599376389449272357
+    second: Pinches-Sheet_145
+  - first:
+      213: 1490923509748653968
+    second: Pinches-Sheet_146
+  - first:
+      213: -2636549449053275183
+    second: Pinches-Sheet_147
+  - first:
+      213: 8934743328330646949
+    second: Pinches-Sheet_148
+  - first:
+      213: -674405312378261481
+    second: Pinches-Sheet_149
+  - first:
+      213: 2104051565947276668
+    second: Pinches-Sheet_150
+  - first:
+      213: 5018927984724674366
+    second: Pinches-Sheet_151
+  - first:
+      213: 2678585938201853371
+    second: Pinches-Sheet_152
+  - first:
+      213: 5045616510873911189
+    second: Pinches-Sheet_153
+  - first:
+      213: 2483125925691717047
+    second: Pinches-Sheet_154
+  - first:
+      213: -1648892886600920681
+    second: Pinches-Sheet_155
+  - first:
+      213: 4005951888332915402
+    second: Pinches-Sheet_156
+  - first:
+      213: -1044210959232152086
+    second: Pinches-Sheet_157
+  - first:
+      213: 5835508371013469564
+    second: Pinches-Sheet_158
+  - first:
+      213: 691844684914683045
+    second: Pinches-Sheet_159
+  - first:
+      213: -845472533943251550
+    second: Pinches-Sheet_160
+  - first:
+      213: 3608971328850475585
+    second: Pinches-Sheet_161
+  - first:
+      213: 5616268940164259217
+    second: Pinches-Sheet_162
+  - first:
+      213: 3754500698107423911
+    second: Pinches-Sheet_163
+  - first:
+      213: 4969043939097861125
+    second: Pinches-Sheet_164
+  - first:
+      213: -4029449545492706146
+    second: Pinches-Sheet_165
+  - first:
+      213: -2196913894683032160
+    second: Pinches-Sheet_166
+  - first:
+      213: -6057469823957808521
+    second: Pinches-Sheet_167
+  - first:
+      213: -1833703037125102199
+    second: Pinches-Sheet_168
+  - first:
+      213: -1197479815293908004
+    second: Pinches-Sheet_169
+  - first:
+      213: 3184143608633488493
+    second: Pinches-Sheet_170
+  - first:
+      213: 4881991551181018542
+    second: Pinches-Sheet_171
+  - first:
+      213: 5681897692556011843
+    second: Pinches-Sheet_172
+  - first:
+      213: 6900941981872380878
+    second: Pinches-Sheet_173
+  - first:
+      213: -2924166278002098287
+    second: Pinches-Sheet_174
+  - first:
+      213: -9190161344065538343
+    second: Pinches-Sheet_175
+  - first:
+      213: 2405682372172349182
+    second: Pinches-Sheet_176
+  - first:
+      213: 5100056080801028893
+    second: Pinches-Sheet_177
+  - first:
+      213: 2716062555828985426
+    second: Pinches-Sheet_178
+  - first:
+      213: 1276911373151230084
+    second: Pinches-Sheet_179
+  - first:
+      213: 1652301830861035855
+    second: Pinches-Sheet_180
+  - first:
+      213: 6637041797789220739
+    second: Pinches-Sheet_181
+  - first:
+      213: 2552938279068858445
+    second: Pinches-Sheet_182
+  - first:
+      213: 1755838227148525353
+    second: Pinches-Sheet_183
+  - first:
+      213: 2064527781722236821
+    second: Pinches-Sheet_184
+  - first:
+      213: 979257510128886927
+    second: Pinches-Sheet_185
+  - first:
+      213: -3300146465163239640
+    second: Pinches-Sheet_186
+  - first:
+      213: 5212455086969611740
+    second: Pinches-Sheet_187
+  - first:
+      213: 4686513419604948306
+    second: Pinches-Sheet_188
+  - first:
+      213: 1209176954083181154
+    second: Pinches-Sheet_189
+  - first:
+      213: -8811188605787876415
+    second: Pinches-Sheet_190
+  - first:
+      213: -468427814693543091
+    second: Pinches-Sheet_191
+  - first:
+      213: -6808434857977454743
+    second: Pinches-Sheet_192
+  - first:
+      213: -3195944282608662013
+    second: Pinches-Sheet_193
+  - first:
+      213: 7185165943111027941
+    second: Pinches-Sheet_194
+  - first:
+      213: -8541179402760195872
+    second: Pinches-Sheet_195
+  - first:
+      213: -7247084737604862849
+    second: Pinches-Sheet_196
+  - first:
+      213: -1019222889999712622
+    second: Pinches-Sheet_197
+  - first:
+      213: -3290829487077526759
+    second: Pinches-Sheet_198
+  - first:
+      213: 958318486091808190
+    second: Pinches-Sheet_199
+  - first:
+      213: 3772103794947044617
+    second: Pinches-Sheet_200
+  - first:
+      213: -3201130835486404678
+    second: Pinches-Sheet_201
+  - first:
+      213: 2242910206545031701
+    second: Pinches-Sheet_202
+  - first:
+      213: -2627359554428272584
+    second: Pinches-Sheet_203
+  - first:
+      213: 3436653274190087959
+    second: Pinches-Sheet_204
+  - first:
+      213: 8114510132301467480
+    second: Pinches-Sheet_205
+  - first:
+      213: -8866977126006023385
+    second: Pinches-Sheet_206
+  - first:
+      213: -7439175730694707544
+    second: Pinches-Sheet_207
+  - first:
+      213: 4674380820339159104
+    second: Pinches-Sheet_208
+  - first:
+      213: 2566489894353247134
+    second: Pinches-Sheet_209
+  - first:
+      213: -1965916329126240297
+    second: Pinches-Sheet_210
+  - first:
+      213: 4715460101850471222
+    second: Pinches-Sheet_211
+  - first:
+      213: 9210576589604266444
+    second: Pinches-Sheet_212
+  - first:
+      213: -1801182103763700302
+    second: Pinches-Sheet_213
+  - first:
+      213: 2327625493774866474
+    second: Pinches-Sheet_214
+  - first:
+      213: 6206439910883972017
+    second: Pinches-Sheet_215
+  - first:
+      213: 1100171474693530100
+    second: Pinches-Sheet_216
+  - first:
+      213: 5978521149600487770
+    second: Pinches-Sheet_217
+  - first:
+      213: 24895378919655036
+    second: Pinches-Sheet_218
+  - first:
+      213: 609806328301285807
+    second: Pinches-Sheet_219
+  - first:
+      213: -8808332202601382939
+    second: Pinches-Sheet_220
+  - first:
+      213: -3652475807632083995
+    second: Pinches-Sheet_221
+  - first:
+      213: -3633608554094357509
+    second: Pinches-Sheet_222
+  - first:
+      213: -1789816446498057327
+    second: Pinches-Sheet_223
+  - first:
+      213: -2636558675410783725
+    second: Pinches-Sheet_224
+  - first:
+      213: -2568189258372178452
+    second: Pinches-Sheet_225
+  - first:
+      213: 2049351739356726374
+    second: Pinches-Sheet_226
+  - first:
+      213: 267842849397512994
+    second: Pinches-Sheet_227
+  - first:
+      213: -1387041672165372886
+    second: Pinches-Sheet_228
+  - first:
+      213: -7513986842150641697
+    second: Pinches-Sheet_229
+  - first:
+      213: -2929774952275482819
+    second: Pinches-Sheet_230
+  - first:
+      213: -3359651473424941457
+    second: Pinches-Sheet_231
+  - first:
+      213: 1346152114524515217
+    second: Pinches-Sheet_232
+  - first:
+      213: 5611139688797337741
+    second: Pinches-Sheet_233
+  - first:
+      213: -48350614827378142
+    second: Pinches-Sheet_234
+  - first:
+      213: 5852074793346199676
+    second: Pinches-Sheet_235
+  - first:
+      213: -5909764122697343949
+    second: Pinches-Sheet_236
+  - first:
+      213: -9188045731354343593
+    second: Pinches-Sheet_237
+  - first:
+      213: -6210457270488363792
+    second: Pinches-Sheet_238
+  - first:
+      213: -1295048941880169252
+    second: Pinches-Sheet_239
+  - first:
+      213: 8937000118554734662
+    second: Pinches-Sheet_240
+  - first:
+      213: 6467994000001950553
+    second: Pinches-Sheet_241
+  - first:
+      213: -1344077159589921548
+    second: Pinches-Sheet_242
+  - first:
+      213: 6755637672008968856
+    second: Pinches-Sheet_243
+  - first:
+      213: -3373542281490262294
+    second: Pinches-Sheet_244
+  - first:
+      213: -8036040896385472588
+    second: Pinches-Sheet_245
+  - first:
+      213: -3927803859845127665
+    second: Pinches-Sheet_246
+  - first:
+      213: 3413919224862186903
+    second: Pinches-Sheet_247
+  - first:
+      213: 5468582177670735698
+    second: Pinches-Sheet_248
+  - first:
+      213: -7623973839906930769
+    second: Pinches-Sheet_249
+  - first:
+      213: 2076022247435134405
+    second: Pinches-Sheet_250
+  - first:
+      213: -620306098227181649
+    second: Pinches-Sheet_251
+  - first:
+      213: 1333064256607991853
+    second: Pinches-Sheet_252
+  - first:
+      213: 7996499262463303720
+    second: Pinches-Sheet_253
+  - first:
+      213: -7020678186023956744
+    second: Pinches-Sheet_254
+  - first:
+      213: 4151568871112052064
+    second: Pinches-Sheet_255
+  - first:
+      213: -578659106622955297
+    second: Pinches-Sheet_256
+  - first:
+      213: -7587590506195565817
+    second: Pinches-Sheet_257
+  - first:
+      213: 3917911244853613629
+    second: Pinches-Sheet_258
+  - first:
+      213: 2076564502472927893
+    second: Pinches-Sheet_259
+  - first:
+      213: 962168167838307285
+    second: Pinches-Sheet_260
+  - first:
+      213: 4221031812480532238
+    second: Pinches-Sheet_261
+  - first:
+      213: -6363149177231183758
+    second: Pinches-Sheet_262
+  - first:
+      213: -6615154837115085014
+    second: Pinches-Sheet_263
+  - first:
+      213: -3045897042985740041
+    second: Pinches-Sheet_264
+  - first:
+      213: 8885717062461115603
+    second: Pinches-Sheet_265
+  - first:
+      213: 4834557376618562650
+    second: Pinches-Sheet_266
+  - first:
+      213: 2314776386304326228
+    second: Pinches-Sheet_267
+  - first:
+      213: -5278856302220988874
+    second: Pinches-Sheet_268
+  - first:
+      213: 6905664862939042613
+    second: Pinches-Sheet_269
+  - first:
+      213: 5330545955844228780
+    second: Pinches-Sheet_270
+  - first:
+      213: 4903920974731945035
+    second: Pinches-Sheet_271
+  - first:
+      213: -6484754368348901280
+    second: Pinches-Sheet_272
+  - first:
+      213: 7413760652564997788
+    second: Pinches-Sheet_273
+  - first:
+      213: -7274892840276232565
+    second: Pinches-Sheet_274
+  - first:
+      213: 2362314512227209791
+    second: Pinches-Sheet_275
+  - first:
+      213: -3927593049097200853
+    second: Pinches-Sheet_276
+  - first:
+      213: 2423064501263102297
+    second: Pinches-Sheet_277
+  - first:
+      213: 9095659869333130724
+    second: Pinches-Sheet_278
+  - first:
+      213: 6415905739389315037
+    second: Pinches-Sheet_279
+  - first:
+      213: -4085275661123018590
+    second: Pinches-Sheet_280
+  - first:
+      213: -3100233412300646761
+    second: Pinches-Sheet_281
+  - first:
+      213: 7513710834087100309
+    second: Pinches-Sheet_282
+  - first:
+      213: 2291765780387056215
+    second: Pinches-Sheet_283
+  - first:
+      213: -2237894066594374643
+    second: Pinches-Sheet_284
+  - first:
+      213: -688904280402500230
+    second: Pinches-Sheet_285
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Pinches-Sheet_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 242
+        width: 304
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc09ab18e5fa14ab0800000000000000
+      internalID: -5025542888730488629
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pinches-Sheet_1
+      rect:
+        serializedVersion: 2
+        x: 304
+        y: 242
+        width: 304
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c018dbba65e737030800000000000000
+      internalID: 3491273046855876876
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pinches-Sheet_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 220
+        width: 304
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c5564968c409da220800000000000000
+      internalID: 2498812026610279772
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pinches-Sheet_3
+      rect:
+        serializedVersion: 2
+        x: 304
+        y: 220
+        width: 304
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f06347a72329bb1a0800000000000000
+      internalID: -6792674867457804785
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pinches-Sheet_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 198
+        width: 304
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c461abc46c63c5ed0800000000000000
+      internalID: -2424002274113481140
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pinches-Sheet_5
+      rect:
+        serializedVersion: 2
+        x: 304
+        y: 198
+        width: 304
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d320ce144fe006220800000000000000
+      internalID: 2476996237294567997
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pinches-Sheet_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 176
+        width: 304
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c72d8aa144d707bc0800000000000000
+      internalID: -3787389555160067460
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pinches-Sheet_7
+      rect:
+        serializedVersion: 2
+        x: 304
+        y: 176
+        width: 304
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 56942ba72c5686b30800000000000000
+      internalID: 4280783331772221797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pinches-Sheet_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 154
+        width: 304
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4b9090da323c00160800000000000000
+      internalID: 6989801179673332148
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pinches-Sheet_9
+      rect:
+        serializedVersion: 2
+        x: 304
+        y: 154
+        width: 304
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5615899101e352ef0800000000000000
+      internalID: -133632375067750043
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pinches-Sheet_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 132
+        width: 304
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f63c5f29c388b6230800000000000000
+      internalID: 3633147318149432175
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pinches-Sheet_11
+      rect:
+        serializedVersion: 2
+        x: 304
+        y: 132
+        width: 304
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 48d3edd99ea7bd960800000000000000
+      internalID: 7627825537676623236
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pinches-Sheet_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 110
+        width: 304
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 93ed47b2018051c00800000000000000
+      internalID: 870610968507637305
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pinches-Sheet_13
+      rect:
+        serializedVersion: 2
+        x: 304
+        y: 110
+        width: 304
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c9352197379848310800000000000000
+      internalID: 1406400112691925916
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pinches-Sheet_14
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 88
+        width: 304
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 98d43147be6533620800000000000000
+      internalID: 2752639366518230409
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pinches-Sheet_15
+      rect:
+        serializedVersion: 2
+        x: 304
+        y: 88
+        width: 304
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7a5101e8b8594a7d0800000000000000
+      internalID: -2908035032758086233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pinches-Sheet_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 66
+        width: 304
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e6497288a380a5fe0800000000000000
+      internalID: -1199637303255395218
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pinches-Sheet_17
+      rect:
+        serializedVersion: 2
+        x: 304
+        y: 66
+        width: 304
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 36f92eeafeb67a470800000000000000
+      internalID: 8405805906685763427
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pinches-Sheet_18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 44
+        width: 304
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 519714335c76cd5c0800000000000000
+      internalID: -4189359456695256811
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pinches-Sheet_19
+      rect:
+        serializedVersion: 2
+        x: 304
+        y: 44
+        width: 304
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a9eb3e11455f7d790800000000000000
+      internalID: -7505260512563446118
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pinches-Sheet_20
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 22
+        width: 304
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 88eb31c6080da1430800000000000000
+      internalID: 3754542489354354312
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pinches-Sheet_21
+      rect:
+        serializedVersion: 2
+        x: 304
+        y: 22
+        width: 304
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: adfd0e68232f86d40800000000000000
+      internalID: 5577974437323530202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pinches-Sheet_22
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 304
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 43e978b152d84cbb0800000000000000
+      internalID: -4916649702666559948
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 15e9856fe31491142b0a6753e1981082
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":304.0,"y":22.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      Pinches-Sheet_0: -5025542888730488629
+      Pinches-Sheet_1: 3491273046855876876
+      Pinches-Sheet_10: 3633147318149432175
+      Pinches-Sheet_11: 7627825537676623236
+      Pinches-Sheet_12: 870610968507637305
+      Pinches-Sheet_13: 1406400112691925916
+      Pinches-Sheet_14: 2752639366518230409
+      Pinches-Sheet_15: -2908035032758086233
+      Pinches-Sheet_16: -1199637303255395218
+      Pinches-Sheet_17: 8405805906685763427
+      Pinches-Sheet_18: -4189359456695256811
+      Pinches-Sheet_19: -7505260512563446118
+      Pinches-Sheet_2: 2498812026610279772
+      Pinches-Sheet_20: 3754542489354354312
+      Pinches-Sheet_21: 5577974437323530202
+      Pinches-Sheet_22: -4916649702666559948
+      Pinches-Sheet_3: -6792674867457804785
+      Pinches-Sheet_4: -2424002274113481140
+      Pinches-Sheet_5: 2476996237294567997
+      Pinches-Sheet_6: -3787389555160067460
+      Pinches-Sheet_7: 4280783331772221797
+      Pinches-Sheet_8: 6989801179673332148
+      Pinches-Sheet_9: -133632375067750043
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
