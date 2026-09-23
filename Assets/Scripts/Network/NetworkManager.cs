@@ -10,6 +10,7 @@ using static Unity.Collections.Unicode;
 public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
 {
     public static event Action OnConnectedToGame;
+    public static event Action OnConnectionFailed;
     [SerializeField] private NetworkSceneManagerDefault sceneManager;
     [SerializeField] private NetworkRunner runner;
     [SerializeField] private NetworkPrefabRef playerPrefab;
@@ -60,6 +61,8 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
                 result.ShutdownReason
             );
 
+            OnConnectionFailed?.Invoke();
+
             return;
         }
 
@@ -73,6 +76,7 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
         if (runner == null)
         {
             Debug.LogError("NetworkRunner no está inicializado.");
+            OnConnectionFailed?.Invoke();
             return;
         }
 
@@ -95,6 +99,8 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
                 "Error conectando al servidor: " +
                 result.ShutdownReason
             );
+
+            OnConnectionFailed?.Invoke();
 
             return;
         }

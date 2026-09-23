@@ -18,16 +18,19 @@ public class NetworkMenu : MonoBehaviour
 
     [Header("Botones de niveles")]
     [SerializeField] private Button[] levelButtons;
-
+    [Header("Error de conexión")]
+    [SerializeField] private CanvasGroup connectionError;
 
     private void OnEnable()
     {
         NetworkManager.OnConnectedToGame += ConnectedToGame;
+        NetworkManager.OnConnectionFailed += ConnectionFailed;
     }
 
     private void OnDisable()
     {
         NetworkManager.OnConnectedToGame -= ConnectedToGame;
+        NetworkManager.OnConnectionFailed -= ConnectionFailed;
     }
 
 
@@ -60,8 +63,26 @@ public class NetworkMenu : MonoBehaviour
 
         networkManager.StartGameClient(input.text);
     }
+    private void ConnectionFailed()
+    {
+        Debug.Log("No se pudo conectar a la partida.");
 
+        Show();
 
+        connectionError.alpha = 1;
+        connectionError.interactable = true;
+        connectionError.blocksRaycasts = true;
+    }
+    public void CloseConnectionError()
+    {
+        connectionError.alpha = 0;
+        connectionError.interactable = false;
+        connectionError.blocksRaycasts = false;
+
+        Show();
+        input.text = "";
+        input.Select();
+    }
     public void Hide()
     {
         networkMenu.alpha = 0;
