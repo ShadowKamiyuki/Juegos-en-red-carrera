@@ -21,15 +21,21 @@ public class Player : NetworkBehaviour
 
     public override void Spawned()
     {
+        if (Object.HasInputAuthority)
+        {
+            indicator.SetActive(true);
+        }
+        else
+        {
+            indicator.SetActive(false);
+        }
+
         if (Object.HasStateAuthority)
         {
             IsAlive = true;
         }
 
         UpdateColor();
-
-        GameObject child = Instantiate(indicator, transform.parent.position, Quaternion.identity);
-        child.transform.localPosition = new Vector3(0, 1, 0);
     }
 
     public override void FixedUpdateNetwork()
