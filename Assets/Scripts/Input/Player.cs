@@ -11,6 +11,8 @@ public class Player : NetworkBehaviour
     [SerializeField] private Color team1Color = Color.blue;
     [SerializeField] private Color team2Color = Color.red;
 
+    [SerializeField] private GameObject indicator;
+
     [Networked] public int Team { get; set; }
     [Networked] public NetworkBool IsAlive { get; set; }
 
@@ -25,6 +27,9 @@ public class Player : NetworkBehaviour
         }
 
         UpdateColor();
+
+        GameObject child = Instantiate(indicator, transform.parent.position, Quaternion.identity);
+        child.transform.localPosition = new Vector3(0, 1, 0);
     }
 
     public override void FixedUpdateNetwork()

@@ -133,6 +133,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 6562206752557318273}
   team1Color: {r: 0.3915094, g: 0.3915094, b: 1, a: 1}
   team2Color: {r: 1, g: 0.4481132, b: 0.4481132, a: 1}
+  indicator: {fileID: 3241737267818884658, guid: 643c5c653a7a7a94d926616251b4cbdf, type: 3}
   _Team: 0
   _IsAlive:
     RawValue: 0
