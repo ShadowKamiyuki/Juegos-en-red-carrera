@@ -158,15 +158,15 @@ public class GameManager : NetworkBehaviour
         {
             if (WinningTeam == 1)
             {
-                resultText.text = "¡GANA EL EQUIPO 1!";
+                resultText.text = "¡BLUE TEAM WON!";
             }
             else if (WinningTeam == 2)
             {
-                resultText.text = "¡GANA EL EQUIPO 2!";
+                resultText.text = "¡RED TEAM WON!";
             }
             else if (WinningTeam == 3)
             {
-                resultText.text = "¡EMPATE!";
+                resultText.text = "¡DRAW!";
             }
         }
     }

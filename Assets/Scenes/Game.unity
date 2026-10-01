@@ -198,7 +198,6 @@ MonoBehaviour:
   - {fileID: 1824626989}
   - {fileID: 653473719}
   connectionError: {fileID: 2114793954}
-  menuSound: {fileID: 0}
 --- !u!1 &33049590
 GameObject:
   m_ObjectHideFlags: 0
@@ -777,7 +776,6 @@ MonoBehaviour:
   disabledTeamColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   sessionNameInput: {fileID: 419208041}
   networkMenu: {fileID: 20930182}
-  buttonSound: {fileID: 0}
 --- !u!114 &218380162
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2369,7 +2367,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Team 2
+  m_text: Team Red
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 94473ec3a9b347942922c0d5de0d62df, type: 2}
   m_sharedMaterial: {fileID: 5361305874736950840, guid: 94473ec3a9b347942922c0d5de0d62df, type: 2}
@@ -3335,7 +3333,6 @@ MonoBehaviour:
   disabledTeamColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   sessionNameInput: {fileID: 419208041}
   networkMenu: {fileID: 20930182}
-  buttonSound: {fileID: 0}
 --- !u!114 &728133903
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4904,10 +4901,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  buttonSound: {fileID: 0}
-  errorCreateServ: {fileID: 0}
-  playerLeft: {fileID: 0}
-  playerSpawn: {fileID: 0}
 --- !u!4 &1377512008
 Transform:
   m_ObjectHideFlags: 0
@@ -7966,7 +7959,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Team 1
+  m_text: Team Blue
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 94473ec3a9b347942922c0d5de0d62df, type: 2}
   m_sharedMaterial: {fileID: 5361305874736950840, guid: 94473ec3a9b347942922c0d5de0d62df, type: 2}
