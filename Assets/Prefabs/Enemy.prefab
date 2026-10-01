@@ -248,5 +248,8 @@ MonoBehaviour:
     m_Bits: 1
   initialHealth: 10
   moveSpeed: 3
-  attackSound: {fileID: 0}
+  attackSound: {fileID: 11400000, guid: d24beccffffd8cb4d95e5c003c9bae5f, type: 2}
+  enemySpawn: {fileID: 0}
+  enemyDie: {fileID: 0}
+  playerKill: {fileID: 0}
   _Health: 0

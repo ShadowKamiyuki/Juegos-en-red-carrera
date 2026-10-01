@@ -6115,8 +6115,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c54b7dd947d894246b28aa3cf9a82652, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioManager
-  musicSource: {fileID: 0}
-  sfxPool: {fileID: 0}
+  musicSource: {fileID: 454658888}
+  sfxPool: {fileID: 1964848546}
 --- !u!114 &1736609674
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6129,7 +6129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 111072df8e74ae949abb383c9abde56d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioSettings
-  audioMixer: {fileID: 0}
+  audioMixer: {fileID: 24100000, guid: bf6ca22e2c083c840be57a476f59d8c5, type: 2}
 --- !u!1 &1736822151
 GameObject:
   m_ObjectHideFlags: 0
@@ -7603,7 +7603,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6afcf5e34fb7474188f1273d0a8b7bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioSourcePool
-  prefab: {fileID: 0}
+  prefab: {fileID: 8364075429192999152, guid: 290baf2bb1010d44cab70511afe63a91, type: 3}
   defaultCapacity: 10
   maxSize: 30
 --- !u!4 &1964848547

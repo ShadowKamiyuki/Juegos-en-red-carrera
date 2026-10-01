@@ -8,7 +8,11 @@ public class DownEnemy : NetworkBehaviour
 
     [Header("Despawn")]
     [SerializeField] private float lifeTime = 10f;
+    [Header("Enemy Sounds")]
+    [SerializeField] private AudioDefinition enemy2Spawn;
+    [SerializeField] private AudioDefinition playerKill;
 
+    private IAudioService audioService;
     private Rigidbody2D rb;
     private float lifeTimer;
 
@@ -16,10 +20,19 @@ public class DownEnemy : NetworkBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
     }
+    private void Start()
+    {
+        audioService = ServiceLocator.Get<IAudioService>();
+    }
 
     public override void Spawned()
     {
         lifeTimer = lifeTime;
+
+        if (audioService != null && enemy2Spawn != null)
+        {
+            audioService.PlaySFX(enemy2Spawn);
+        }
     }
 
     public override void FixedUpdateNetwork()
@@ -48,6 +61,10 @@ public class DownEnemy : NetworkBehaviour
             return;
 
         Player player = collision.gameObject.GetComponent<Player>();
+        if (audioService != null && playerKill != null)
+        {
+            audioService.PlaySFX(playerKill);
+        }
 
         if (player != null)
         {
