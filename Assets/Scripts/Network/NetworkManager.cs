@@ -117,9 +117,6 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
 
         Debug.Log("Jugador desconectado: " + player);
 
-        // =========================================
-        // ELIMINAR PLAYER DE LOS EQUIPOS
-        // =========================================
 
         TeamManager teamManager = FindFirstObjectByType<TeamManager>();
 
@@ -128,10 +125,6 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
             teamManager.RemoveDisconnectedPlayer(player);
         }
 
-
-        // =========================================
-        // DESPAWNEAR SU PERSONAJE
-        // =========================================
 
         NetworkObject playerObject = runner.GetPlayerObject(player);
 
@@ -249,9 +242,6 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
         {
             NetworkObject playerObject = runner.GetPlayerObject(player);
 
-            // =========================================
-            // CREAR PLAYER SI NO EXISTE
-            // =========================================
 
             if (playerObject == null)
             {
@@ -268,17 +258,11 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
                 Debug.Log("Player " + player + " ya existe.");
             }
 
-            // =========================================
-            // COLOCAR PLAYER EN SU SPAWN POINT
-            // =========================================
 
             Transform currentSpawnPoint = spawnObjects[spawnIndex].transform;
 
             playerObject.transform.SetPositionAndRotation(currentSpawnPoint.position, currentSpawnPoint.rotation);
 
-            // =========================================
-            // RECUPERAR EQUIPO
-            // =========================================
 
             int team = teamManager.GetPlayerTeam(player);
 

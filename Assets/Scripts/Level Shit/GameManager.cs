@@ -171,9 +171,6 @@ public class GameManager : NetworkBehaviour
         }
     }
 
-    // =========================================
-    // REINICIAR NIVEL
-    // =========================================
 
     public void RestartLevel()
     {
@@ -188,9 +185,6 @@ public class GameManager : NetworkBehaviour
         Runner.LoadScene(SceneRef.FromIndex(1));
     }
 
-    // =========================================
-    // VOLVER A SELECCIÓN DE EQUIPO
-    // =========================================
 
     public void ReturnToTeamSelection()
     {

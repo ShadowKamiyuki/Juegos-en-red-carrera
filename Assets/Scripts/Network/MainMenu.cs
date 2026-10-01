@@ -53,9 +53,6 @@ public class MainMenu : MonoBehaviour
         if (teamManager == null)
             return;
 
-        // =========================================
-        // TODAVÍA NO ESTAMOS CONECTADOS
-        // =========================================
 
         if (!teamManager.IsNetworkReady)
         {
@@ -68,9 +65,6 @@ public class MainMenu : MonoBehaviour
             return;
         }
 
-        // =========================================
-        // CONTADORES
-        // =========================================
 
         int team1Players = teamManager.GetTeam1Count();
         int team2Players = teamManager.GetTeam2Count();
@@ -78,9 +72,6 @@ public class MainMenu : MonoBehaviour
         team1Counter.text = team1Players + "/2";
         team2Counter.text = team2Players + "/2";
 
-        // =========================================
-        // AMBOS EQUIPOS LLENOS
-        // =========================================
 
         // Esto tiene que estar ANTES de
         // comprobar si este jugador ya eligió equipo.
@@ -92,9 +83,6 @@ public class MainMenu : MonoBehaviour
             return;
         }
 
-        // =========================================
-        // SI YA ELEGÍ EQUIPO
-        // =========================================
 
         if (PlayerTeam != 0)
         {
@@ -104,18 +92,12 @@ public class MainMenu : MonoBehaviour
             return;
         }
 
-        // =========================================
-        // EQUIPO 1
-        // =========================================
 
         if (teamManager.IsTeamFull(1))
             SetTeamButton(team1Button, false);
         else
             SetTeamButton(team1Button, true);
 
-        // =========================================
-        // EQUIPO 2
-        // =========================================
 
         if (teamManager.IsTeamFull(2))
             SetTeamButton(team2Button, false);
@@ -135,14 +117,14 @@ public class MainMenu : MonoBehaviour
         if (enabled)
         {
             colors.normalColor = normalTeamColor;
-            colors.highlightedColor = normalTeamColor;
+            //colors.highlightedColor = normalTeamColor;
             colors.pressedColor = normalTeamColor;
             colors.selectedColor = normalTeamColor;
         }
         else
         {
             colors.normalColor = disabledTeamColor;
-            colors.highlightedColor = disabledTeamColor;
+            //colors.highlightedColor = disabledTeamColor;
             colors.pressedColor = disabledTeamColor;
             colors.selectedColor = disabledTeamColor;
             colors.disabledColor = disabledTeamColor;

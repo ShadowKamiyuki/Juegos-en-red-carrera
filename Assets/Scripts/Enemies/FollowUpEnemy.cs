@@ -124,12 +124,6 @@ public class FollowUpEnemy : NetworkBehaviour
         if (!Object.HasStateAuthority)
             return;
 
-        //agregamos el componente que haga daño o hacemos la colision con otro objeto
-        //if (collision.gameObject.CompareTag("bala"))
-        //{
-        //    TakeDamage(5);
-        //    return;
-        //}
         if (collision.gameObject.CompareTag("Player"))
         {
             //hacemos daño al jugador
