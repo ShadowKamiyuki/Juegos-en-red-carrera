@@ -457,5 +457,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ball
   player: {fileID: 3217426320948373764}
-  distance: 5
+  distance: 3
   speed: 200
