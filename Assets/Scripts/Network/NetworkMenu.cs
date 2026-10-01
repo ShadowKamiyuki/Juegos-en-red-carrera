@@ -20,13 +20,7 @@ public class NetworkMenu : MonoBehaviour
     [SerializeField] private Button[] levelButtons;
     [Header("Error de conexión")]
     [SerializeField] private CanvasGroup connectionError;
-    [Header("SonidosPaneles")]
-    [SerializeField] private AudioDefinition menuSound;
-    private IAudioService audioService;
-    private void Start()
-    {
-        audioService = ServiceLocator.Get<IAudioService>();
-    }
+
     private void OnEnable()
     {
         NetworkManager.OnConnectedToGame += ConnectedToGame;
@@ -39,13 +33,11 @@ public class NetworkMenu : MonoBehaviour
         NetworkManager.OnConnectionFailed -= ConnectionFailed;
     }
 
-
     private void ConnectedToGame()
     {
         Hide();
         ShowTeams();
     }
-
 
     public void CreateGame()
     {
@@ -58,7 +50,6 @@ public class NetworkMenu : MonoBehaviour
         networkManager.StartGameHost(input.text);
     }
 
-
     public void JoinGame()
     {
         if (string.IsNullOrEmpty(input.text))
@@ -69,6 +60,7 @@ public class NetworkMenu : MonoBehaviour
 
         networkManager.StartGameClient(input.text);
     }
+
     private void ConnectionFailed()
     {
         Debug.Log("No se pudo conectar a la partida.");
@@ -79,6 +71,7 @@ public class NetworkMenu : MonoBehaviour
         connectionError.interactable = true;
         connectionError.blocksRaycasts = true;
     }
+
     public void CloseConnectionError()
     {
         connectionError.alpha = 0;
@@ -89,6 +82,7 @@ public class NetworkMenu : MonoBehaviour
         input.text = "";
         input.Select();
     }
+
     public void Hide()
     {
         networkMenu.alpha = 0;
@@ -96,18 +90,12 @@ public class NetworkMenu : MonoBehaviour
         networkMenu.blocksRaycasts = false;
     }
 
-
     public void Show()
     {
         networkMenu.alpha = 1;
         networkMenu.interactable = true;
         networkMenu.blocksRaycasts = true;
-        if (audioService != null && menuSound != null)
-        {
-            audioService.PlaySFX(menuSound);
-        }
     }
-
 
     public void ShowTeams()
     {
@@ -120,12 +108,7 @@ public class NetworkMenu : MonoBehaviour
         selectLevels.alpha = 0;
         selectLevels.interactable = false;
         selectLevels.blocksRaycasts = false;
-        if (audioService != null && menuSound != null)
-        {
-            audioService.PlaySFX(menuSound);
-        }
     }
-
 
     public void ShowLevelSelector()
     {
@@ -140,10 +123,7 @@ public class NetworkMenu : MonoBehaviour
         selectLevels.alpha = 1;
         selectLevels.interactable = true;
         selectLevels.blocksRaycasts = true;
-        if (audioService != null && menuSound != null)
-        {
-            audioService.PlaySFX(menuSound);
-        }
+
         // Ver si soy Host
         bool isHost = runner != null && runner.IsServer;
 
@@ -169,7 +149,6 @@ public class NetworkMenu : MonoBehaviour
             Debug.Log("SOY CLIENTE -> niveles bloqueados");
         }
     }
-
 
     public void QuitGame()
     {

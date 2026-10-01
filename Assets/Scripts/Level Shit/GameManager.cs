@@ -15,15 +15,9 @@ public class GameManager : NetworkBehaviour
     [SerializeField] private TMP_Text resultText;
     [SerializeField] private Button restartButton;
     [SerializeField] private Button teamSelectionButton;
-    [Header("Sounds")]
-    [SerializeField] private AudioDefinition victorySound;
-    private IAudioService audioService;
+    
     private bool ShowPanel;
 
-    private void Start()
-    {
-        audioService = ServiceLocator.Get<IAudioService>();
-    }
     public override void Spawned()
     {
         networkReady = true;
@@ -42,7 +36,6 @@ public class GameManager : NetworkBehaviour
         ShowPanel = false;
     }
 
-
     public override void FixedUpdateNetwork()
     {
         if (!Object.HasStateAuthority)
@@ -59,7 +52,6 @@ public class GameManager : NetworkBehaviour
         CheckWinner();
     }
 
-
     private void Update()
     {
         if (!networkReady)
@@ -73,7 +65,6 @@ public class GameManager : NetworkBehaviour
 
         ShowEndGamePanel();
     }
-
 
     private bool AreAllPlayersReady()
     {
@@ -98,34 +89,28 @@ public class GameManager : NetworkBehaviour
             if (player.Team == 0)
                 return false;
         }
-
         return foundPlayer;
     }
-
 
     private void CheckWinner()
     {
         bool team1Alive = false;
         bool team2Alive = false;
 
-
         foreach (PlayerRef playerRef in Runner.ActivePlayers)
         {
-            NetworkObject playerObject =
-                Runner.GetPlayerObject(playerRef);
+            NetworkObject playerObject = Runner.GetPlayerObject(playerRef);
 
             if (playerObject == null)
                 continue;
 
-            Player player =
-                playerObject.GetComponent<Player>();
+            Player player = playerObject.GetComponent<Player>();
 
             if (player == null)
                 continue;
 
             if (!player.IsAlive)
                 continue;
-
 
             if (player.Team == 1)
             {
@@ -137,16 +122,11 @@ public class GameManager : NetworkBehaviour
             }
         }
 
-
         if (!team1Alive && team2Alive)
         {
             WinningTeam = 2;
 
             Debug.Log("¡Gana el equipo 2!");
-            if (audioService != null && victorySound != null)
-            {
-                audioService.PlaySFX(victorySound);
-            }
 
         }
         else if (team1Alive && !team2Alive)
@@ -154,10 +134,6 @@ public class GameManager : NetworkBehaviour
             WinningTeam = 1;
 
             Debug.Log("¡Gana el equipo 1!");
-            if (audioService != null && victorySound != null)
-            {
-                audioService.PlaySFX(victorySound);
-            }
 
         }
         else if (!team1Alive && !team2Alive)
@@ -165,14 +141,9 @@ public class GameManager : NetworkBehaviour
             WinningTeam = 3;
 
             Debug.Log("¡Empate!");
-            if (audioService != null && victorySound != null)
-            {
-                audioService.PlaySFX(victorySound);
-            }
 
         }
     }
-
 
     private void ShowEndGamePanel()
     {
@@ -182,7 +153,6 @@ public class GameManager : NetworkBehaviour
             return;
 
         endGamePanel.SetActive(true);
-
 
         if (resultText != null)
         {
@@ -201,11 +171,14 @@ public class GameManager : NetworkBehaviour
         }
     }
 
+    // =========================================
+    // REINICIAR NIVEL
+    // =========================================
+
     public void RestartLevel()
     {
         RestartLevelRpc();
     }
-
 
     [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
     private void RestartLevelRpc()
@@ -215,12 +188,14 @@ public class GameManager : NetworkBehaviour
         Runner.LoadScene(SceneRef.FromIndex(1));
     }
 
+    // =========================================
+    // VOLVER A SELECCIÓN DE EQUIPO
+    // =========================================
 
     public void ReturnToTeamSelection()
     {
         ReturnToTeamSelectionRpc();
     }
-
 
     [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
     private void ReturnToTeamSelectionRpc()
@@ -236,7 +211,6 @@ public class GameManager : NetworkBehaviour
 
         Runner.LoadScene(SceneRef.FromIndex(0));
     }
-
 
     public bool HasMatchEnded()
     {

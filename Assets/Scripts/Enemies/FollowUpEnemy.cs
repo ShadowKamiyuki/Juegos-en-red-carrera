@@ -10,12 +10,7 @@ public class FollowUpEnemy : NetworkBehaviour
     [Header("Enemy settings")]
     [SerializeField] private float initialHealth = 10f;
     [SerializeField] private float moveSpeed = 3f;
-    [Header("Enemy Sounds")]
     [SerializeField] private AudioDefinition attackSound;
-    [SerializeField] private AudioDefinition enemySpawn;
-    [SerializeField] private AudioDefinition enemyDie;
-    [SerializeField] private AudioDefinition playerKill;
-
 
     [Networked] public float Health { get; set; }
 
@@ -38,10 +33,6 @@ public class FollowUpEnemy : NetworkBehaviour
         if (Object.HasStateAuthority)
         {
             Health = initialHealth;
-        }
-        if (audioService != null && attackSound != null)
-        {
-            audioService.PlaySFX(enemySpawn);
         }
     }
 
@@ -124,10 +115,6 @@ public class FollowUpEnemy : NetworkBehaviour
         rb.linearVelocity = Vector2.zero;
 
         //Acá puedes agregar animación, drops, etc.
-        if (audioService != null && attackSound != null)
-        {
-            audioService.PlaySFX(enemyDie);
-        }
 
         Runner.Despawn(Object);
     }
@@ -137,21 +124,22 @@ public class FollowUpEnemy : NetworkBehaviour
         if (!Object.HasStateAuthority)
             return;
 
+        //agregamos el componente que haga daño o hacemos la colision con otro objeto
+        //if (collision.gameObject.CompareTag("bala"))
+        //{
+        //    TakeDamage(5);
+        //    return;
+        //}
         if (collision.gameObject.CompareTag("Player"))
         {
             //hacemos daño al jugador
             //usamos la propiedad AttackDamage
             Player player = collision.gameObject.GetComponent<Player>();
 
-            if (audioService != null && attackSound != null)
-            {
-                audioService.PlaySFX(playerKill);
-            }
             if (player != null)
             {
                 player.Kill();
             }
-            
         }
     }
 }

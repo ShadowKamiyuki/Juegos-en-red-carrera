@@ -13,5 +13,4 @@ public class Setup : MonoBehaviour
     {
         ServiceLocator.Clear();
     }
-
 }

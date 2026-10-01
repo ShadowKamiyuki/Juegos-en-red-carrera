@@ -5,8 +5,7 @@ public class NetworkCameraController : NetworkBehaviour
 {
     [SerializeField] private float speed = 2f;
 
-    [Networked]
-    public Vector3 CameraPosition { get; set; }
+    [Networked] public Vector3 CameraPosition { get; set; }
 
     public bool IsReady { get; private set; }
 
@@ -19,7 +18,6 @@ public class NetworkCameraController : NetworkBehaviour
         if (HasStateAuthority)
         {
             CameraPosition = transform.position;
-
             Debug.Log("Posicion inicial: " + CameraPosition);
         }
     }

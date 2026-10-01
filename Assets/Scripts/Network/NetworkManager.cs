@@ -4,8 +4,6 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
-using static Unity.Collections.Unicode;
 
 public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
 {
@@ -17,22 +15,12 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
     private InputSystemActions inputSystemActions;
     public Transform[] spawnPoints;
 
-    [Header("Sounds")]
-    [SerializeField] private AudioDefinition buttonSound;
-    [SerializeField] private AudioDefinition errorCreateServ;
-    [SerializeField] private AudioDefinition playerLeft;
-    [SerializeField] private AudioDefinition playerSpawn;
-    private IAudioService audioService;
-    private void Start()
-    {
-        audioService = ServiceLocator.Get<IAudioService>();
-    }
     private void Awake()
     {
         runner.AddCallbacks(this);
         inputSystemActions = new InputSystemActions();
     }
-    
+
     private void OnEnable()
     {
         inputSystemActions.Enable();
@@ -63,25 +51,11 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
             Scene = SceneRef.FromIndex(SceneManager.GetActiveScene().buildIndex),
             SceneManager = sceneManager
         });
-        if (audioService != null && buttonSound != null)
-        {
-            audioService.PlaySFX(buttonSound);
-        }
 
         if (!result.Ok)
         {
-            Debug.LogError(
-                "Error creando servidor: " +
-                result.ShutdownReason
-            );
-
+            Debug.LogError("Error creando servidor: " + result.ShutdownReason);
             OnConnectionFailed?.Invoke();
-
-            if (audioService != null && errorCreateServ != null)
-            {
-                audioService.PlaySFX(errorCreateServ);
-            }
-
             return;
         }
 
@@ -96,10 +70,6 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
         {
             Debug.LogError("NetworkRunner no está inicializado.");
             OnConnectionFailed?.Invoke();
-            if (audioService != null && errorCreateServ != null)
-            {
-                audioService.PlaySFX(errorCreateServ);
-            }
             return;
         }
 
@@ -115,25 +85,11 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
             Scene = SceneRef.FromIndex(SceneManager.GetActiveScene().buildIndex),
             SceneManager = sceneManager
         });
-        if (audioService != null && buttonSound != null)
-        {
-            audioService.PlaySFX(buttonSound);
-        }
 
         if (!result.Ok)
         {
-            Debug.LogError(
-                "Error conectando al servidor: " +
-                result.ShutdownReason
-            );
-
+            Debug.LogError("Error conectando al servidor: " + result.ShutdownReason);
             OnConnectionFailed?.Invoke();
-
-            if (audioService != null && errorCreateServ != null)
-            {
-                audioService.PlaySFX(errorCreateServ);
-            }
-
             return;
         }
 
@@ -161,7 +117,10 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
 
         Debug.Log("Jugador desconectado: " + player);
 
-        
+        // =========================================
+        // ELIMINAR PLAYER DE LOS EQUIPOS
+        // =========================================
+
         TeamManager teamManager = FindFirstObjectByType<TeamManager>();
 
         if (teamManager != null)
@@ -169,35 +128,34 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
             teamManager.RemoveDisconnectedPlayer(player);
         }
 
-        NetworkObject playerObject = runner.GetPlayerObject(player);
 
-        if (audioService != null && playerLeft != null)
-        {
-            audioService.PlaySFX(playerLeft);
-        }
+        // =========================================
+        // DESPAWNEAR SU PERSONAJE
+        // =========================================
+
+        NetworkObject playerObject = runner.GetPlayerObject(player);
 
         if (playerObject != null)
         {
-            Debug.Log(
-                "Despawneando personaje de " + player
-            );
+            Debug.Log("Despawneando personaje de " + player);
 
             runner.Despawn(playerObject);
         }
         else
         {
-            Debug.LogWarning(
-                "No se encontró PlayerObject para " + player
-            );
+            Debug.LogWarning("No se encontró PlayerObject para " + player);
         }
     }
 
+// Advertencias de OnConnectedToServer y OnDisconnectedFromServer silenciadas
+#pragma warning disable UNT0006 // Incorrect message signature
     public void OnConnectedToServer(NetworkRunner runner)
     {
         Debug.Log("Conectado al servidor.");
     }
 
     public void OnDisconnectedFromServer(NetworkRunner runner, NetDisconnectReason reason)
+#pragma warning restore UNT0006 // Incorrect message signature
     {
         Debug.Log("Desconectado del servidor: " + reason);
     }
@@ -228,6 +186,7 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
     {
         // NO HAY INPUT DEL PLAYER TODAVÍA
     }
+
     public void LoadGameScene(int sceneIndex)
     {
         if (runner == null)
@@ -248,10 +207,12 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
 
         runner.LoadScene(scene, LoadSceneMode.Single);
     }
+
     public void OnSceneLoadStart(NetworkRunner runner)
     {
         Debug.Log($"Fusion comenzó a cargar la escena");
     }
+
     public void OnSceneLoadDone(NetworkRunner runner)
     {
         Debug.Log("Escena cargada.");
@@ -266,27 +227,19 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
             return;
         }
 
-        GameObject[] spawnObjects =
-            GameObject.FindGameObjectsWithTag("PlayerSpawn");
+        GameObject[] spawnObjects = GameObject.FindGameObjectsWithTag("PlayerSpawn");
 
         if (spawnObjects.Length < 4)
         {
-            Debug.LogError(
-                "La escena necesita 4 SpawnPoints con el tag PlayerSpawn."
-            );
-
+            Debug.LogError("La escena necesita 4 SpawnPoints con el tag PlayerSpawn.");
             return;
         }
 
-        TeamManager teamManager =
-            FindFirstObjectByType<TeamManager>();
+        TeamManager teamManager = FindFirstObjectByType<TeamManager>();
 
         if (teamManager == null)
         {
-            Debug.LogError(
-                "No se encontró TeamManager al cargar el nivel."
-            );
-
+            Debug.LogError("No se encontró TeamManager al cargar el nivel.");
             return;
         }
 
@@ -294,48 +247,38 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
 
         foreach (PlayerRef player in runner.ActivePlayers)
         {
-            NetworkObject playerObject =
-                runner.GetPlayerObject(player);
+            NetworkObject playerObject = runner.GetPlayerObject(player);
 
+            // =========================================
+            // CREAR PLAYER SI NO EXISTE
+            // =========================================
 
             if (playerObject == null)
             {
-                Transform spawnPoint =
-                    spawnObjects[spawnIndex].transform;
+                Transform spawnPoint = spawnObjects[spawnIndex].transform;
 
-                playerObject = runner.Spawn(
-                    playerPrefab,
-                    spawnPoint.position,
-                    spawnPoint.rotation,
-                    player
-                );
+                playerObject = runner.Spawn(playerPrefab, spawnPoint.position, spawnPoint.rotation, player);
 
-                runner.SetPlayerObject(
-                    player,
-                    playerObject
-                );
+                runner.SetPlayerObject(player, playerObject);
 
                 Debug.Log("Player " + player + " creado en SpawnPoint " + spawnIndex);
-                if (audioService != null && playerSpawn != null)
-                {
-                    audioService.PlaySFX(playerSpawn);
-                }
             }
             else
             {
                 Debug.Log("Player " + player + " ya existe.");
             }
 
+            // =========================================
+            // COLOCAR PLAYER EN SU SPAWN POINT
+            // =========================================
 
-            Transform currentSpawnPoint =
-                spawnObjects[spawnIndex].transform;
+            Transform currentSpawnPoint = spawnObjects[spawnIndex].transform;
 
-            playerObject.transform.SetPositionAndRotation(
-                currentSpawnPoint.position,
-                currentSpawnPoint.rotation
-            );
+            playerObject.transform.SetPositionAndRotation(currentSpawnPoint.position, currentSpawnPoint.rotation);
 
-
+            // =========================================
+            // RECUPERAR EQUIPO
+            // =========================================
 
             int team = teamManager.GetPlayerTeam(player);
 
@@ -344,7 +287,6 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
             if (playerComponent != null)
             {
                 playerComponent.Team = team;
-
                 Debug.Log("Player " + player + " recuperó el Equipo " + team);
             }
             else
@@ -352,19 +294,18 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
                 Debug.LogWarning("El PlayerObject de " + player + " no tiene componente Player.");
             }
 
-
             spawnIndex++;
         }
     }
 
     public void OnObjectEnterAOI(NetworkRunner runner, NetworkObject obj,PlayerRef player)
     {
-
+        throw new NotImplementedException();
     }
 
     public void OnObjectExitAOI(NetworkRunner runner, NetworkObject obj, PlayerRef player)
     {
-
+        throw new NotImplementedException();
     }
 
     public void OnConnectRequest(NetworkRunner runner, NetworkRunnerCallbackArgs.ConnectRequest request, byte[] token)
@@ -374,26 +315,26 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
 
     public void OnReliableDataReceived(NetworkRunner runner, PlayerRef player, ReliableKey key, ReadOnlySpan<byte> data)
     {
-
+        throw new NotImplementedException();
     }
 
     public void OnReliableDataProgress(NetworkRunner runner, PlayerRef player, ReliableKey key, float progress)
     {
-
+        throw new NotImplementedException();
     }
 
     public void OnSessionListUpdated(NetworkRunner runner, List<SessionInfo> sessionList)
     {
-
+        throw new NotImplementedException();
     }
 
     public void OnCustomAuthenticationResponse(NetworkRunner runner, Dictionary<string, object> data)
     {
-
+        throw new NotImplementedException();
     }
 
     public void OnHostMigration(NetworkRunner runner, HostMigrationToken hostMigrationToken)
     {
-
+        throw new NotImplementedException();
     }
 }

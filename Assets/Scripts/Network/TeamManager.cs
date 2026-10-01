@@ -3,23 +3,14 @@ using UnityEngine;
 
 public class TeamManager : NetworkBehaviour
 {
-    [Networked]
-    private PlayerRef Team1Slot1 { get; set; }
+    [Networked] private PlayerRef Team1Slot1 { get; set; }
+    [Networked] private PlayerRef Team1Slot2 { get; set; }
+    [Networked] private PlayerRef Team2Slot1 { get; set; }
+    [Networked] private PlayerRef Team2Slot2 { get; set; }
 
-    [Networked]
-    private PlayerRef Team1Slot2 { get; set; }
-
-    [Networked]
-    private PlayerRef Team2Slot1 { get; set; }
-
-    [Networked]
-    private PlayerRef Team2Slot2 { get; set; }
-
-    [Networked]
-    private NetworkBool AllTeamsFull { get; set; }
+    [Networked] private NetworkBool AllTeamsFull { get; set; }
 
     public bool IsNetworkReady { get; private set; }
-
 
     public override void Spawned()
     {
@@ -30,11 +21,14 @@ public class TeamManager : NetworkBehaviour
         Debug.Log("TEAM MANAGER SPAWNED CORRECTAMENTE");
     }
 
-
     public override void Despawned(NetworkRunner runner, bool hasState)
     {
         IsNetworkReady = false;
     }
+
+    // =========================================
+    // SELECCIONAR EQUIPO
+    // =========================================
 
     public void SelectTeam(int team)
     {
@@ -60,7 +54,6 @@ public class TeamManager : NetworkBehaviour
 
         RequestTeamRpc(team, Runner.LocalPlayer);
     }
-
 
     [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
     private void RequestTeamRpc(int team, PlayerRef player)
@@ -102,6 +95,9 @@ public class TeamManager : NetworkBehaviour
             }
         }
 
+        // =========================================
+        // ASIGNAR EQUIPO AL PLAYER
+        // =========================================
 
         NetworkObject playerObject = Runner.GetPlayerObject(player);
 
@@ -128,7 +124,9 @@ public class TeamManager : NetworkBehaviour
         CheckIfTeamsAreFull();
     }
 
-
+    // =========================================
+    // DESCONECTAR JUGADOR
+    // =========================================
     public void RemoveDisconnectedPlayer(PlayerRef player)
     {
         if (Runner == null)
@@ -146,8 +144,9 @@ public class TeamManager : NetworkBehaviour
         Debug.Log("Se liberó el lugar del jugador " + player);
     }
 
-
-
+    // =========================================
+    // SACAR JUGADOR DE LOS EQUIPOS
+    // =========================================
     private void RemovePlayer(PlayerRef player)
     {
         if (Team1Slot1 == player)
@@ -171,7 +170,9 @@ public class TeamManager : NetworkBehaviour
         }
     }
 
-
+    // =========================================
+    // CONTADORES
+    // =========================================
     public int GetTeam1Count()
     {
         int cantidad = 0;
@@ -188,7 +189,6 @@ public class TeamManager : NetworkBehaviour
 
         return cantidad;
     }
-
 
     public int GetTeam2Count()
     {
@@ -207,12 +207,13 @@ public class TeamManager : NetworkBehaviour
         return cantidad;
     }
 
-
+    // =========================================
+    // EQUIPOS LLENOS
+    // =========================================
     public bool AreAllTeamsFull()
     {
         return AllTeamsFull;
     }
-
 
     private void CheckIfTeamsAreFull()
     {
@@ -222,16 +223,11 @@ public class TeamManager : NetworkBehaviour
         if (!Runner.IsServer)
             return;
 
-        bool team1Full =
-            Team1Slot1 != PlayerRef.None &&
-            Team1Slot2 != PlayerRef.None;
+        bool team1Full = Team1Slot1 != PlayerRef.None && Team1Slot2 != PlayerRef.None;
 
-        bool team2Full =
-            Team2Slot1 != PlayerRef.None &&
-            Team2Slot2 != PlayerRef.None;
+        bool team2Full = Team2Slot1 != PlayerRef.None && Team2Slot2 != PlayerRef.None;
 
         AllTeamsFull = team1Full && team2Full;
-
 
         if (AllTeamsFull)
         {
@@ -253,7 +249,6 @@ public class TeamManager : NetworkBehaviour
         }
     }
 
-
     public bool IsTeamFull(int team)
     {
         if (!IsNetworkReady)
@@ -261,16 +256,12 @@ public class TeamManager : NetworkBehaviour
 
         if (team == 1)
         {
-            return
-                Team1Slot1 != PlayerRef.None &&
-                Team1Slot2 != PlayerRef.None;
+            return Team1Slot1 != PlayerRef.None && Team1Slot2 != PlayerRef.None;
         }
 
         if (team == 2)
         {
-            return
-                Team2Slot1 != PlayerRef.None &&
-                Team2Slot2 != PlayerRef.None;
+            return Team2Slot1 != PlayerRef.None && Team2Slot2 != PlayerRef.None;
         }
 
         return true;

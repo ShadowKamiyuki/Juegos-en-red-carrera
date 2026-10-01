@@ -5,24 +5,16 @@ public class Ball : MonoBehaviour
     [SerializeField] private Transform player;
     [SerializeField] private float distance = 2f;
     [SerializeField] private float speed = 180f;
-    [Header("Sounds")]
-    [SerializeField] private AudioDefinition killEnemy;
-    private IAudioService audioService;
+
     private float angle;
-    private void Start()
-    {
-        audioService = ServiceLocator.Get<IAudioService>();
-    }
+
     private void Update()
     {
         angle += speed * Time.deltaTime;
 
         float radians = angle * Mathf.Deg2Rad;
 
-        Vector2 offset = new Vector2(
-            Mathf.Cos(radians),
-            Mathf.Sin(radians)
-        ) * distance;
+        Vector2 offset = new Vector2(Mathf.Cos(radians), Mathf.Sin(radians)) * distance;
 
         transform.position = (Vector2)player.position + offset;
     }
@@ -31,10 +23,6 @@ public class Ball : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
-            if (audioService != null && killEnemy != null)
-            {
-                audioService.PlaySFX(killEnemy);
-            }
             Destroy(collision.gameObject);
         }
     }

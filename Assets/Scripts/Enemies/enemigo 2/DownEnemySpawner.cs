@@ -20,10 +20,7 @@ public class DownEnemySpawner : NetworkBehaviour
 
         if (Object.HasStateAuthority)
         {
-            spawnTimer = TickTimer.CreateFromSeconds(
-                Runner,
-                spawnInterval
-            );
+            spawnTimer = TickTimer.CreateFromSeconds(Runner, spawnInterval);
         }
     }
 
@@ -37,10 +34,7 @@ public class DownEnemySpawner : NetworkBehaviour
 
         SpawnEnemy();
 
-        spawnTimer = TickTimer.CreateFromSeconds(
-            Runner,
-            spawnInterval
-        );
+        spawnTimer = TickTimer.CreateFromSeconds(Runner, spawnInterval);
     }
 
     private void SpawnEnemy()
@@ -54,40 +48,22 @@ public class DownEnemySpawner : NetworkBehaviour
         }
 
         // Bordes de la cámara
-        Vector3 leftEdge =
-            mainCamera.ViewportToWorldPoint(
-                new Vector3(0f, 1f, 0f)
-            );
+        Vector3 leftEdge = mainCamera.ViewportToWorldPoint(new Vector3(0f, 1f, 0f));
 
-        Vector3 rightEdge =
-            mainCamera.ViewportToWorldPoint(
-                new Vector3(1f, 1f, 0f)
-            );
+        Vector3 rightEdge = mainCamera.ViewportToWorldPoint(new Vector3(1f, 1f, 0f));
 
         // X aleatoria dentro del ancho visible
-        float randomX = Random.Range(
-            leftEdge.x,
-            rightEdge.x
-        );
+        float randomX = Random.Range(leftEdge.x, rightEdge.x);
 
-        Vector3 spawnPosition = new Vector3(
-            randomX,
-            leftEdge.y + margin,
-            0f
-        );
+        Vector3 spawnPosition = new Vector3(randomX, leftEdge.y + margin, 0f);
 
         NetworkPrefabRef selectedEnemy;
 
-        if (Random.Range(0, 2) == 0) 
-            selectedEnemy = enemyPrefab; 
-        
-        else 
+        if (Random.Range(0, 2) == 0)
+            selectedEnemy = enemyPrefab;
+        else
             selectedEnemy = enemyPrefab2;
 
-        Runner.Spawn(
-            selectedEnemy, 
-            spawnPosition, 
-            Quaternion.identity
-        );
+        Runner.Spawn(selectedEnemy, spawnPosition, Quaternion.identity);
     }
 }

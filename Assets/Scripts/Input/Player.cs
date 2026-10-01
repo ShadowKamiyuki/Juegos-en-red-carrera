@@ -18,7 +18,6 @@ public class Player : NetworkBehaviour
 
     private int lastTeam = -1;
 
-
     public override void Spawned()
     {
         if (Object.HasInputAuthority)
@@ -50,7 +49,6 @@ public class Player : NetworkBehaviour
             transform.Translate(movement * speed * Runner.DeltaTime);
         }
     }
-
 
     private void Update()
     {
@@ -87,12 +85,7 @@ public class Player : NetworkBehaviour
 
         IsAlive = false;
 
-        Debug.Log(
-            "Jugador " +
-            Object.InputAuthority +
-            " murió."
-        );
+        Debug.Log("Jugador " + Object.InputAuthority + " murió.");
         spriteRenderer.color = Color.gray;
-
     }
 }
