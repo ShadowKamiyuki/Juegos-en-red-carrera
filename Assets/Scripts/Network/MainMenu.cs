@@ -25,10 +25,15 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private Color normalTeamColor = Color.white;
     [SerializeField] private Color disabledTeamColor = Color.gray;
 
+
     [Header("Sala")]
     [SerializeField] private TMP_InputField sessionNameInput;
     [Header("Menu")]
     [SerializeField] private NetworkMenu networkMenu;
+
+    [Header("Sounds")]
+    [SerializeField] private AudioDefinition buttonSound;
+    private IAudioService audioService;
 
     public static int PlayerTeam { get; private set; }
 
@@ -50,16 +55,14 @@ public class MainMenu : MonoBehaviour
         // Botones de equipo normales
         SetTeamButton(team1Button, true);
         SetTeamButton(team2Button, true);
+
+        audioService = ServiceLocator.Get<IAudioService>();
     }
     private void UpdateTeamButtons()
     {
         if (teamManager == null)
             return;
 
-
-        // =========================================
-        // TODAVÍA NO ESTAMOS CONECTADOS
-        // =========================================
 
         if (!teamManager.IsNetworkReady)
         {
@@ -73,23 +76,12 @@ public class MainMenu : MonoBehaviour
         }
 
 
-        // =========================================
-        // CONTADORES
-        // =========================================
-
         int team1Players = teamManager.GetTeam1Count();
         int team2Players = teamManager.GetTeam2Count();
 
         team1Counter.text = team1Players + "/2";
         team2Counter.text = team2Players + "/2";
 
-
-        // =========================================
-        // AMBOS EQUIPOS LLENOS
-        // =========================================
-
-        // Esto tiene que estar ANTES de
-        // comprobar si este jugador ya eligió equipo.
 
         if (teamManager.AreAllTeamsFull())
         {
@@ -101,10 +93,6 @@ public class MainMenu : MonoBehaviour
         }
 
 
-        // =========================================
-        // SI YA ELEGÍ EQUIPO
-        // =========================================
-
         if (PlayerTeam != 0)
         {
             SetTeamButton(team1Button, false);
@@ -114,19 +102,11 @@ public class MainMenu : MonoBehaviour
         }
 
 
-        // =========================================
-        // EQUIPO 1
-        // =========================================
-
         if (teamManager.IsTeamFull(1))
             SetTeamButton(team1Button, false);
         else
             SetTeamButton(team1Button, true);
 
-
-        // =========================================
-        // EQUIPO 2
-        // =========================================
 
         if (teamManager.IsTeamFull(2))
             SetTeamButton(team2Button, false);
@@ -145,14 +125,14 @@ public class MainMenu : MonoBehaviour
         if (enabled)
         {
             colors.normalColor = normalTeamColor;
-            colors.highlightedColor = normalTeamColor;
+            //colors.highlightedColor = normalTeamColor;
             colors.pressedColor = normalTeamColor;
             colors.selectedColor = normalTeamColor;
         }
         else
         {
             colors.normalColor = disabledTeamColor;
-            colors.highlightedColor = disabledTeamColor;
+            //colors.highlightedColor = disabledTeamColor;
             colors.pressedColor = disabledTeamColor;
             colors.selectedColor = disabledTeamColor;
             colors.disabledColor = disabledTeamColor;
@@ -194,6 +174,11 @@ public class MainMenu : MonoBehaviour
 
         // Le pedimos al TeamManager que nos agregue al equipo
         teamManager.SelectTeam(team);
+
+        if (audioService != null && buttonSound != null)
+        {
+            audioService.PlaySFX(buttonSound);
+        }
 
         selectedTeam = team;
         PlayerTeam = team;

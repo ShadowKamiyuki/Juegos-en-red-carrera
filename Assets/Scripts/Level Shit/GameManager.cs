@@ -15,10 +15,15 @@ public class GameManager : NetworkBehaviour
     [SerializeField] private TMP_Text resultText;
     [SerializeField] private Button restartButton;
     [SerializeField] private Button teamSelectionButton;
-    
+    [Header("Sounds")]
+    [SerializeField] private AudioDefinition victorySound;
+    private IAudioService audioService;
     private bool ShowPanel;
 
-
+    private void Start()
+    {
+        audioService = ServiceLocator.Get<IAudioService>();
+    }
     public override void Spawned()
     {
         networkReady = true;
@@ -138,6 +143,10 @@ public class GameManager : NetworkBehaviour
             WinningTeam = 2;
 
             Debug.Log("¡Gana el equipo 2!");
+            if (audioService != null && victorySound != null)
+            {
+                audioService.PlaySFX(victorySound);
+            }
 
         }
         else if (team1Alive && !team2Alive)
@@ -145,6 +154,10 @@ public class GameManager : NetworkBehaviour
             WinningTeam = 1;
 
             Debug.Log("¡Gana el equipo 1!");
+            if (audioService != null && victorySound != null)
+            {
+                audioService.PlaySFX(victorySound);
+            }
 
         }
         else if (!team1Alive && !team2Alive)
@@ -152,6 +165,10 @@ public class GameManager : NetworkBehaviour
             WinningTeam = 3;
 
             Debug.Log("¡Empate!");
+            if (audioService != null && victorySound != null)
+            {
+                audioService.PlaySFX(victorySound);
+            }
 
         }
     }
@@ -184,11 +201,6 @@ public class GameManager : NetworkBehaviour
         }
     }
 
-
-    // =========================================
-    // REINICIAR NIVEL
-    // =========================================
-
     public void RestartLevel()
     {
         RestartLevelRpc();
@@ -203,10 +215,6 @@ public class GameManager : NetworkBehaviour
         Runner.LoadScene(SceneRef.FromIndex(1));
     }
 
-
-    // =========================================
-    // VOLVER A SELECCIÓN DE EQUIPO
-    // =========================================
 
     public void ReturnToTeamSelection()
     {

@@ -36,11 +36,6 @@ public class TeamManager : NetworkBehaviour
         IsNetworkReady = false;
     }
 
-
-    // =========================================
-    // SELECCIONAR EQUIPO
-    // =========================================
-
     public void SelectTeam(int team)
     {
         if (Runner == null)
@@ -107,9 +102,6 @@ public class TeamManager : NetworkBehaviour
             }
         }
 
-        // =========================================
-        // ASIGNAR EQUIPO AL PLAYER
-        // =========================================
 
         NetworkObject playerObject = Runner.GetPlayerObject(player);
 
@@ -137,10 +129,6 @@ public class TeamManager : NetworkBehaviour
     }
 
 
-    // =========================================
-    // DESCONECTAR JUGADOR
-    // =========================================
-
     public void RemoveDisconnectedPlayer(PlayerRef player)
     {
         if (Runner == null)
@@ -159,9 +147,6 @@ public class TeamManager : NetworkBehaviour
     }
 
 
-    // =========================================
-    // SACAR JUGADOR DE LOS EQUIPOS
-    // =========================================
 
     private void RemovePlayer(PlayerRef player)
     {
@@ -186,10 +171,6 @@ public class TeamManager : NetworkBehaviour
         }
     }
 
-
-    // =========================================
-    // CONTADORES
-    // =========================================
 
     public int GetTeam1Count()
     {
@@ -226,10 +207,6 @@ public class TeamManager : NetworkBehaviour
         return cantidad;
     }
 
-
-    // =========================================
-    // EQUIPOS LLENOS
-    // =========================================
 
     public bool AreAllTeamsFull()
     {

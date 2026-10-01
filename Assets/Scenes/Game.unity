@@ -198,6 +198,7 @@ MonoBehaviour:
   - {fileID: 1824626989}
   - {fileID: 653473719}
   connectionError: {fileID: 2114793954}
+  menuSound: {fileID: 0}
 --- !u!1 &33049590
 GameObject:
   m_ObjectHideFlags: 0
@@ -776,6 +777,7 @@ MonoBehaviour:
   disabledTeamColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   sessionNameInput: {fileID: 419208041}
   networkMenu: {fileID: 20930182}
+  buttonSound: {fileID: 0}
 --- !u!114 &218380162
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3333,6 +3335,7 @@ MonoBehaviour:
   disabledTeamColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   sessionNameInput: {fileID: 419208041}
   networkMenu: {fileID: 20930182}
+  buttonSound: {fileID: 0}
 --- !u!114 &728133903
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3532,7 +3535,7 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.28439835, g: 0.28805143, b: 0.7264151, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
@@ -4901,6 +4904,10 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  buttonSound: {fileID: 0}
+  errorCreateServ: {fileID: 0}
+  playerLeft: {fileID: 0}
+  playerSpawn: {fileID: 0}
 --- !u!4 &1377512008
 Transform:
   m_ObjectHideFlags: 0
@@ -7290,7 +7297,7 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.7254902, g: 0.28627452, b: 0.29040876, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}

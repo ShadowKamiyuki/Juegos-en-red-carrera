@@ -5,9 +5,14 @@ public class Ball : MonoBehaviour
     [SerializeField] private Transform player;
     [SerializeField] private float distance = 2f;
     [SerializeField] private float speed = 180f;
-
+    [Header("Sounds")]
+    [SerializeField] private AudioDefinition killEnemy;
+    private IAudioService audioService;
     private float angle;
-
+    private void Start()
+    {
+        audioService = ServiceLocator.Get<IAudioService>();
+    }
     private void Update()
     {
         angle += speed * Time.deltaTime;
@@ -26,6 +31,10 @@ public class Ball : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
+            if (audioService != null && killEnemy != null)
+            {
+                audioService.PlaySFX(killEnemy);
+            }
             Destroy(collision.gameObject);
         }
     }

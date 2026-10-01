@@ -17,12 +17,22 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
     private InputSystemActions inputSystemActions;
     public Transform[] spawnPoints;
 
+    [Header("Sounds")]
+    [SerializeField] private AudioDefinition buttonSound;
+    [SerializeField] private AudioDefinition errorCreateServ;
+    [SerializeField] private AudioDefinition playerLeft;
+    [SerializeField] private AudioDefinition playerSpawn;
+    private IAudioService audioService;
+    private void Start()
+    {
+        audioService = ServiceLocator.Get<IAudioService>();
+    }
     private void Awake()
     {
         runner.AddCallbacks(this);
         inputSystemActions = new InputSystemActions();
     }
-
+    
     private void OnEnable()
     {
         inputSystemActions.Enable();
@@ -53,6 +63,10 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
             Scene = SceneRef.FromIndex(SceneManager.GetActiveScene().buildIndex),
             SceneManager = sceneManager
         });
+        if (audioService != null && buttonSound != null)
+        {
+            audioService.PlaySFX(buttonSound);
+        }
 
         if (!result.Ok)
         {
@@ -62,6 +76,11 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
             );
 
             OnConnectionFailed?.Invoke();
+
+            if (audioService != null && errorCreateServ != null)
+            {
+                audioService.PlaySFX(errorCreateServ);
+            }
 
             return;
         }
@@ -77,6 +96,10 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
         {
             Debug.LogError("NetworkRunner no está inicializado.");
             OnConnectionFailed?.Invoke();
+            if (audioService != null && errorCreateServ != null)
+            {
+                audioService.PlaySFX(errorCreateServ);
+            }
             return;
         }
 
@@ -92,6 +115,10 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
             Scene = SceneRef.FromIndex(SceneManager.GetActiveScene().buildIndex),
             SceneManager = sceneManager
         });
+        if (audioService != null && buttonSound != null)
+        {
+            audioService.PlaySFX(buttonSound);
+        }
 
         if (!result.Ok)
         {
@@ -101,6 +128,11 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
             );
 
             OnConnectionFailed?.Invoke();
+
+            if (audioService != null && errorCreateServ != null)
+            {
+                audioService.PlaySFX(errorCreateServ);
+            }
 
             return;
         }
@@ -129,10 +161,7 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
 
         Debug.Log("Jugador desconectado: " + player);
 
-        // =========================================
-        // ELIMINAR PLAYER DE LOS EQUIPOS
-        // =========================================
-
+        
         TeamManager teamManager = FindFirstObjectByType<TeamManager>();
 
         if (teamManager != null)
@@ -140,12 +169,12 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
             teamManager.RemoveDisconnectedPlayer(player);
         }
 
-
-        // =========================================
-        // DESPAWNEAR SU PERSONAJE
-        // =========================================
-
         NetworkObject playerObject = runner.GetPlayerObject(player);
+
+        if (audioService != null && playerLeft != null)
+        {
+            audioService.PlaySFX(playerLeft);
+        }
 
         if (playerObject != null)
         {
@@ -269,10 +298,6 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
                 runner.GetPlayerObject(player);
 
 
-            // =========================================
-            // CREAR PLAYER SI NO EXISTE
-            // =========================================
-
             if (playerObject == null)
             {
                 Transform spawnPoint =
@@ -291,16 +316,16 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
                 );
 
                 Debug.Log("Player " + player + " creado en SpawnPoint " + spawnIndex);
+                if (audioService != null && playerSpawn != null)
+                {
+                    audioService.PlaySFX(playerSpawn);
+                }
             }
             else
             {
                 Debug.Log("Player " + player + " ya existe.");
             }
 
-
-            // =========================================
-            // COLOCAR PLAYER EN SU SPAWN POINT
-            // =========================================
 
             Transform currentSpawnPoint =
                 spawnObjects[spawnIndex].transform;
@@ -311,9 +336,6 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
             );
 
 
-            // =========================================
-            // RECUPERAR EQUIPO
-            // =========================================
 
             int team = teamManager.GetPlayerTeam(player);
 
@@ -334,29 +356,6 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
             spawnIndex++;
         }
     }
-
-
-    private int GetSpawnIndex(PlayerRef player)
-    {
-        if (spawnPoints == null || spawnPoints.Length == 0)
-        {
-            Debug.LogError("No hay Spawn Points configurados.");
-            return 0;
-        }
-
-        return player.RawEncoded % spawnPoints.Length;
-    }
-
-    private Vector3 GetSpawnPosition()
-    {
-        GameObject spawnPoint = GameObject.FindGameObjectWithTag("PlayerSpawn");
-
-        if (spawnPoint != null)
-            return spawnPoint.transform.position;
-
-        return Vector3.zero;
-    }
-
 
     public void OnObjectEnterAOI(NetworkRunner runner, NetworkObject obj,PlayerRef player)
     {

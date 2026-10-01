@@ -20,7 +20,13 @@ public class NetworkMenu : MonoBehaviour
     [SerializeField] private Button[] levelButtons;
     [Header("Error de conexión")]
     [SerializeField] private CanvasGroup connectionError;
-
+    [Header("SonidosPaneles")]
+    [SerializeField] private AudioDefinition menuSound;
+    private IAudioService audioService;
+    private void Start()
+    {
+        audioService = ServiceLocator.Get<IAudioService>();
+    }
     private void OnEnable()
     {
         NetworkManager.OnConnectedToGame += ConnectedToGame;
@@ -96,6 +102,10 @@ public class NetworkMenu : MonoBehaviour
         networkMenu.alpha = 1;
         networkMenu.interactable = true;
         networkMenu.blocksRaycasts = true;
+        if (audioService != null && menuSound != null)
+        {
+            audioService.PlaySFX(menuSound);
+        }
     }
 
 
@@ -110,6 +120,10 @@ public class NetworkMenu : MonoBehaviour
         selectLevels.alpha = 0;
         selectLevels.interactable = false;
         selectLevels.blocksRaycasts = false;
+        if (audioService != null && menuSound != null)
+        {
+            audioService.PlaySFX(menuSound);
+        }
     }
 
 
@@ -126,7 +140,10 @@ public class NetworkMenu : MonoBehaviour
         selectLevels.alpha = 1;
         selectLevels.interactable = true;
         selectLevels.blocksRaycasts = true;
-
+        if (audioService != null && menuSound != null)
+        {
+            audioService.PlaySFX(menuSound);
+        }
         // Ver si soy Host
         bool isHost = runner != null && runner.IsServer;
 
