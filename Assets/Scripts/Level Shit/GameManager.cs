@@ -1,5 +1,4 @@
 using Fusion;
-using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -90,6 +89,29 @@ public class GameManager : NetworkBehaviour
                 return false;
         }
         return foundPlayer;
+    }
+
+    public void PlayerReachedFinish(Player player)
+    {
+        if (!Object.HasStateAuthority)
+            return;
+
+        if (WinningTeam != 0)
+            return;
+
+        if (player == null)
+            return;
+
+        if (player.Team == 1)
+        {
+            WinningTeam = 1;
+            Debug.Log("¡Blue Team llegó primero y ganó!");
+        }
+        else if (player.Team == 2)
+        {
+            WinningTeam = 2;
+            Debug.Log("¡Red Team llegó primero y ganó!");
+        }
     }
 
     private void CheckWinner()

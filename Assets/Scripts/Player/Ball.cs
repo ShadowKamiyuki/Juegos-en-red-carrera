@@ -5,6 +5,7 @@ public class Ball : MonoBehaviour
     [SerializeField] private Transform player;
     [SerializeField] private float distance = 2f;
     [SerializeField] private float speed = 180f;
+    [SerializeField] private Player owner;
 
     private float angle;
 
@@ -24,6 +25,11 @@ public class Ball : MonoBehaviour
         if (collision.CompareTag("Enemy"))
         {
             Destroy(collision.gameObject);
+        }
+        if (collision.CompareTag("Player") && owner.CanPvp)
+        {
+            Player target = collision.GetComponent<Player>();
+            target.Kill();
         }
     }
 }

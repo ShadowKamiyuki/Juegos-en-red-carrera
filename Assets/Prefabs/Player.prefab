@@ -229,6 +229,8 @@ MonoBehaviour:
   _Team: 0
   _IsAlive:
     RawValue: 0
+  _CanPvp:
+    RawValue: 0
 --- !u!114 &7658017122763676522
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -459,3 +461,4 @@ MonoBehaviour:
   player: {fileID: 3217426320948373764}
   distance: 3
   speed: 200
+  owner: {fileID: -744770551630664326}

@@ -1,5 +1,4 @@
 using Fusion;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : NetworkBehaviour
@@ -13,8 +12,12 @@ public class Player : NetworkBehaviour
 
     [SerializeField] private GameObject indicator;
 
+    [SerializeField] private float powerUpDuration = 5f;
+
     [Networked] public int Team { get; set; }
     [Networked] public NetworkBool IsAlive { get; set; }
+    [Networked] public NetworkBool CanPvp { get; set; }
+    [Networked] private float PowerUpEndTime { get; set; }
 
     private int lastTeam = -1;
 
@@ -48,6 +51,13 @@ public class Player : NetworkBehaviour
 
             transform.Translate(movement * speed * Runner.DeltaTime);
         }
+
+        if (CanPvp && Runner.SimulationTime >= PowerUpEndTime)
+        {
+            CanPvp = false;
+
+            Debug.Log("Power Up terminado");
+        }
     }
 
     private void Update()
@@ -61,6 +71,17 @@ public class Player : NetworkBehaviour
         {
             spriteRenderer.color = Color.gray;
         }
+    }
+
+    public void ActivatePowerUp()
+    {
+        if (!HasStateAuthority)
+            return;
+
+        CanPvp = true;
+        PowerUpEndTime = Runner.SimulationTime + powerUpDuration;
+
+        Debug.Log("Power Up activado");
     }
 
     private void UpdateColor()
