@@ -56,6 +56,11 @@ public class Player : NetworkBehaviour
         {
             UpdateColor();
         }
+
+        if (!IsAlive)
+        {
+            spriteRenderer.color = Color.gray;
+        }
     }
 
     private void UpdateColor()
@@ -86,6 +91,6 @@ public class Player : NetworkBehaviour
         IsAlive = false;
 
         Debug.Log("Jugador " + Object.InputAuthority + " murió.");
-        spriteRenderer.color = Color.gray;
+        //spriteRenderer.color = Color.gray;
     }
 }
