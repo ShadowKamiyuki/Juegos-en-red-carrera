@@ -172,7 +172,7 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
             Direction = direction
         };
 
-        if (UnityEngine.InputSystem.Keyboard.current.spaceKey.wasPressedThisFrame)
+        if (UnityEngine.InputSystem.Keyboard.current.spaceKey.isPressed)
         {
             data.Buttons.Set(NetworkInputData.DashButton, true);
         }

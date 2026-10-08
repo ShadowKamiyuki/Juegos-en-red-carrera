@@ -35,7 +35,8 @@ public class Player : NetworkBehaviour
 
     [Header("Dash Visual")]
     [SerializeField] private TrailRenderer dashTrail;
-
+    private NetworkButtons previousButtons;
+    private Vector2 lastMovementDirection = Vector2.right;
 
     private int lastTeam = -1;
 
@@ -79,12 +80,17 @@ public class Player : NetworkBehaviour
                 data.Direction.y
             );
 
-            // Movimiento normal
             transform.Translate(
                 movement * speed * Runner.DeltaTime
             );
 
+            // Guardamos la última dirección en la que se movió
+            if (movement != Vector2.zero)
+            {
+                lastMovementDirection = movement.normalized;
+            }
 
+            // DASH
             if (Object.HasStateAuthority && HasDash)
             {
                 if (Runner.SimulationTime >= DashEndTime)
@@ -93,10 +99,17 @@ public class Player : NetworkBehaviour
 
                     Debug.Log("Dash Power Up terminado");
                 }
-                else if (data.Buttons.IsSet(NetworkInputData.DashButton))
+                else
                 {
-                    Dash(movement);
+                    NetworkButtons pressedButtons = data.Buttons.GetPressed(previousButtons);
+
+                    if (pressedButtons.IsSet(NetworkInputData.DashButton))
+                    {
+                        Dash();
+                    }
                 }
+
+                previousButtons = data.Buttons;
             }
         }
 
@@ -109,14 +122,9 @@ public class Player : NetworkBehaviour
         }
     }
 
-    private void Dash(Vector2 movement)
+    private void Dash()
     {
-        if (movement == Vector2.zero)
-            return;
-
-        movement.Normalize();
-
-        transform.position += (Vector3)(movement * dashDistance);
+        transform.position += (Vector3)(lastMovementDirection * dashDistance);
 
         Debug.Log("DASH!");
     }
