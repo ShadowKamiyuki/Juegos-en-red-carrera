@@ -77,6 +77,7 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
         runner.ProvideInput = true;
 
         Debug.Log("Conectando como cliente...");
+        netMenu.JoiningServer();
 
         StartGameResult result = await runner.StartGame(new StartGameArgs
         {
@@ -95,7 +96,7 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
         }
 
         Debug.Log("Cliente conectado correctamente.");
-
+        netMenu.JoiningServerClose();
         OnConnectedToGame?.Invoke();
     }
 

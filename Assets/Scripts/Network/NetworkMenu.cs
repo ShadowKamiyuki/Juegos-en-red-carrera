@@ -12,6 +12,7 @@ public class NetworkMenu : MonoBehaviour
     [SerializeField] private CanvasGroup selectLevels;
     [SerializeField] private CanvasGroup selectTeams;
     [SerializeField] private CanvasGroup serverCreating;
+    [SerializeField] private CanvasGroup serverJoining;
     [SerializeField] private NetworkRunner runner;
 
     [Header("Selector de niveles")]
@@ -97,6 +98,20 @@ public class NetworkMenu : MonoBehaviour
         serverCreating.alpha = 0;
         serverCreating.interactable = false;
         serverCreating.blocksRaycasts = false;
+    }
+    public void JoiningServer()
+    {
+        Hide();
+        serverJoining.alpha = 1;
+        serverJoining.interactable = true;
+        serverJoining.blocksRaycasts = true;
+    }
+    public void JoiningServerClose()
+    {
+        Show();
+        serverJoining.alpha = 0;
+        serverJoining.interactable = false;
+        serverJoining.blocksRaycasts = false;
     }
 
     public void Hide()
