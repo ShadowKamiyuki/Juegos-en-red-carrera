@@ -1342,7 +1342,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PowerUpSpawner
   powerUpPrefab:
     RawGuidValue: 084e36784c49fcd4fa15100dec9710c4
-  spawnInterval: 10
+  spawnInterval: 15
   margin: 1
 --- !u!4 &1098908905
 Transform:
@@ -1483,7 +1483,7 @@ MonoBehaviour:
     RawGuidValue: c21904350e293b744aa8e1c137c1b437
   enemyPrefab2:
     RawGuidValue: 56c86c9df1f9dbc49b3ada7e811bc85c
-  spawnInterval: 3
+  spawnInterval: 7
   margin: 1
 --- !u!4 &1473794526
 Transform:
