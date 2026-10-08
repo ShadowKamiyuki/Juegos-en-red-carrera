@@ -11,6 +11,7 @@ public class NetworkMenu : MonoBehaviour
     [SerializeField] private CanvasGroup networkMenu;
     [SerializeField] private CanvasGroup selectLevels;
     [SerializeField] private CanvasGroup selectTeams;
+    [SerializeField] private CanvasGroup serverCreating;
     [SerializeField] private NetworkRunner runner;
 
     [Header("Selector de niveles")]
@@ -81,6 +82,21 @@ public class NetworkMenu : MonoBehaviour
         Show();
         input.text = "";
         input.Select();
+    }
+
+    public void CreatingServer()
+    {
+        Hide();
+        serverCreating.alpha = 1;
+        serverCreating.interactable = true;
+        serverCreating.blocksRaycasts = true;
+    }
+    public void CreatingServerClose()
+    {
+        Show();
+        serverCreating.alpha = 0;
+        serverCreating.interactable = false;
+        serverCreating.blocksRaycasts = false;
     }
 
     public void Hide()

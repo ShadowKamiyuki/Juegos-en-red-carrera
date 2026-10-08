@@ -14,6 +14,7 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
     [SerializeField] private NetworkPrefabRef playerPrefab;
     private InputSystemActions inputSystemActions;
     public Transform[] spawnPoints;
+    public NetworkMenu netMenu;
 
     private void Awake()
     {
@@ -40,8 +41,8 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
         }
 
         runner.ProvideInput = true;
-
         Debug.Log("Creando servidor...");
+        netMenu.CreatingServer();
 
         StartGameResult result = await runner.StartGame(new StartGameArgs
         {
@@ -60,7 +61,7 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
         }
 
         Debug.Log("Servidor creado correctamente.");
-
+        netMenu.CreatingServerClose();
         OnConnectedToGame?.Invoke();
     }
 
