@@ -13,6 +13,7 @@ public class NetworkMenu : MonoBehaviour
     [SerializeField] private CanvasGroup selectTeams;
     [SerializeField] private CanvasGroup serverCreating;
     [SerializeField] private CanvasGroup serverJoining;
+    [SerializeField] private CanvasGroup quickmatchCreating;
     [SerializeField] private NetworkRunner runner;
 
     [Header("Selector de niveles")]
@@ -62,7 +63,21 @@ public class NetworkMenu : MonoBehaviour
 
         networkManager.StartGameClient(input.text);
     }
-
+    public void QuickPlay()
+    {
+        networkManager.QuickPlay();
+        Hide();
+        quickmatchCreating.alpha = 1;
+        quickmatchCreating.interactable = true;
+        quickmatchCreating.blocksRaycasts = true;
+    }
+    public void QuickPlayClose()
+    {
+        Show();
+        quickmatchCreating.alpha = 0;
+        quickmatchCreating.interactable = false;
+        quickmatchCreating.blocksRaycasts = false;
+    }
     private void ConnectionFailed()
     {
         Debug.Log("No se pudo conectar a la partida.");
@@ -113,7 +128,6 @@ public class NetworkMenu : MonoBehaviour
         serverJoining.interactable = false;
         serverJoining.blocksRaycasts = false;
     }
-
     public void Hide()
     {
         networkMenu.alpha = 0;

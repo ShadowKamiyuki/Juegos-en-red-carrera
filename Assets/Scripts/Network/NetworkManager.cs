@@ -103,6 +103,28 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
         OnConnectedToGame?.Invoke();
     }
 
+    public async void QuickPlay()
+    {
+        runner.ProvideInput = true;
+        StartGameResult result = await runner.StartGame(new StartGameArgs()
+        {
+            GameMode = GameMode.AutoHostOrClient,
+            PlayerCount = 4,
+            MatchmakingMode = Photon.Realtime.MatchmakingMode.FillRoom
+        });
+
+        if (!result.Ok)
+        {
+            Debug.LogError("Error conectando al servidor: " + result.ShutdownReason);
+            OnConnectionFailed?.Invoke();
+            return;
+        }
+
+        Debug.Log("Cliente conectado correctamente.");
+        netMenu.JoiningServerClose();
+        OnConnectedToGame?.Invoke();
+    }
+
     public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
     {
         if (runner.IsServer)
