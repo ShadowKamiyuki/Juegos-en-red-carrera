@@ -4922,6 +4922,52 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.RectMask2D
   m_Padding: {x: -8, y: -5, z: -8, w: -5}
   m_Softness: {x: 0, y: 0}
+--- !u!1 &1237182900
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1237182902}
+  - component: {fileID: 1237182901}
+  m_Layer: 0
+  m_Name: ObjPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1237182901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1237182900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca83f3baca482b64a8904e20075006db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PooledNetworkObjectProvider
+  maxPoolSizePerPrefab: 20
+  delayIfSceneManagerIsBusy: 1
+--- !u!4 &1237182902
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1237182900}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 344.01288, y: 188, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1257341506
 GameObject:
   m_ObjectHideFlags: 0
@@ -5290,6 +5336,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   netMenu: {fileID: 20930182}
+  objectProvider: {fileID: 0}
 --- !u!4 &1377512008
 Transform:
   m_ObjectHideFlags: 0
@@ -9579,3 +9626,4 @@ SceneRoots:
   - {fileID: 200385616}
   - {fileID: 728133905}
   - {fileID: 1372966167}
+  - {fileID: 1237182902}

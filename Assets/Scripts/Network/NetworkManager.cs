@@ -15,6 +15,7 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
     private InputSystemActions inputSystemActions;
     public Transform[] spawnPoints;
     public NetworkMenu netMenu;
+    [SerializeField] private PooledNetworkObjectProvider objectProvider;
 
     private void Awake()
     {
@@ -50,7 +51,8 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
             SessionName = sessionName,
             PlayerCount = 4,
             Scene = SceneRef.FromIndex(SceneManager.GetActiveScene().buildIndex),
-            SceneManager = sceneManager
+            SceneManager = sceneManager,
+            ObjectProvider = objectProvider
         });
 
         if (!result.Ok)
@@ -85,7 +87,8 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
             SessionName = sessionName,
             PlayerCount = 4,
             Scene = SceneRef.FromIndex(SceneManager.GetActiveScene().buildIndex),
-            SceneManager = sceneManager
+            SceneManager = sceneManager,
+            ObjectProvider = objectProvider
         });
 
         if (!result.Ok)
