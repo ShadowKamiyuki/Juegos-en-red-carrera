@@ -5,7 +5,7 @@ public class NetworkCameraController : NetworkBehaviour
 {
     [SerializeField] private float speed = 2f;
 
-    [Networked] public Vector3 CameraPosition { get; set; }
+    [Networked] public Vector2 CameraPosition { get; set; }
 
     public bool IsReady { get; private set; }
 
@@ -27,7 +27,7 @@ public class NetworkCameraController : NetworkBehaviour
         if (!HasStateAuthority)
             return;
 
-        CameraPosition += Vector3.up * speed * Runner.DeltaTime;
+        CameraPosition += Vector2.up * speed * Runner.DeltaTime;
 
         speed += 0.0001f;
     }
