@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class GameManager : NetworkBehaviour
 {
-    [Networked]public int WinningTeam { get; set; }
+    [Networked]public byte WinningTeam { get; set; }
 
     private bool matchStarted;
     private bool networkReady;

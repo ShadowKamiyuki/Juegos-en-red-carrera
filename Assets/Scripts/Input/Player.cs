@@ -15,7 +15,7 @@ public class Player : NetworkBehaviour
     [SerializeField] private GameObject indicator;
 
     [Header("Power Up PvP")]
-    [SerializeField] private byte powerUpDuration = 5;
+    [SerializeField] private float powerUpDuration = 5;
 
     [Networked] public byte Team { get; set; }
     [Networked] public NetworkBool IsAlive { get; set; }
@@ -27,8 +27,8 @@ public class Player : NetworkBehaviour
 
     // DASH POWER UP
     [Header("Dash")]
-    [SerializeField] private byte dashDuration = 10;
-    [SerializeField] private byte dashDistance = 3;
+    [SerializeField] private float dashDuration = 10;
+    [SerializeField] private float dashDistance = 3;
 
     [Networked] public NetworkBool HasDash { get; set; }
     [Networked] private float DashEndTime { get; set; }

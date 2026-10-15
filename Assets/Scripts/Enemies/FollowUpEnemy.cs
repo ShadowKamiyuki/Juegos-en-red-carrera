@@ -8,11 +8,11 @@ public class FollowUpEnemy : NetworkBehaviour
     [SerializeField] private LayerMask playerLayer;
 
     [Header("Enemy settings")]
-    [SerializeField] private float initialHealth = 10f;
+    [SerializeField] private byte initialHealth = 10;
     [SerializeField] private float moveSpeed = 3f;
     [SerializeField] private AudioDefinition attackSound;
 
-    [Networked] public float Health { get; set; }
+    [Networked] public byte Health { get; set; }
 
     private Rigidbody2D rb;
     private NetworkObject target;
@@ -92,7 +92,7 @@ public class FollowUpEnemy : NetworkBehaviour
         rb.linearVelocity = direction * moveSpeed;
     }
 
-    public void TakeDamage(int amount)
+    public void TakeDamage(byte amount)
     {
         if (!Object.HasStateAuthority)
             return;
