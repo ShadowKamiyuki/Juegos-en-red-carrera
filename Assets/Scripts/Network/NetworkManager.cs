@@ -271,7 +271,7 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
             playerObject.transform.SetPositionAndRotation(currentSpawnPoint.position, currentSpawnPoint.rotation);
 
 
-            int team = teamManager.GetPlayerTeam(player);
+            byte team = (byte)teamManager.GetPlayerTeam(player);
 
             Player playerComponent = playerObject.GetComponent<Player>();
 

@@ -15,9 +15,9 @@ public class Player : NetworkBehaviour
     [SerializeField] private GameObject indicator;
 
     [Header("Power Up PvP")]
-    [SerializeField] private float powerUpDuration = 5f;
+    [SerializeField] private byte powerUpDuration = 5;
 
-    [Networked] public int Team { get; set; }
+    [Networked] public byte Team { get; set; }
     [Networked] public NetworkBool IsAlive { get; set; }
 
     // POWER UP PVP
@@ -27,8 +27,8 @@ public class Player : NetworkBehaviour
 
     // DASH POWER UP
     [Header("Dash")]
-    [SerializeField] private float dashDuration = 10f;
-    [SerializeField] private float dashDistance = 3f;
+    [SerializeField] private byte dashDuration = 10;
+    [SerializeField] private byte dashDistance = 3;
 
     [Networked] public NetworkBool HasDash { get; set; }
     [Networked] private float DashEndTime { get; set; }
@@ -57,7 +57,7 @@ public class Player : NetworkBehaviour
 
             // DASH
             HasDash = false;
-            DashEndTime = 0f;
+            DashEndTime = 0;
         }
 
         if (dashTrail != null)
@@ -160,11 +160,6 @@ public class Player : NetworkBehaviour
             dashTrail.emitting = HasDash;
         }
     }
-
-
-    // =========================
-    // POWER UP PVP ORIGINAL
-    // =========================
 
     public void ActivatePowerUp()
     {

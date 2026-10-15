@@ -147,7 +147,7 @@ public class MainMenu : MonoBehaviour
         SelectTeam(2);
     }
 
-    private void SelectTeam(int team)
+    private void SelectTeam(byte team)
     {
         if (selectedTeam != 0)
         {

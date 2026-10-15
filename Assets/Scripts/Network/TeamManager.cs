@@ -30,7 +30,7 @@ public class TeamManager : NetworkBehaviour
     // SELECCIONAR EQUIPO
     // =========================================
 
-    public void SelectTeam(int team)
+    public void SelectTeam(byte team)
     {
         if (Runner == null)
         {
@@ -56,7 +56,7 @@ public class TeamManager : NetworkBehaviour
     }
 
     [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
-    private void RequestTeamRpc(int team, PlayerRef player)
+    private void RequestTeamRpc(byte team, PlayerRef player)
     {
         Debug.Log("RECIBÍ SOLICITUD DE EQUIPO " + team + " DEL JUGADOR " + player);
 
