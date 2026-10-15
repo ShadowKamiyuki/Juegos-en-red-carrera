@@ -25,11 +25,6 @@ public class TeamManager : NetworkBehaviour
     {
         IsNetworkReady = false;
     }
-
-    // =========================================
-    // SELECCIONAR EQUIPO
-    // =========================================
-
     public void SelectTeam(byte team)
     {
         if (Runner == null)
@@ -95,10 +90,6 @@ public class TeamManager : NetworkBehaviour
             }
         }
 
-        // =========================================
-        // ASIGNAR EQUIPO AL PLAYER
-        // =========================================
-
         NetworkObject playerObject = Runner.GetPlayerObject(player);
 
         if (playerObject != null)
@@ -124,9 +115,6 @@ public class TeamManager : NetworkBehaviour
         CheckIfTeamsAreFull();
     }
 
-    // =========================================
-    // DESCONECTAR JUGADOR
-    // =========================================
     public void RemoveDisconnectedPlayer(PlayerRef player)
     {
         if (Runner == null)
@@ -144,9 +132,6 @@ public class TeamManager : NetworkBehaviour
         Debug.Log("Se liberó el lugar del jugador " + player);
     }
 
-    // =========================================
-    // SACAR JUGADOR DE LOS EQUIPOS
-    // =========================================
     private void RemovePlayer(PlayerRef player)
     {
         if (Team1Slot1 == player)
@@ -170,9 +155,6 @@ public class TeamManager : NetworkBehaviour
         }
     }
 
-    // =========================================
-    // CONTADORES
-    // =========================================
     public int GetTeam1Count()
     {
         int cantidad = 0;
@@ -207,9 +189,6 @@ public class TeamManager : NetworkBehaviour
         return cantidad;
     }
 
-    // =========================================
-    // EQUIPOS LLENOS
-    // =========================================
     public bool AreAllTeamsFull()
     {
         return AllTeamsFull;
