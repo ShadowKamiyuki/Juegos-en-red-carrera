@@ -69,9 +69,15 @@ public class MainMenu : MonoBehaviour
         int team1Players = teamManager.GetTeam1Count();
         int team2Players = teamManager.GetTeam2Count();
 
-        team1Counter.text = team1Players + "/2";
-        team2Counter.text = team2Players + "/2";
+        if (team1Counter != null)
+        {
+            team1Counter.text = team1Players + "/2";
+        }
 
+        if (team2Counter != null)
+        {
+            team2Counter.text = team2Players + "/2";
+        }
 
         // Esto tiene que estar ANTES de
         // comprobar si este jugador ya eligió equipo.

@@ -6,11 +6,16 @@ using UnityEngine;
 public class PooledNetworkObjectProvider : Fusion.Behaviour, INetworkObjectProvider
 {
     [Header("Pooling")]
-    [SerializeField, Min(0)] private int maxPoolSizePerPrefab = 20;
+    [SerializeField, Min(0)] private int maxPoolSizePerPrefab = 10;
 
     [SerializeField] private bool delayIfSceneManagerIsBusy = true;
 
     private readonly Dictionary<NetworkPrefabId, Queue<NetworkObject>> pools = new();
+
+    private void Awake()
+    {
+        DontDestroyOnLoad(this);
+    }
 
     private NetworkObject GetPooledInstance(NetworkRunner runner, NetworkObject prefab, NetworkPrefabId prefabId)
     {
@@ -120,45 +125,26 @@ public class PooledNetworkObjectProvider : Fusion.Behaviour, INetworkObjectProvi
     {
         NetworkObject instance = context.Object;
 
+        if (!context.IsBeingDestroyed)
+        {
+            if (context.TypeId.Kind == NetworkTypeIdKind.Prefab)
+            {
+                ReturnToPool(context.TypeId.AsPrefabId, instance);
+            }
+            else if (context.TypeId.Kind == NetworkTypeIdKind.PrefabNested)
+            {
+                if (instance != null)
+                    instance.gameObject.SetActive(false);
+            }
+            else if (instance != null)
+            {
+                Destroy(instance.gameObject);
+            }
+        }
+
         if (context.TypeId.IsPrefab)
         {
-            NetworkPrefabId prefabId = context.TypeId.AsPrefabId;
-
-            if (context.IsBeingDestroyed)
-            {
-                // No guardar en el pool un objeto que Fusion
-                // está destruyendo definitivamente.
-                if (instance != null)
-                    Destroy(instance.gameObject);
-            }
-            else
-            {
-                switch (context.TypeId.Kind)
-                {
-                    case NetworkTypeIdKind.Prefab:
-                        ReturnToPool(prefabId, instance);
-                        break;
-
-                    case NetworkTypeIdKind.PrefabNested:
-                        // Los objetos anidados pertenecen a la
-                        // jerarquía del prefab raíz.
-                        if (instance != null)
-                            instance.gameObject.SetActive(false);
-                        break;
-
-                    default:
-                        if (instance != null)
-                            Destroy(instance.gameObject);
-                        break;
-                }
-            }
-
-            runner.Prefabs.RemoveInstance(prefabId);
-        }
-        else if (instance != null && !context.IsBeingDestroyed)
-        {
-            // No reutilizar objetos de escena como prefabs.
-            Destroy(instance.gameObject);
+            runner.Prefabs.RemoveInstance(context.TypeId.AsPrefabId);
         }
     }
 

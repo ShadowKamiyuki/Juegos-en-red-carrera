@@ -9,12 +9,24 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
 {
     public static event Action OnConnectedToGame;
     public static event Action OnConnectionFailed;
+
+    [Header("Network components")]
     [SerializeField] private NetworkSceneManagerDefault sceneManager;
     [SerializeField] private NetworkRunner runner;
+
+    [Header("Player")]
     [SerializeField] private NetworkPrefabRef playerPrefab;
+
+    [Header("Input")]
     private InputSystemActions inputSystemActions;
+
+    [Header("Spawns")]
     public Transform[] spawnPoints;
+
+    [Header("Network menu")]
     public NetworkMenu netMenu;
+
+    [Header("Network pool")]
     [SerializeField] private PooledNetworkObjectProvider objectProvider;
 
     private void Awake()
@@ -33,6 +45,7 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
         inputSystemActions.Disable();
     }
 
+    #region Start game modes
     public async void StartGameHost(string sessionName)
     {
         if (runner == null)
@@ -110,7 +123,10 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
         {
             GameMode = GameMode.AutoHostOrClient,
             PlayerCount = 4,
-            MatchmakingMode = Photon.Realtime.MatchmakingMode.FillRoom
+            MatchmakingMode = Photon.Realtime.MatchmakingMode.FillRoom,
+            Scene = SceneRef.FromIndex(SceneManager.GetActiveScene().buildIndex),
+            SceneManager = sceneManager,
+            ObjectProvider = objectProvider
         });
 
         if (!result.Ok)
@@ -124,6 +140,7 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
         netMenu.JoiningServerClose();
         OnConnectedToGame?.Invoke();
     }
+    #endregion
 
     public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
     {
