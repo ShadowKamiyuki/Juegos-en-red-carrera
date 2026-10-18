@@ -24,12 +24,24 @@ public class Ball : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
-            Destroy(collision.gameObject);
+            DownEnemy enemy = collision.GetComponent<DownEnemy>();
+
+            if (enemy == null || enemy.Object == null)
+                return;
+
+            if (!enemy.Object.HasStateAuthority)
+                return;
+
+            enemy.Runner.Despawn(enemy.Object);
+            return;
         }
-        if (collision.CompareTag("Player") && owner.CanPvp)
+
+        if (collision.CompareTag("Player") && owner != null && owner.CanPvp)
         {
             Player target = collision.GetComponent<Player>();
-            target.Kill();
+
+            if (target != null)
+                target.Kill();
         }
     }
 }
