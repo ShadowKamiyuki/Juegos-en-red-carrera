@@ -1,3 +1,4 @@
+using Fusion;
 using UnityEngine;
 
 public class Ball : MonoBehaviour
@@ -24,7 +25,7 @@ public class Ball : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
-            DownEnemy enemy = collision.GetComponent<DownEnemy>();
+            NetworkBehaviour enemy = collision.GetComponentInParent<NetworkBehaviour>();
 
             if (enemy == null || enemy.Object == null)
                 return;
