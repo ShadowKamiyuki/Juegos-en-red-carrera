@@ -1,19 +1,23 @@
-using Photon.Voice.Fusion;
 using Photon.Voice.Unity;
+using Photon.Voice.Fusion;
 using Fusion;
-
+using UnityEngine;
 
 public class PlayerVoice : NetworkBehaviour
 {
-    public Recorder recorder;
-    public FusionVoiceClient voiceClient;
+    [SerializeField] private Recorder recorder;
 
-   public override void Spawned()
+    public override void Spawned()
     {
-        if (!HasInputAuthority)
+        // Solo el jugador local usa su micrófono.
+        if (!Object.HasInputAuthority)
             return;
 
-        recorder.InterestGroup = 1;
-        voiceClient.Client.OpChangeGroups(null, new byte[] { 1 });
+        if (recorder != null)
+        {
+            recorder.InterestGroup = 0;
+            recorder.RecordingEnabled = true;
+            recorder.TransmitEnabled = true;
+        }
     }
 }

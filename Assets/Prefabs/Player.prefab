@@ -106,6 +106,7 @@ GameObject:
   - component: {fileID: 7658017122763676522}
   - component: {fileID: 9049258964739429185}
   - component: {fileID: 3934382036360493628}
+  - component: {fileID: 8135167736534806857}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -211,6 +212,7 @@ MonoBehaviour:
   - {fileID: 7658017122763676522}
   - {fileID: -744770551630664326}
   - {fileID: 3934382036360493628}
+  - {fileID: 8135167736534806857}
   ForceRemoteRenderTimeframe: 0
 --- !u!114 &-744770551630664326
 MonoBehaviour:
@@ -338,6 +340,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6376dd7fc23b3764483a7349b58502e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: PhotonVoice.Fusion::Photon.Voice.Fusion.VoiceNetworkObject
+--- !u!114 &8135167736534806857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6999077925805531318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4ceb8f8238b6f04087074d5d7b0610c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerVoice
+  recorder: {fileID: 9216675046407070804}
 --- !u!1 &7647231980704559010
 GameObject:
   m_ObjectHideFlags: 0
