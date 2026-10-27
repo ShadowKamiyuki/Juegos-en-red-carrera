@@ -105,8 +105,8 @@ GameObject:
   - component: {fileID: -744770551630664326}
   - component: {fileID: 7658017122763676522}
   - component: {fileID: 9049258964739429185}
-  - component: {fileID: 3934382036360493628}
-  - component: {fileID: 8135167736534806857}
+  - component: {fileID: 3444351927289656226}
+  - component: {fileID: 1038745351759732374}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -211,9 +211,8 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 7658017122763676522}
   - {fileID: -744770551630664326}
-  - {fileID: 3934382036360493628}
-  - {fileID: 8135167736534806857}
-  - {fileID: 5671792561847810456}
+  - {fileID: 3444351927289656226}
+  - {fileID: 1038745351759732374}
   ForceRemoteRenderTimeframe: 0
 --- !u!114 &-744770551630664326
 MonoBehaviour:
@@ -329,7 +328,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 0.85714024}
   m_EdgeRadius: 0
---- !u!114 &3934382036360493628
+--- !u!114 &3444351927289656226
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -341,7 +340,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6376dd7fc23b3764483a7349b58502e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: PhotonVoice.Fusion::Photon.Voice.Fusion.VoiceNetworkObject
---- !u!114 &8135167736534806857
+--- !u!114 &1038745351759732374
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -353,7 +352,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4ceb8f8238b6f04087074d5d7b0610c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerVoice
-  recorder: {fileID: 9216675046407070804}
 --- !u!1 &7647231980704559010
 GameObject:
   m_ObjectHideFlags: 0
@@ -366,7 +364,6 @@ GameObject:
   - component: {fileID: 9216675046407070804}
   - component: {fileID: 6267520697183705373}
   - component: {fileID: 4898383050202707257}
-  - component: {fileID: 5671792561847810456}
   m_Layer: 0
   m_Name: Voice UwU
   m_TagString: Untagged
@@ -411,11 +408,11 @@ MonoBehaviour:
   reliableMode: 0
   encrypt: 0
   transmitEnabled: 1
-  samplingRate: 24000
+  samplingRate: 48000
   frameDuration: 40000
   bitrate: 30000
   sourceType: 0
-  microphoneType: 0
+  microphoneType: 1
   audioClip: {fileID: 0}
   loopAudioClip: 1
   recordingEnabled: 1
@@ -547,19 +544,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &5671792561847810456
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7647231980704559010}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4ceb8f8238b6f04087074d5d7b0610c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerVoice
-  recorder: {fileID: 9216675046407070804}
 --- !u!1 &7940358672901124798
 GameObject:
   m_ObjectHideFlags: 0
