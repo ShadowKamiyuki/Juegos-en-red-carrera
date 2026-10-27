@@ -213,6 +213,7 @@ MonoBehaviour:
   - {fileID: -744770551630664326}
   - {fileID: 3934382036360493628}
   - {fileID: 8135167736534806857}
+  - {fileID: 5671792561847810456}
   ForceRemoteRenderTimeframe: 0
 --- !u!114 &-744770551630664326
 MonoBehaviour:
@@ -365,6 +366,7 @@ GameObject:
   - component: {fileID: 9216675046407070804}
   - component: {fileID: 6267520697183705373}
   - component: {fileID: 4898383050202707257}
+  - component: {fileID: 5671792561847810456}
   m_Layer: 0
   m_Name: Voice UwU
   m_TagString: Untagged
@@ -409,7 +411,7 @@ MonoBehaviour:
   reliableMode: 0
   encrypt: 0
   transmitEnabled: 1
-  samplingRate: 48000
+  samplingRate: 24000
   frameDuration: 40000
   bitrate: 30000
   sourceType: 0
@@ -545,6 +547,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5671792561847810456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7647231980704559010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4ceb8f8238b6f04087074d5d7b0610c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerVoice
+  recorder: {fileID: 9216675046407070804}
 --- !u!1 &7940358672901124798
 GameObject:
   m_ObjectHideFlags: 0
