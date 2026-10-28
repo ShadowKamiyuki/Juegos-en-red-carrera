@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7048050546855900619}
   - component: {fileID: 8897335069005206191}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Triangle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,7 +107,9 @@ GameObject:
   - component: {fileID: 9049258964739429185}
   - component: {fileID: 3444351927289656226}
   - component: {fileID: 1038745351759732374}
-  m_Layer: 0
+  - component: {fileID: -5187751707453535410}
+  - component: {fileID: -6215536935031649258}
+  m_Layer: 3
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -213,6 +215,7 @@ MonoBehaviour:
   - {fileID: -744770551630664326}
   - {fileID: 3444351927289656226}
   - {fileID: 1038745351759732374}
+  - {fileID: -6215536935031649258}
   ForceRemoteRenderTimeframe: 0
 --- !u!114 &-744770551630664326
 MonoBehaviour:
@@ -352,6 +355,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4ceb8f8238b6f04087074d5d7b0610c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerVoice
+--- !u!114 &-5187751707453535410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6999077925805531318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1014831617, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Fusion.Runtime.dll::Fusion.Hitbox
+  Type: 0
+  SphereRadius: 0
+  CapsuleRadius: 0
+  BoxExtents: {x: 0, y: 0, z: 0}
+  CapsuleExtents: 0
+  Offset: {x: 0, y: 0, z: 0}
+  Root: {fileID: 0}
+  GizmosColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+--- !u!114 &-6215536935031649258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6999077925805531318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1039544458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Fusion.Runtime.dll::Fusion.HitboxRoot
+  Config: 3
+  BroadRadius: 0
+  Offset: {x: 0, y: 0, z: 0}
+  GizmosColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  Hitboxes: []
 --- !u!1 &7647231980704559010
 GameObject:
   m_ObjectHideFlags: 0
@@ -361,10 +401,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9071917238772667298}
-  - component: {fileID: 9216675046407070804}
   - component: {fileID: 6267520697183705373}
   - component: {fileID: 4898383050202707257}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Voice UwU
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -386,49 +425,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3217426320948373764}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9216675046407070804
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7647231980704559010}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91175dcc15224463780e01a8a98b1b60, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: PhotonVoice::Photon.Voice.Unity.Recorder
-  voiceDetection: 0
-  voiceDetectionThreshold: 0.01
-  voiceDetectionDelayMs: 500
-  interestGroup: 0
-  useTargetPlayers: 0
-  targetPlayers: 
-  debugEchoMode: 0
-  reliableMode: 0
-  encrypt: 0
-  transmitEnabled: 1
-  samplingRate: 48000
-  frameDuration: 40000
-  bitrate: 30000
-  sourceType: 0
-  microphoneType: 1
-  audioClip: {fileID: 0}
-  loopAudioClip: 1
-  recordingEnabled: 1
-  audioSessionParameters:
-    Category: 4
-    Mode: 1
-    CategoryOptions: 0800000004000000
-  editorAudioSessionPreset: 1
-  androidMicrophoneSettings:
-    EnableAEC: 1
-    EnableAGC: 1
-    EnableNS: 1
-  stopRecordingWhenPaused: 0
-  useOnAudioFilterRead: 0
-  useMicrophoneTypeFallback: 1
-  recordWhenJoined: 1
 --- !u!114 &6267520697183705373
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -468,7 +464,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 5.378084
+  MinDistance: 1
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
@@ -556,7 +552,7 @@ GameObject:
   - component: {fileID: 2606364045088526131}
   - component: {fileID: 7396053216596302012}
   - component: {fileID: 5582305180380129626}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Ball
   m_TagString: Untagged
   m_Icon: {fileID: 0}

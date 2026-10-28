@@ -1,11 +1,16 @@
 using Fusion;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class FollowUpEnemy : NetworkBehaviour
 {
     [Header("Target")]
     [SerializeField] private float detectionRadious = 5;
     [SerializeField] private LayerMask playerLayer;
+
+    [Header("Lag Compensation")]
+    [SerializeField] private float collisionCheckRadius = 0.5f;
+    [SerializeField] private LayerMask playerHitboxLayer;
 
     [Header("Enemy settings")]
     [SerializeField] private byte initialHealth = 10;
@@ -17,6 +22,7 @@ public class FollowUpEnemy : NetworkBehaviour
     private Rigidbody2D rb;
     private NetworkObject target;
     private IAudioService audioService;
+    private readonly List<LagCompensatedHit> lagCompensationHits = new List<LagCompensatedHit>();
 
     private void Awake()
     {
@@ -43,6 +49,43 @@ public class FollowUpEnemy : NetworkBehaviour
 
         GetClosestPlayer();
         FollowPlayer();
+
+        CheckPlayerWithLagCompensation();
+    }
+
+    private void CheckPlayerWithLagCompensation()
+    {
+        if (target == null)
+            return;
+
+        Player player = target.GetComponent<Player>();
+
+        if (player == null)
+            return;
+
+        int hitsFound = Runner.LagCompensation.OverlapSphere(
+            transform.position,
+            collisionCheckRadius,
+            target.InputAuthority,
+            lagCompensationHits,
+            playerHitboxLayer,
+            HitOptions.SubtickAccuracy
+        );
+
+        for (int i = 0; i < hitsFound; i++)
+        {
+            if (lagCompensationHits[i].Hitbox == null)
+                continue;
+
+            Player hitPlayer =
+                lagCompensationHits[i].Hitbox.GetComponentInParent<Player>();
+
+            if (hitPlayer == player)
+            {
+                hitPlayer.Kill();
+                return;
+            }
+        }
     }
 
     private void GetClosestPlayer()

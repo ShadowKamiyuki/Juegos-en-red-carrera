@@ -110,6 +110,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   moveSpeed: 5
   lifeTime: 10
+  enemy2Spawn: {fileID: 0}
+  playerKill: {fileID: 0}
 --- !u!114 &-2318861235535528115
 MonoBehaviour:
   m_ObjectHideFlags: 0
