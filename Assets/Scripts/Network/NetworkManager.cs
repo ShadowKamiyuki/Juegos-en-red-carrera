@@ -1,5 +1,6 @@
 using Fusion;
 using Fusion.Sockets;
+using Photon.Voice.Fusion;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,8 @@ using UnityEngine.SceneManagement;
 
 public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
 {
+    private FusionVoiceClient voiceClient;
+
     public static event Action OnConnectedToGame;
     public static event Action OnConnectionFailed;
 
@@ -31,6 +34,10 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
 
     private void Awake()
     {
+        voiceClient = GetComponent<FusionVoiceClient>();
+
+        runner.AddCallbacks(voiceClient);
+
         runner.AddCallbacks(this);
         inputSystemActions = new InputSystemActions();
     }
