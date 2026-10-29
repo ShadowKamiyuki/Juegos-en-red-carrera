@@ -25,7 +25,7 @@ public class NetworkMenu : MonoBehaviour
     [SerializeField] private CanvasGroup connectionError;
 
     [Header("Panel inicial")]
-    [SerializeField] private CanvasGroup mainMenuPanel; // arrastrá acá el panel "MainMenu" (Start/Options/Quit)
+    [SerializeField] private CanvasGroup mainMenuPanel;
 
     public void ShowTeamSelectionScreen()
     {
