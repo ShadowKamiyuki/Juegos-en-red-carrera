@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class TeamManager : NetworkBehaviour
 {
+    private static TeamManager instance;
+    public static TeamManager Instance => instance;
+
     [Networked] private PlayerRef Team1Slot1 { get; set; }
     [Networked] private PlayerRef Team1Slot2 { get; set; }
     [Networked] private PlayerRef Team2Slot1 { get; set; }
@@ -11,6 +14,25 @@ public class TeamManager : NetworkBehaviour
     [Networked] private NetworkBool AllTeamsFull { get; set; }
 
     public bool IsNetworkReady { get; private set; }
+
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            // Ya hay un TeamManager vivo (el persistido). Este es el duplicado
+            // que trae la escena recién cargada: lo apagamos entero.
+            gameObject.SetActive(false);
+            return;
+        }
+
+        instance = this;
+    }
+
+    private void OnDestroy()
+    {
+        if (instance == this)
+            instance = null;
+    }
 
     public override void Spawned()
     {
@@ -268,11 +290,23 @@ public class TeamManager : NetworkBehaviour
 
         Team1Slot1 = PlayerRef.None;
         Team1Slot2 = PlayerRef.None;
-
         Team2Slot1 = PlayerRef.None;
         Team2Slot2 = PlayerRef.None;
-
         AllTeamsFull = false;
+
+        // Esto es lo que te faltaba: resetear también a cada jugador,
+        // si no, el color y el equipo "viejo" le quedan pegados.
+        foreach (PlayerRef playerRef in Runner.ActivePlayers)
+        {
+            NetworkObject playerObject = Runner.GetPlayerObject(playerRef);
+            if (playerObject == null) continue;
+
+            Player player = playerObject.GetComponent<Player>();
+            if (player == null) continue;
+
+            player.Team = 0;
+            player.IsAlive = true;
+        }
 
         Debug.Log("Equipos reiniciados.");
     }

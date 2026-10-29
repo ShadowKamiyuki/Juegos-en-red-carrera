@@ -216,7 +216,7 @@ public class GameManager : NetworkBehaviour
     [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
     private void ReturnToTeamSelectionRpc()
     {
-        TeamManager teamManager = FindFirstObjectByType<TeamManager>();
+        TeamManager teamManager = TeamManager.Instance;
 
         if (teamManager != null)
         {
@@ -231,5 +231,19 @@ public class GameManager : NetworkBehaviour
     public bool HasMatchEnded()
     {
         return WinningTeam != 0;
+    }
+
+    public void ReturnToMainMenu()
+    {
+        NetworkManager networkManager = FindFirstObjectByType<NetworkManager>();
+
+        if (networkManager != null)
+        {
+            networkManager.ReturnToMainMenu();
+        }
+        else
+        {
+            Debug.LogError("No se encontró NetworkManager para volver al menú.");
+        }
     }
 }

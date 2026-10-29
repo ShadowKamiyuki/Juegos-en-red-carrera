@@ -202,6 +202,18 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
         Debug.LogError("Falló la conexión: " + reason);
     }
 
+    public async void ReturnToMainMenu()
+    {
+        if (runner != null && runner.IsRunning)
+        {
+            Debug.Log("Abandonando la sala...");
+            await runner.Shutdown();
+        }
+
+        Debug.Log("Cargando el menú principal localmente.");
+        UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+    }
+
     public void OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason)
     {
         Debug.Log("Network apagado: " + shutdownReason);
@@ -259,15 +271,53 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
     {
         Debug.Log("Escena cargada.");
 
-        if (!runner.IsServer)
-            return;
+        int sceneIndex = SceneManager.GetActiveScene().buildIndex;
 
-        // Si estamos en el menú, no buscamos SpawnPoints.
-        if (SceneManager.GetActiveScene().buildIndex == 0)
+        if (sceneIndex == 0)
         {
-            Debug.Log("Estamos en el menú. No se buscan SpawnPoints.");
+            // Esto corre en TODOS los peers (host y clientes).
+            NetworkMenu menu = FindFirstObjectByType<NetworkMenu>();
+            if (menu != null)
+            {
+                netMenu = menu;
+                menu.SetActiveRunner(runner);
+                menu.ShowTeamSelectionScreen();
+            }
+
+            MainMenu teamSelectPanel = FindFirstObjectByType<MainMenu>();
+            if (teamSelectPanel != null)
+            {
+                teamSelectPanel.ResetLocalSelection();
+            }
+
+            // Solo el server recrea/resetea a los jugadores en red.
+            if (runner.IsServer)
+            {
+                foreach (PlayerRef playerRef in runner.ActivePlayers)
+                {
+                    NetworkObject playerObject = runner.GetPlayerObject(playerRef);
+
+                    if (playerObject == null)
+                    {
+                        playerObject = runner.Spawn(playerPrefab, Vector3.zero, Quaternion.identity, playerRef);
+                        runner.SetPlayerObject(playerRef, playerObject);
+                    }
+
+                    Player playerComponent = playerObject.GetComponent<Player>();
+                    if (playerComponent != null)
+                    {
+                        playerComponent.Team = 0;
+                        playerComponent.IsAlive = true;
+                    }
+                }
+            }
+
             return;
         }
+
+        // A partir de acá: carga de un nivel de juego (igual que ya tenías).
+        if (!runner.IsServer)
+            return;
 
         GameObject[] spawnObjects = GameObject.FindGameObjectsWithTag("PlayerSpawn");
 
@@ -277,7 +327,7 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
             return;
         }
 
-        TeamManager teamManager = FindFirstObjectByType<TeamManager>();
+        TeamManager teamManager = TeamManager.Instance;
 
         if (teamManager == null)
         {
@@ -290,41 +340,24 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
         foreach (PlayerRef player in runner.ActivePlayers)
         {
             NetworkObject playerObject = runner.GetPlayerObject(player);
-
+            Transform spawnPoint = spawnObjects[spawnIndex].transform;
 
             if (playerObject == null)
             {
-                Transform spawnPoint = spawnObjects[spawnIndex].transform;
-
                 playerObject = runner.Spawn(playerPrefab, spawnPoint.position, spawnPoint.rotation, player);
-
                 runner.SetPlayerObject(player, playerObject);
-
                 Debug.Log("Player " + player + " creado en SpawnPoint " + spawnIndex);
             }
-            else
-            {
-                Debug.Log("Player " + player + " ya existe.");
-            }
 
-
-            Transform currentSpawnPoint = spawnObjects[spawnIndex].transform;
-
-            playerObject.transform.SetPositionAndRotation(currentSpawnPoint.position, currentSpawnPoint.rotation);
-
+            playerObject.transform.SetPositionAndRotation(spawnPoint.position, spawnPoint.rotation);
 
             byte team = (byte)teamManager.GetPlayerTeam(player);
-
             Player playerComponent = playerObject.GetComponent<Player>();
 
             if (playerComponent != null)
             {
                 playerComponent.Team = team;
                 Debug.Log("Player " + player + " recuperó el Equipo " + team);
-            }
-            else
-            {
-                Debug.LogWarning("El PlayerObject de " + player + " no tiene componente Player.");
             }
 
             spawnIndex++;

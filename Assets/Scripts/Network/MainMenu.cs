@@ -35,21 +35,21 @@ public class MainMenu : MonoBehaviour
 
     private void Start()
     {
-        if (teamManager == null)
-        {
-            teamManager = FindFirstObjectByType<TeamManager>();
-        }
+        teamManager = TeamManager.Instance;
 
         selectedTeam = 0;
         PlayerTeam = 0;
 
-        // Botones de equipo normales
         SetTeamButton(team1Button, true);
         SetTeamButton(team2Button, true);
     }
 
     private void UpdateTeamButtons()
     {
+        // Por si el singleton todavía no estaba listo en Start()
+        if (teamManager == null)
+            teamManager = TeamManager.Instance;
+
         if (teamManager == null)
             return;
 
@@ -109,6 +109,15 @@ public class MainMenu : MonoBehaviour
             SetTeamButton(team2Button, false);
         else
             SetTeamButton(team2Button, true);
+    }
+
+    public void ResetLocalSelection()
+    {
+        selectedTeam = 0;
+        PlayerTeam = 0;
+
+        SetTeamButton(team1Button, true);
+        SetTeamButton(team2Button, true);
     }
 
     private void SetTeamButton(Button button, bool enabled)

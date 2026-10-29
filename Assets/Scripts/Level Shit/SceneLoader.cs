@@ -4,29 +4,39 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
-    public NetworkRunner runner;
+    private NetworkRunner runner;
 
-    public void CargarEscena1()
+    private NetworkRunner GetRunner()
     {
-        if (runner.IsSceneAuthority)
+        if (runner == null || !runner.IsRunning)
         {
-            runner.LoadScene(SceneRef.FromIndex(1), LoadSceneMode.Single);
+            runner = FindFirstObjectByType<NetworkRunner>();
         }
+
+        return runner;
     }
 
-    public void CargarEscena2()
-    {
-        if (runner.IsSceneAuthority)
-        {
-            runner.LoadScene(SceneRef.FromIndex(2), LoadSceneMode.Single);
-        }
-    }
+    public void CargarEscena1() => CargarEscena(1);
+    public void CargarEscena2() => CargarEscena(2);
+    public void CargarEscena3() => CargarEscena(3);
 
-    public void CargarEscena3()
+    private void CargarEscena(int sceneIndex)
     {
-        if (runner.IsSceneAuthority)
+        NetworkRunner activeRunner = GetRunner();
+
+        if (activeRunner == null)
         {
-            runner.LoadScene(SceneRef.FromIndex(3), LoadSceneMode.Single);
+            Debug.LogError("No se encontró ningún NetworkRunner activo.");
+            return;
         }
+
+        if (!activeRunner.IsSceneAuthority)
+        {
+            Debug.LogWarning("Solo el host puede cargar el nivel.");
+            return;
+        }
+
+        Debug.Log("Cargando nivel " + sceneIndex);
+        activeRunner.LoadScene(SceneRef.FromIndex(sceneIndex), LoadSceneMode.Single);
     }
 }

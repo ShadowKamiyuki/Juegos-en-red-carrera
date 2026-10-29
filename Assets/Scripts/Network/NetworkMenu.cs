@@ -24,6 +24,37 @@ public class NetworkMenu : MonoBehaviour
     [Header("Error de conexión")]
     [SerializeField] private CanvasGroup connectionError;
 
+    [Header("Panel inicial")]
+    [SerializeField] private CanvasGroup mainMenuPanel; // arrastrá acá el panel "MainMenu" (Start/Options/Quit)
+
+    public void ShowTeamSelectionScreen()
+    {
+        Debug.Log("Mostrando selección de equipos.");
+
+        SetPanel(mainMenuPanel, false);
+        Hide(); // oculta el panel de host/join
+
+        SetPanel(serverCreating, false);
+        SetPanel(serverJoining, false);
+        SetPanel(quickmatchCreating, false);
+        SetPanel(connectionError, false);
+
+        ShowTeams();
+    }
+
+    public void SetActiveRunner(NetworkRunner activeRunner)
+    {
+        if (activeRunner != null)
+            runner = activeRunner;
+    }
+
+    private void SetPanel(CanvasGroup panel, bool visible)
+    {
+        if (panel == null) return;
+        panel.alpha = visible ? 1f : 0f;
+        panel.interactable = visible;
+        panel.blocksRaycasts = visible;
+    }
     private void OnEnable()
     {
         NetworkManager.OnConnectedToGame += ConnectedToGame;
@@ -193,6 +224,21 @@ public class NetworkMenu : MonoBehaviour
         {
             Debug.Log("SOY CLIENTE -> niveles bloqueados");
         }
+    }
+
+    public void ShowMainMenu()
+    {
+        Debug.Log("Volviendo al Main Menu.");
+
+        SetPanel(mainMenuPanel, true);
+        Hide();
+
+        SetPanel(selectTeams, false);
+        SetPanel(selectLevels, false);
+        SetPanel(serverCreating, false);
+        SetPanel(serverJoining, false);
+        SetPanel(quickmatchCreating, false);
+        SetPanel(connectionError, false);
     }
 
     public void QuitGame()
