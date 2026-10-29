@@ -310,6 +310,8 @@ MonoBehaviour:
     RawGuidValue: c21904350e293b744aa8e1c137c1b437
   enemyPrefab2:
     RawGuidValue: 56c86c9df1f9dbc49b3ada7e811bc85c
+  enemyPrefab3:
+    RawGuidValue: 00000000000000000000000000000000
   spawnInterval: 4
   margin: 1
 --- !u!4 &96825580
@@ -378,6 +380,8 @@ MonoBehaviour:
   - {fileID: 1475953809}
   - {fileID: 1597198260}
   - {fileID: 1161946271}
+  netMenu: {fileID: 0}
+  objectProvider: {fileID: 0}
 --- !u!4 &114564326
 Transform:
   m_ObjectHideFlags: 0
@@ -973,7 +977,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: be673d160ecb92b438268acbdc8dcef6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1226,7 +1230,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   speed: 2
-  _CameraPosition: {x: 0, y: 0, z: 0}
+  _CameraPosition: {x: 0, y: 0}
 --- !u!114 &925837777
 MonoBehaviour:
   m_ObjectHideFlags: 0
