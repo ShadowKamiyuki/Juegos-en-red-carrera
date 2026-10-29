@@ -19,8 +19,6 @@ public class TeamManager : NetworkBehaviour
     {
         if (instance != null && instance != this)
         {
-            // Ya hay un TeamManager vivo (el persistido). Este es el duplicado
-            // que trae la escena recién cargada: lo apagamos entero.
             gameObject.SetActive(false);
             return;
         }

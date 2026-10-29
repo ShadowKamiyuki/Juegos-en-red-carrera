@@ -46,7 +46,6 @@ public class MainMenu : MonoBehaviour
 
     private void UpdateTeamButtons()
     {
-        // Por si el singleton todavía no estaba listo en Start()
         if (teamManager == null)
             teamManager = TeamManager.Instance;
 
@@ -79,8 +78,7 @@ public class MainMenu : MonoBehaviour
             team2Counter.text = team2Players + "/2";
         }
 
-        // Esto tiene que estar ANTES de
-        // comprobar si este jugador ya eligió equipo.
+
 
         if (teamManager.AreAllTeamsFull())
         {
@@ -176,7 +174,6 @@ public class MainMenu : MonoBehaviour
             return;
         }
 
-        // Le pedimos al TeamManager que nos agregue al equipo
         teamManager.SelectTeam(team);
 
         selectedTeam = team;
@@ -184,7 +181,6 @@ public class MainMenu : MonoBehaviour
 
         Debug.Log("Elegiste Equipo " + team);
 
-        // Los dos botones quedan deshabilitados
         SetTeamButton(team1Button, false);
         SetTeamButton(team2Button, false);
     }
