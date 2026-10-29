@@ -294,8 +294,7 @@ public class TeamManager : NetworkBehaviour
         Team2Slot2 = PlayerRef.None;
         AllTeamsFull = false;
 
-        // Esto es lo que te faltaba: resetear también a cada jugador,
-        // si no, el color y el equipo "viejo" le quedan pegados.
+
         foreach (PlayerRef playerRef in Runner.ActivePlayers)
         {
             NetworkObject playerObject = Runner.GetPlayerObject(playerRef);

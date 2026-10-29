@@ -32,7 +32,7 @@ public class NetworkMenu : MonoBehaviour
         Debug.Log("Mostrando selección de equipos.");
 
         SetPanel(mainMenuPanel, false);
-        Hide(); // oculta el panel de host/join
+        Hide();
 
         SetPanel(serverCreating, false);
         SetPanel(serverJoining, false);

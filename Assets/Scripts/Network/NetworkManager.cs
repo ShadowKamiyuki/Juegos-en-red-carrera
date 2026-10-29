@@ -275,7 +275,7 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
 
         if (sceneIndex == 0)
         {
-            // Esto corre en TODOS los peers (host y clientes).
+            //Esto corre en TODOS los peers (host y clientes).
             NetworkMenu menu = FindFirstObjectByType<NetworkMenu>();
             if (menu != null)
             {
@@ -290,7 +290,7 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
                 teamSelectPanel.ResetLocalSelection();
             }
 
-            // Solo el server recrea/resetea a los jugadores en red.
+            //Solo el server recrea/resetea a los jugadores en red.
             if (runner.IsServer)
             {
                 foreach (PlayerRef playerRef in runner.ActivePlayers)
@@ -315,7 +315,6 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
             return;
         }
 
-        // A partir de acá: carga de un nivel de juego (igual que ya tenías).
         if (!runner.IsServer)
             return;
 

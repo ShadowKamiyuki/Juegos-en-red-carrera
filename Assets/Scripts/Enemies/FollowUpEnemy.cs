@@ -157,8 +157,6 @@ public class FollowUpEnemy : NetworkBehaviour
     {
         rb.linearVelocity = Vector2.zero;
 
-        //Acá puedes agregar animación, drops, etc.
-
         Runner.Despawn(Object);
     }
 
